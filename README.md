@@ -13,7 +13,7 @@ fxbex --help
 현재 등록된 YOLO11 패키지는 Furiosa SDK 2026.4.0과 PyTorch 2.10.0+cpu가 설치된 호스트를 대상으로 합니다. Python 어댑터용 추가 의존성은 같은 환경에 설치하세요. 아래 예시는 Python 3.11.18에서 검증했으며, `--no-deps`로 SDK와 PyTorch 의존성을 바꾸지 않습니다.
 
 ```bash
-python -m pip install --no-deps onnx==1.17.0 onnx2torch==1.5.15 protobuf==5.29.5
+python -m pip install --no-deps onnx==1.17.0 onnx2torch==1.5.15 protobuf==5.29.5 numpy==2.4.6 Pillow==13.0.0
 python -m pip install --no-deps --force-reinstall torchvision==0.25.0 --index-url https://download.pytorch.org/whl/cpu
 ```
 
