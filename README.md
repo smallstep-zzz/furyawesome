@@ -1,5 +1,29 @@
 # furyawesome
 
+## FXBEX 설치와 실행
+
+[FXBEX](https://github.com/smallstep-zzz/FXBEX)는 Furiosa RNGD용 사전 컴파일 모델 패키지인 `.fxbex`를 검사하고 실행하는 도구입니다. Python 3.10–3.14 환경에서 설치하세요.
+
+```bash
+python -m pip install fxbex
+fxbex --help
+```
+
+실행할 `.fxbex` 패키지를 준비한 뒤, 먼저 내용을 확인하고 검증합니다. NPU 추론에는 모델과 호환되는 Furiosa SDK, PyTorch 및 필요한 모델 어댑터가 설치된 Linux 호스트가 필요합니다.
+
+```bash
+fxbex inspect model.fxbex
+fxbex validate model.fxbex
+```
+
+텐서 입력 모델은 모델이 정한 입력 규격에 맞춘 JSON을 전달해 실행하고 결과를 파일로 저장할 수 있습니다.
+
+```bash
+fxbex run model.fxbex --input inputs.json -o result.json
+```
+
+YOLO 같은 이미지 모델은 이미지 전처리와 입력 텐서 형식이 모델별로 다를 수 있으므로, 해당 모델의 설명과 패키지 어댑터 계약을 확인해 `inputs.json`을 준비하세요. `validate`는 패키지와 실행 환경을 검사하며 추론 자체는 실행하지 않습니다. 상세 명령과 제한 사항은 [FXBEX README](https://github.com/smallstep-zzz/FXBEX#readme)를 참고하세요.
+
 **Furiosa NPU 실행 패키지의 공개 메타데이터 카탈로그.**
 
 - 모델 탐색: [OpenFury Hub](https://openfury-hub.softandsweet5.chatgpt.site/)
