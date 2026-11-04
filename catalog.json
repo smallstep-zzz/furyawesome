@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "source": "smallstep-zzz/furyawesome",
+  "models": [],
+  "candidates": [
+    {
+      "name": "YOLO11 ONNX → Furiosa RNGD FXBEX",
+      "hf_repo": "softandsweet/giangndm-yolo11-onnx-rngd-fxbex",
+      "source_repo": "giangndm/yolo11-onnx",
+      "category": "Computer Vision",
+      "target": "Furiosa RNGD",
+      "status": "pending_metadata"
+    }
+  ]
+}

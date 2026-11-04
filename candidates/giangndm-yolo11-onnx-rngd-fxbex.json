@@ -1,0 +1,17 @@
+{
+  "schema_version": 1,
+  "status": "pending-verification",
+  "label": "YOLO11 ONNX → Furiosa RNGD FXBEX",
+  "huggingface_repository": "softandsweet/giangndm-yolo11-onnx-rngd-fxbex",
+  "huggingface_repository_url": "https://huggingface.co/softandsweet/giangndm-yolo11-onnx-rngd-fxbex",
+  "upstream_repository": "giangndm/yolo11-onnx",
+  "upstream_license_tag_observed": "agpl-3.0",
+  "no_verified_download_yet": true,
+  "checks_required": [
+    "Locate actual .fxbex file and immutable artifact revision",
+    "Confirm author-provided package SHA256",
+    "Confirm pinned original model revision",
+    "Confirm source and package licenses separately",
+    "Document SDK and model adapter requirements"
+  ]
+}
