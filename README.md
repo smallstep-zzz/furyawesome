@@ -7,7 +7,7 @@ Furiosa RNGD에서 사용할 수 있는 FXBEX 모델을 모아 놓은 카탈로�
 
 ```bash
 pip install fxbex
-fxbex run ./모델파일명.fxbex
+fxbex run 모델파일명.fxbex
 ```
 
 채팅 모델은 바로 대화할 수 있습니다. 이미지 등 다른 모델의 입력 지정 방법은 표의 **사용법**을 참고하세요.
