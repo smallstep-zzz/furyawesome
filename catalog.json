@@ -4,12 +4,20 @@
   "models": [],
   "candidates": [
     {
-      "name": "YOLO11 ONNX → Furiosa RNGD FXBEX",
+      "name": "YOLO11n RNGD FXBEX (640, portable)",
       "hf_repo": "softandsweet/giangndm-yolo11-onnx-rngd-fxbex",
       "source_repo": "giangndm/yolo11-onnx",
       "category": "Computer Vision",
       "target": "Furiosa RNGD",
-      "status": "pending_metadata"
+      "status": "pending_metadata",
+      "source_revision": "8b180c762d5cf217886d16e64403508042207e4d",
+      "source_license": "AGPL-3.0",
+      "package_license_note": "AGPL-3.0 weights; bundled source has no separate license; SDK host terms apply",
+      "sdk_version": "2026.4.0",
+      "fxbex_version": "0.4.0",
+      "input": "RGB 640x640, batch 1",
+      "runnables": 90,
+      "verification_note": "Hugging Face model card found. Exact .fxbex file path / immutable artifact revision / SHA256 not independently checked."
     }
   ]
 }

@@ -1,17 +1,23 @@
 {
   "schema_version": 1,
   "status": "pending-verification",
-  "label": "YOLO11 ONNX → Furiosa RNGD FXBEX",
+  "label": "YOLO11n RNGD FXBEX (640, portable)",
   "huggingface_repository": "softandsweet/giangndm-yolo11-onnx-rngd-fxbex",
   "huggingface_repository_url": "https://huggingface.co/softandsweet/giangndm-yolo11-onnx-rngd-fxbex",
   "upstream_repository": "giangndm/yolo11-onnx",
+  "upstream_revision": "8b180c762d5cf217886d16e64403508042207e4d",
   "upstream_license_tag_observed": "agpl-3.0",
+  "package_license_notice": "AGPL-3.0 weights; bundled source has no separate license; SDK host terms apply",
+  "sdk_version": "2026.4.0",
+  "fxbex_version": "0.4.0",
+  "input": "RGB 640x640, batch 1",
+  "saved_runnables": 90,
+  "reported_standalone": true,
   "no_verified_download_yet": true,
   "checks_required": [
-    "Locate actual .fxbex file and immutable artifact revision",
-    "Confirm author-provided package SHA256",
-    "Confirm pinned original model revision",
-    "Confirm source and package licenses separately",
-    "Document SDK and model adapter requirements"
+    "Locate exact .fxbex file path and immutable Hugging Face artifact commit",
+    "Confirm author-provided package SHA256 for the FXBEX file",
+    "Confirm redistribution rights for bundled source with no separate license",
+    "Verify actual NPU trace/inference independently (model card is not proof)"
   ]
 }
