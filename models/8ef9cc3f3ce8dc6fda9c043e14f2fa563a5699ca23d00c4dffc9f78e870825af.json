@@ -12,7 +12,7 @@
   },
   "release": {
     "adapter": "yolo11n640_portable",
-    "artifact_url": "https://huggingface.co/softandsweet/giangndm-yolo11-onnx-rngd-fxbex/resolve/e0847942d8a55175a07ad1b9a78b0163583f6550/releases/2026.4.0-opt3-minimal1/cac265de482649f3aa020ceed99a3391daee10ab2d4fe7e8768ad685dc3a078d/model.fxbex",
+    "artifact_url": "https://huggingface.co/softandsweet/giangndm-yolo11-onnx-rngd-fxbex/resolve/ebc4c12cb75be1e778bc44c929a966145cb7b1ee/releases/2026.4.0-opt3-minimal1/cac265de482649f3aa020ceed99a3391daee10ab2d4fe7e8768ad685dc3a078d/model.fxbex",
     "author_sha256": "cac265de482649f3aa020ceed99a3391daee10ab2d4fe7e8768ad685dc3a078d",
     "precision": "Mixed",
     "runtime_version": "2026.4.0",

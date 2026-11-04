@@ -5,8 +5,16 @@
 [FXBEX](https://github.com/smallstep-zzz/FXBEX)는 Furiosa RNGD용 사전 컴파일 모델 패키지인 `.fxbex`를 검사하고 실행하는 도구입니다. Python 3.10–3.14 환경에서 설치하세요.
 
 ```bash
-python -m pip install fxbex
+python -m pip install "git+https://github.com/smallstep-zzz/FXBEX.git@main"
+python -m pip install huggingface_hub
 fxbex --help
+```
+
+현재 등록된 YOLO11 패키지는 Furiosa SDK 2026.4.0과 PyTorch 2.10.0+cpu가 설치된 호스트를 대상으로 합니다. Python 어댑터용 추가 의존성은 같은 환경에 설치하세요. 아래 예시는 Python 3.11.18에서 검증했으며, `--no-deps`로 SDK와 PyTorch 의존성을 바꾸지 않습니다.
+
+```bash
+python -m pip install --no-deps onnx==1.17.0 onnx2torch==1.5.15 protobuf==5.29.5
+python -m pip install --no-deps --force-reinstall torchvision==0.25.0 --index-url https://download.pytorch.org/whl/cpu
 ```
 
 실행할 `.fxbex` 패키지를 준비한 뒤, 먼저 내용을 확인하고 검증합니다. NPU 추론에는 모델과 호환되는 Furiosa SDK, PyTorch 및 필요한 모델 어댑터가 설치된 Linux 호스트가 필요합니다.
@@ -16,13 +24,17 @@ fxbex inspect model.fxbex
 fxbex validate model.fxbex
 ```
 
-텐서 입력 모델은 모델이 정한 입력 규격에 맞춘 JSON을 전달해 실행하고 결과를 파일로 저장할 수 있습니다.
+채팅 모델은 `fxbex chat`, 비채팅 모델은 모델 어댑터 계약에 맞는 JSON과 `fxbex predict`로 실행합니다. 현재 YOLO11 패키지는 이미지 경로를 받습니다.
 
-```bash
-fxbex run model.fxbex --input inputs.json -o result.json
+```json
+{"image":"/absolute/path/to/bus.jpg"}
 ```
 
-YOLO 같은 이미지 모델은 이미지 전처리와 입력 텐서 형식이 모델별로 다를 수 있으므로, 해당 모델의 설명과 패키지 어댑터 계약을 확인해 `inputs.json`을 준비하세요. `validate`는 패키지와 실행 환경을 검사하며 추론 자체는 실행하지 않습니다. 상세 명령과 제한 사항은 [FXBEX README](https://github.com/smallstep-zzz/FXBEX#readme)를 참고하세요.
+```bash
+fxbex predict model.fxbex --input inputs.json -o result.json
+```
+
+YOLO11의 `result.json`에는 감지 상자·클래스·점수가 포함되고, 결과 이미지 경로도 반환됩니다. `validate`는 패키지와 실행 환경을 검사하며 추론 자체는 실행하지 않습니다. 상세 명령과 제한 사항은 [FXBEX README](https://github.com/smallstep-zzz/FXBEX#readme)를 참고하세요. `validate`는 패키지와 실행 환경을 검사하며 추론 자체는 실행하지 않습니다. 상세 명령과 제한 사항은 [FXBEX README](https://github.com/smallstep-zzz/FXBEX#readme)를 참고하세요.
 
 **Furiosa NPU 실행 패키지의 공개 메타데이터 카탈로그.**
 
@@ -38,12 +50,14 @@ YOLO 같은 이미지 모델은 이미지 전처리와 입력 텐서 형식이 �
 
 ## 등록된 모델
 
+YOLO11 릴리스의 해시 확인, 입력 예시와 실행 안내는 [Hugging Face USAGE.md](https://huggingface.co/softandsweet/giangndm-yolo11-onnx-rngd-fxbex/blob/ebc4c12cb75be1e778bc44c929a966145cb7b1ee/releases/2026.4.0-opt3-minimal1/cac265de482649f3aa020ceed99a3391daee10ab2d4fe7e8768ad685dc3a078d/USAGE.md)를 참고하세요.
+
 <!-- furyawesome:models:start -->
 
 | Model | Version | Target / precision | Source license | Package license | Download |
 | --- | --- | --- | --- | --- | --- |
 | [RedHatAI/Qwen3.5-9B-FP8-dynamic](models/ac5362c32ca10857d7958314ebf4f38ed6d198e36cebcca2c12a2025b437ff27.json) | 2026.4.0-portable1 | Furiosa RNGD / BF16 | Apache-2.0 | Apache-2.0 weights; bundled adapter license undeclared | [HF](https://huggingface.co/softandsweet/redhatai-qwen3-5-9b-fp8-dynamic-rngd-fxbex/resolve/a2d7585a4291ba8d7f6710ae9ec0db09fb5284ce/releases/2026.4.0-portable1/440c02aac9e9ac679a247f9efe9eb3bc8fcc9007204c4ee697210104c54d0774/model.fxbex) |
-| [YOLO11n RNGD FXBEX (640, portable)](models/8ef9cc3f3ce8dc6fda9c043e14f2fa563a5699ca23d00c4dffc9f78e870825af.json) | 2026.4.0-opt3-minimal1 | Furiosa RNGD / Mixed | AGPL-3.0 | AGPL-3.0 weights; bundled source has no separate license; SDK host terms apply | [HF](https://huggingface.co/softandsweet/giangndm-yolo11-onnx-rngd-fxbex/resolve/e0847942d8a55175a07ad1b9a78b0163583f6550/releases/2026.4.0-opt3-minimal1/cac265de482649f3aa020ceed99a3391daee10ab2d4fe7e8768ad685dc3a078d/model.fxbex) |
+| [YOLO11n RNGD FXBEX (640, portable)](models/8ef9cc3f3ce8dc6fda9c043e14f2fa563a5699ca23d00c4dffc9f78e870825af.json) | 2026.4.0-opt3-minimal1 | Furiosa RNGD / Mixed | AGPL-3.0 | AGPL-3.0 weights; bundled source has no separate license; SDK host terms apply | [HF](https://huggingface.co/softandsweet/giangndm-yolo11-onnx-rngd-fxbex/resolve/ebc4c12cb75be1e778bc44c929a966145cb7b1ee/releases/2026.4.0-opt3-minimal1/cac265de482649f3aa020ceed99a3391daee10ab2d4fe7e8768ad685dc3a078d/model.fxbex) |
 
 <!-- furyawesome:models:end -->
 
