@@ -16,12 +16,11 @@
 
 <!-- furyawesome:models:start -->
 
-No models have been published to this catalog yet.
+| Model | Version | Target / precision | Source license | Package license | Download |
+| --- | --- | --- | --- | --- | --- |
+| [YOLO11n RNGD FXBEX (640, portable)](models/8ef9cc3f3ce8dc6fda9c043e14f2fa563a5699ca23d00c4dffc9f78e870825af.json) | 2026.4.0-opt3-minimal1 | Furiosa RNGD / Mixed | AGPL-3.0 | AGPL-3.0 weights; bundled source has no separate license; SDK host terms apply | [HF](https://huggingface.co/softandsweet/giangndm-yolo11-onnx-rngd-fxbex/resolve/e0847942d8a55175a07ad1b9a78b0163583f6550/releases/2026.4.0-opt3-minimal1/cac265de482649f3aa020ceed99a3391daee10ab2d4fe7e8768ad685dc3a078d/model.fxbex) |
 
 <!-- furyawesome:models:end -->
 
-## 등록 대기 모델
-
-[softandsweet/giangndm-yolo11-onnx-rngd-fxbex](https://huggingface.co/softandsweet/giangndm-yolo11-onnx-rngd-fxbex)는 변환 모델의 실제 다운로드 URL, 고정 revision, SHA256, 원본/패키지 라이선스가 확보되면 정식 등록합니다. 검증되지 않은 URL은 만들지 않습니다.
 
 자세한 내용은 [CONTRIBUTING.md](CONTRIBUTING.md)를 참고하세요.

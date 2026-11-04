@@ -1,23 +1,32 @@
 {
   "schema_version": 1,
   "source": "smallstep-zzz/furyawesome",
-  "models": [],
-  "candidates": [
+  "models": [
     {
-      "name": "YOLO11n RNGD FXBEX (640, portable)",
-      "hf_repo": "softandsweet/giangndm-yolo11-onnx-rngd-fxbex",
-      "source_repo": "giangndm/yolo11-onnx",
-      "category": "Computer Vision",
-      "target": "Furiosa RNGD",
-      "status": "pending_metadata",
-      "source_revision": "8b180c762d5cf217886d16e64403508042207e4d",
-      "source_license": "AGPL-3.0",
-      "package_license_note": "AGPL-3.0 weights; bundled source has no separate license; SDK host terms apply",
-      "sdk_version": "2026.4.0",
-      "fxbex_version": "0.4.0",
-      "input": "RGB 640x640, batch 1",
-      "runnables": 90,
-      "verification_note": "Hugging Face model card found. Exact .fxbex file path / immutable artifact revision / SHA256 not independently checked."
+      "model": {
+        "category": "Computer Vision",
+        "cover_url": "",
+        "name": "YOLO11n RNGD FXBEX (640, portable)",
+        "package_license": "AGPL-3.0 weights; bundled source has no separate license; SDK host terms apply",
+        "readme": "YOLO11n 객체 감지 모델을 Furiosa RNGD SDK 2026.4.0용 FXBEX로 묶었습니다. 입력은 RGB 640x640, batch 1입니다. 결과에는 감지 상자, 클래스 ID, 점수가 포함됩니다.\n\n이 standalone 패키지에는 ONNX 가중치, 90개 저장된 Runnable, 실행에 필요한 YOLO 어댑터와 컴파일러 보조 모듈이 들어 있습니다. `LICENSE-AGPL-3.0.txt`는 원본 YOLO 가중치 라이선스 전문입니다. 함께 포함된 프로젝트 소스에는 별도의 라이선스가 없으며, Furiosa SDK 호스트 구성요소는 해당 SDK 조건을 따릅니다.\n\n호스트는 Furiosa SDK 2026.4.0, FXBEX 0.4.0, ONNX 1.17.0, onnx2torch 1.5.15, torchvision, NumPy, Pillow가 필요합니다. 상세 실행 예시는 패키지의 `USAGE.txt`를 참고하세요.",
+        "short_description": "YOLO11n 640x640 object detection package for Furiosa RNGD with 90 saved SDK Runnables.",
+        "source_license": "AGPL-3.0",
+        "source_repo": "giangndm/yolo11-onnx",
+        "source_revision": "8b180c762d5cf217886d16e64403508042207e4d"
+      },
+      "release": {
+        "adapter": "yolo11n640_portable",
+        "artifact_url": "https://huggingface.co/softandsweet/giangndm-yolo11-onnx-rngd-fxbex/resolve/e0847942d8a55175a07ad1b9a78b0163583f6550/releases/2026.4.0-opt3-minimal1/cac265de482649f3aa020ceed99a3391daee10ab2d4fe7e8768ad685dc3a078d/model.fxbex",
+        "author_sha256": "cac265de482649f3aa020ceed99a3391daee10ab2d4fe7e8768ad685dc3a078d",
+        "precision": "Mixed",
+        "runtime_version": "2026.4.0",
+        "sdk_version": "2026.4.0",
+        "target": "Furiosa RNGD",
+        "version": "2026.4.0-opt3-minimal1",
+        "weights_mode": "standalone"
+      },
+      "schema_version": 1
     }
-  ]
+  ],
+  "candidates": []
 }
