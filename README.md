@@ -56,10 +56,115 @@ YOLO11 릴리스의 해시 확인, 입력 예시와 실행 안내는 [Hugging Fa
 
 | Model | Version | Target / precision | Source license | Package license | Download |
 | --- | --- | --- | --- | --- | --- |
-| [RedHatAI/Qwen3.5-9B-FP8-dynamic](models/ac5362c32ca10857d7958314ebf4f38ed6d198e36cebcca2c12a2025b437ff27.json) | 2026.4.0-portable1 | Furiosa RNGD / BF16 | Apache-2.0 | Apache-2.0 weights; bundled adapter license undeclared | [HF](https://huggingface.co/softandsweet/redhatai-qwen3-5-9b-fp8-dynamic-rngd-fxbex/resolve/a2d7585a4291ba8d7f6710ae9ec0db09fb5284ce/releases/2026.4.0-portable1/440c02aac9e9ac679a247f9efe9eb3bc8fcc9007204c4ee697210104c54d0774/model.fxbex) |
-| [YOLO11n RNGD FXBEX (640, portable)](models/8ef9cc3f3ce8dc6fda9c043e14f2fa563a5699ca23d00c4dffc9f78e870825af.json) | 2026.4.0-opt3-minimal1 | Furiosa RNGD / Mixed | AGPL-3.0 | AGPL-3.0 weights; bundled source has no separate license; SDK host terms apply | [HF](https://huggingface.co/softandsweet/giangndm-yolo11-onnx-rngd-fxbex/resolve/ebc4c12cb75be1e778bc44c929a966145cb7b1ee/releases/2026.4.0-opt3-minimal1/cac265de482649f3aa020ceed99a3391daee10ab2d4fe7e8768ad685dc3a078d/model.fxbex) |
+| [RedHatAI/Qwen3.5-9B-FP8-dynamic](models/ac5362c32ca10857d7958314ebf4f38ed6d198e36cebcca2c12a2025b437ff27.json) | 2026.4.0-portable1 | Furiosa RNGD / BF16 | Apache-2.0 | Apache-2.0 weights; bundled adapter license undeclared | [HF](https://huggingface.co/softandsweet/redhatai-qwen3-5-9b-fp8-dynamic-rngd-fxbex/resolve/edc74fbcf3109dcd5016896183e6d92566a55e3a/releases/2026.4.0-portable1/440c02aac9e9ac679a247f9efe9eb3bc8fcc9007204c4ee697210104c54d0774/model.fxbex) |
+| [YOLO11n RNGD FXBEX (640, portable)](models/8ef9cc3f3ce8dc6fda9c043e14f2fa563a5699ca23d00c4dffc9f78e870825af.json) | 2026.4.0-opt3-minimal1 | Furiosa RNGD / Mixed | AGPL-3.0 | AGPL-3.0 weights; bundled source has no separate license; SDK host terms apply | [HF](https://huggingface.co/softandsweet/giangndm-yolo11-onnx-rngd-fxbex/resolve/a90ba55456e501f15d0d4ec38d94f22d65fc4016/releases/2026.4.0-opt3-minimal1/cac265de482649f3aa020ceed99a3391daee10ab2d4fe7e8768ad685dc3a078d/model.fxbex) |
+
+<details><summary>YOLO11n RNGD FXBEX (640, portable) — download and run</summary>
+
+Use a compatible RNGD host. Copy the code block using GitHub’s copy button.
+
+[Step-by-step usage and expected outputs](https://huggingface.co/softandsweet/giangndm-yolo11-onnx-rngd-fxbex/blob/a90ba55456e501f15d0d4ec38d94f22d65fc4016/releases/2026.4.0-opt3-minimal1/cac265de482649f3aa020ceed99a3391daee10ab2d4fe7e8768ad685dc3a078d/USAGE.md)
+
+```bash
+python -m pip install git+https://github.com/smallstep-zzz/FXBEX.git@main
+curl --fail --location https://huggingface.co/softandsweet/giangndm-yolo11-onnx-rngd-fxbex/resolve/a90ba55456e501f15d0d4ec38d94f22d65fc4016/releases/2026.4.0-opt3-minimal1/cac265de482649f3aa020ceed99a3391daee10ab2d4fe7e8768ad685dc3a078d/model.fxbex --output model.fxbex
+printf '%s  model.fxbex
+' cac265de482649f3aa020ceed99a3391daee10ab2d4fe7e8768ad685dc3a078d | sha256sum --check
+fxbex doctor
+fxbex validate model.fxbex
+# Follow the linked usage guide for the model-specific input.
+```
+
+</details>
+
+<details><summary>RedHatAI/Qwen3.5-9B-FP8-dynamic — download and run</summary>
+
+Use a compatible RNGD host. Copy the code block using GitHub’s copy button.
+
+[Step-by-step usage and expected outputs](https://huggingface.co/softandsweet/redhatai-qwen3-5-9b-fp8-dynamic-rngd-fxbex/blob/edc74fbcf3109dcd5016896183e6d92566a55e3a/releases/2026.4.0-portable1/440c02aac9e9ac679a247f9efe9eb3bc8fcc9007204c4ee697210104c54d0774/USAGE.md)
+
+```bash
+python -m pip install git+https://github.com/smallstep-zzz/FXBEX.git@main
+curl --fail --location https://huggingface.co/softandsweet/redhatai-qwen3-5-9b-fp8-dynamic-rngd-fxbex/resolve/edc74fbcf3109dcd5016896183e6d92566a55e3a/releases/2026.4.0-portable1/440c02aac9e9ac679a247f9efe9eb3bc8fcc9007204c4ee697210104c54d0774/model.fxbex --output model.fxbex
+printf '%s  model.fxbex
+' 440c02aac9e9ac679a247f9efe9eb3bc8fcc9007204c4ee697210104c54d0774 | sha256sum --check
+fxbex doctor
+fxbex validate model.fxbex
+fxbex chat model.fxbex
+```
+
+</details>
 
 <!-- furyawesome:models:end -->
 
 
 자세한 내용은 [CONTRIBUTING.md](CONTRIBUTING.md)를 참고하세요.
+
+
+<!-- fxbex:examples:start -->
+
+## 모델별 전체 실행 예제
+
+호환 SDK가 준비된 RNGD 호스트에서 코드 블록의 복사 버튼을 사용하세요.
+
+
+
+### YOLO11n RNGD FXBEX (640, portable)
+
+[상세 입력·출력 및 검증 범위](https://huggingface.co/softandsweet/giangndm-yolo11-onnx-rngd-fxbex/blob/a90ba55456e501f15d0d4ec38d94f22d65fc4016/releases/2026.4.0-opt3-minimal1/cac265de482649f3aa020ceed99a3391daee10ab2d4fe7e8768ad685dc3a078d/USAGE.md)
+
+YOLO는 image.jpg가 없으면 단색 테스트 이미지를 생성합니다. 이 경우 검출 목록은 비어 있을 수 있습니다.
+
+```bash
+python -m pip install "git+https://github.com/smallstep-zzz/FXBEX.git@main"
+python -m pip install huggingface_hub
+python - <<'PYTHON'
+from huggingface_hub import hf_hub_download
+import hashlib, shutil, json
+p = hf_hub_download('softandsweet/giangndm-yolo11-onnx-rngd-fxbex', 'releases/2026.4.0-opt3-minimal1/cac265de482649f3aa020ceed99a3391daee10ab2d4fe7e8768ad685dc3a078d/model.fxbex', revision='ebc4c12cb75be1e778bc44c929a966145cb7b1ee')
+h = hashlib.sha256()
+with open(p,"rb") as f:
+    for b in iter(lambda:f.read(1024*1024),b""): h.update(b)
+if h.hexdigest() != 'cac265de482649f3aa020ceed99a3391daee10ab2d4fe7e8768ad685dc3a078d': raise RuntimeError("Checksum mismatch")
+shutil.copyfile(p,"model.fxbex")
+from pathlib import Path
+from PIL import Image
+image=Path("image.jpg").resolve()
+if not image.exists(): Image.new("RGB",(640,640),(120,150,180)).save(image)
+with open("inputs.json","w") as f: json.dump({"image":str(image)},f)
+PYTHON
+fxbex doctor
+fxbex validate model.fxbex
+fxbex predict model.fxbex --input inputs.json -o result.json
+cat result.json
+```
+
+
+
+### RedHatAI/Qwen3.5-9B-FP8-dynamic
+
+[상세 입력·출력 및 검증 범위](https://huggingface.co/softandsweet/redhatai-qwen3-5-9b-fp8-dynamic-rngd-fxbex/blob/edc74fbcf3109dcd5016896183e6d92566a55e3a/releases/2026.4.0-portable1/440c02aac9e9ac679a247f9efe9eb3bc8fcc9007204c4ee697210104c54d0774/USAGE.md)
+
+첫 다운로드 약 13.5 GB. 결과 JSON의 text에 답변이 표시됩니다.
+
+```bash
+python -m pip install "git+https://github.com/smallstep-zzz/FXBEX.git@main"
+python -m pip install huggingface_hub
+python - <<'PYTHON'
+from huggingface_hub import hf_hub_download
+import hashlib, shutil, json
+p = hf_hub_download('softandsweet/redhatai-qwen3-5-9b-fp8-dynamic-rngd-fxbex', 'releases/2026.4.0-portable1/440c02aac9e9ac679a247f9efe9eb3bc8fcc9007204c4ee697210104c54d0774/model.fxbex', revision='a2d7585a4291ba8d7f6710ae9ec0db09fb5284ce')
+h = hashlib.sha256()
+with open(p,"rb") as f:
+    for b in iter(lambda:f.read(1024*1024),b""): h.update(b)
+if h.hexdigest() != '440c02aac9e9ac679a247f9efe9eb3bc8fcc9007204c4ee697210104c54d0774': raise RuntimeError("Checksum mismatch")
+shutil.copyfile(p,"model.fxbex")
+with open("inputs.json","w") as f: json.dump({"messages":[{"role":"user","content":"What is 2+2? Reply briefly."}]},f)
+PYTHON
+fxbex doctor
+fxbex validate model.fxbex
+fxbex chat model.fxbex --input inputs.json -o result.json
+cat result.json
+```
+
+<!-- fxbex:examples:end -->

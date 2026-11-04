@@ -13,7 +13,7 @@
   },
   "release": {
     "adapter": "qwen35_replay",
-    "artifact_url": "https://huggingface.co/softandsweet/redhatai-qwen3-5-9b-fp8-dynamic-rngd-fxbex/resolve/a2d7585a4291ba8d7f6710ae9ec0db09fb5284ce/releases/2026.4.0-portable1/440c02aac9e9ac679a247f9efe9eb3bc8fcc9007204c4ee697210104c54d0774/model.fxbex",
+    "artifact_url": "https://huggingface.co/softandsweet/redhatai-qwen3-5-9b-fp8-dynamic-rngd-fxbex/resolve/edc74fbcf3109dcd5016896183e6d92566a55e3a/releases/2026.4.0-portable1/440c02aac9e9ac679a247f9efe9eb3bc8fcc9007204c4ee697210104c54d0774/model.fxbex",
     "author_sha256": "440c02aac9e9ac679a247f9efe9eb3bc8fcc9007204c4ee697210104c54d0774",
     "precision": "BF16",
     "runtime_version": "0.4.0",
