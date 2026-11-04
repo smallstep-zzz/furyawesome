@@ -34,7 +34,7 @@ fxbex validate model.fxbex
 fxbex predict model.fxbex --input inputs.json -o result.json
 ```
 
-YOLO11의 `result.json`에는 감지 상자·클래스·점수가 포함되고, 결과 이미지 경로도 반환됩니다. `validate`는 패키지와 실행 환경을 검사하며 추론 자체는 실행하지 않습니다. 상세 명령과 제한 사항은 [FXBEX README](https://github.com/smallstep-zzz/FXBEX#readme)를 참고하세요. `validate`는 패키지와 실행 환경을 검사하며 추론 자체는 실행하지 않습니다. 상세 명령과 제한 사항은 [FXBEX README](https://github.com/smallstep-zzz/FXBEX#readme)를 참고하세요.
+YOLO11의 `result.json`에는 감지 상자·클래스·점수가 포함되고, 결과 이미지 경로도 반환됩니다. `validate`는 패키지와 실행 환경을 검사하며 추론 자체는 실행하지 않습니다. 상세 명령과 제한 사항은 [FXBEX README](https://github.com/smallstep-zzz/FXBEX#readme)를 참고하세요.
 
 **Furiosa NPU 실행 패키지의 공개 메타데이터 카탈로그.**
 
