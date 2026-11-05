@@ -6,7 +6,8 @@
     "giangndm/yolo11-onnx@2026.4.0-opt3-minimal1#cac265de482649f3aa020ceed99a3391daee10ab2d4fe7e8768ad685dc3a078d",
     "black-forest-labs/FLUX.2-klein-4B@2026.4.0-klein4b-portable1#26669e2b74c35980c17c0d67a178f7ab5b1d1a9a1e965541b77fcdf526d72445",
     "black-forest-labs/FLUX.2-klein-4B@2026.4.0-klein4b-portable2#5261d52163cfd0d6c08b5f8e0d85e4c6769af2aacb7a1b8d1230ad572d4f2666",
-    "giangndm/yolo11-onnx@2026.4.0-opt3-sample1#4d52ac8d4f672be214505866b0e6129b4d17642194fbd49e2a9ce1989d46d55b"
+    "giangndm/yolo11-onnx@2026.4.0-opt3-sample1#4d52ac8d4f672be214505866b0e6129b4d17642194fbd49e2a9ce1989d46d55b",
+    "stabilityai/TripoSR@0.2.0-experimental-textured#bb4a82470e43f293c01add8b08e698aca45ed14cb882fbea9eb6dcae73f3543f"
   ],
   "models": [
     {
@@ -133,6 +134,31 @@
         "version": "2026.4.0-klein4b-portable1",
         "weights_mode": "standalone"
       }
+    },
+    {
+      "model": {
+        "category": "3D",
+        "cover_url": "",
+        "name": "stabilityai/TripoSR",
+        "package_license": "MIT model/weights; bundled adapter license undeclared",
+        "readme": "Requires Furiosa RNGD, SDK 2026.4.0, the current FXBEX main runtime, xatlas 0.0.11, moderngl 5.13.0 and a headless EGL runtime (Ubuntu: libegl1 libegl-mesa0). The packaged example input is samples/robot.png and predict requires JSON fields image and output; inspect the exact contract with `fxbex describe model.fxbex` and extract the example with `fxbex sample model.fxbex`. It produces a 64-resolution GLB mesh with a 2048px UV texture. NPU replay was verified with zero compiler calls and zero SDK CPU fallback. CPU/NPU RGB and final mesh pass the 1e-4 comparison, but triplane and 52/262144 density values exceed that gate, so this is an experimental release rather than full numerical acceptance.",
+        "short_description": "Experimental standalone TripoSR image-to-textured-GLB package for Furiosa RNGD.",
+        "source_license": "MIT",
+        "source_repo": "stabilityai/TripoSR",
+        "source_revision": "5b521936b01fbe1890f6f9baed0254ab6351c04a"
+      },
+      "release": {
+        "adapter": "triposr_replay",
+        "artifact_url": "https://huggingface.co/softandsweet/stabilityai-triposr-rngd-fxbex/resolve/c2f9a8cb81cd0df85f7105192bf85678c968dd34/releases/0.2.0-experimental-textured/bb4a82470e43f293c01add8b08e698aca45ed14cb882fbea9eb6dcae73f3543f/model.fxbex",
+        "author_sha256": "bb4a82470e43f293c01add8b08e698aca45ed14cb882fbea9eb6dcae73f3543f",
+        "precision": "FP32",
+        "runtime_version": "main@fad9892c01faf00a119f577c1b71eb361928e156",
+        "sdk_version": "2026.4.0",
+        "target": "Furiosa RNGD",
+        "version": "0.2.0-experimental-textured",
+        "weights_mode": "standalone"
+      },
+      "schema_version": 1
     }
   ],
   "candidates": []

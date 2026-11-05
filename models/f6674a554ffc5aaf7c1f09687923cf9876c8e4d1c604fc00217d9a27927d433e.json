@@ -1,0 +1,25 @@
+{
+  "model": {
+    "category": "3D",
+    "cover_url": "",
+    "name": "stabilityai/TripoSR",
+    "package_license": "MIT model/weights; bundled adapter license undeclared",
+    "readme": "Requires Furiosa RNGD, SDK 2026.4.0, the current FXBEX main runtime, xatlas 0.0.11, moderngl 5.13.0 and a headless EGL runtime (Ubuntu: libegl1 libegl-mesa0). The packaged example input is samples/robot.png and predict requires JSON fields image and output; inspect the exact contract with `fxbex describe model.fxbex` and extract the example with `fxbex sample model.fxbex`. It produces a 64-resolution GLB mesh with a 2048px UV texture. NPU replay was verified with zero compiler calls and zero SDK CPU fallback. CPU/NPU RGB and final mesh pass the 1e-4 comparison, but triplane and 52/262144 density values exceed that gate, so this is an experimental release rather than full numerical acceptance.",
+    "short_description": "Experimental standalone TripoSR image-to-textured-GLB package for Furiosa RNGD.",
+    "source_license": "MIT",
+    "source_repo": "stabilityai/TripoSR",
+    "source_revision": "5b521936b01fbe1890f6f9baed0254ab6351c04a"
+  },
+  "release": {
+    "adapter": "triposr_replay",
+    "artifact_url": "https://huggingface.co/softandsweet/stabilityai-triposr-rngd-fxbex/resolve/c2f9a8cb81cd0df85f7105192bf85678c968dd34/releases/0.2.0-experimental-textured/bb4a82470e43f293c01add8b08e698aca45ed14cb882fbea9eb6dcae73f3543f/model.fxbex",
+    "author_sha256": "bb4a82470e43f293c01add8b08e698aca45ed14cb882fbea9eb6dcae73f3543f",
+    "precision": "FP32",
+    "runtime_version": "main@fad9892c01faf00a119f577c1b71eb361928e156",
+    "sdk_version": "2026.4.0",
+    "target": "Furiosa RNGD",
+    "version": "0.2.0-experimental-textured",
+    "weights_mode": "standalone"
+  },
+  "schema_version": 1
+}
