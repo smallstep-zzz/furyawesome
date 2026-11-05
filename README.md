@@ -6,7 +6,7 @@ Furiosa RNGD에서 사용할 수 있는 FXBEX 모델을 모아 놓은 카탈로�
 아래 표의 모델 이름을 복사해 넣으면 다운로드와 샘플 실행을 진행합니다.
 
 ```bash
-pip install fxbex
+pip install --upgrade fxbex
 fxbex run yolo11-onnx
 ```
 
