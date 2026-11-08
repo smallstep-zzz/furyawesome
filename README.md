@@ -6,8 +6,8 @@ Furiosa RNGD에서 사용할 수 있는 FXBEX 모델을 모아 놓은 카탈로�
 아래 표의 모델 이름을 복사해 넣으면 다운로드와 샘플 실행을 진행합니다.
 
 ```bash
-pip install --upgrade fxbex
-fxbex run yolo11-onnx
+pip install --upgrade fxbx
+fxbx run yolo11-onnx
 ```
 
 채팅 모델은 바로 대화할 수 있습니다. 이미지 등 다른 모델의 입력 지정 방법은 표의 **사용법**을 참고하세요.
@@ -25,4 +25,4 @@ fxbex run yolo11-onnx
 
 - 호환되는 Furiosa RNGD 하드웨어·드라이버·SDK가 필요합니다. 모델별 환경과 추가 의존성은 HF 안내를 따르세요.
 - 원본·패키지 라이선스와 검증 범위는 각 모델의 상세 정보에서 확인하세요.
-- [FXBEX](https://github.com/smallstep-zzz/FXBEX) · [OpenFury Hub](https://openfury-hub.softandsweet5.chatgpt.site/) · [기여 안내](CONTRIBUTING.md)
+- [fxbX](https://github.com/smallstep-zzz/fxbX) · [OpenFury Hub](https://openfury-hub.softandsweet5.chatgpt.site/) · [기여 안내](CONTRIBUTING.md)
