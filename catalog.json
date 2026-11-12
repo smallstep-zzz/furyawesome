@@ -4,14 +4,38 @@
   "release_order": [
     "RedHatAI/Qwen3.5-9B-FP8-dynamic@2026.4.0-portable2#cae0c65b4283c72778431f83c63c7ec8e0e2b64edd49f5fceeb00bf1b3bd7b32",
     "giangndm/yolo11-onnx@2026.4.0-opt3-minimal1#cac265de482649f3aa020ceed99a3391daee10ab2d4fe7e8768ad685dc3a078d",
-    "black-forest-labs/FLUX.2-klein-4B@2026.4.0-klein4b-portable1#26669e2b74c35980c17c0d67a178f7ab5b1d1a9a1e965541b77fcdf526d72445",
-    "black-forest-labs/FLUX.2-klein-4B@2026.4.0-klein4b-portable2#5261d52163cfd0d6c08b5f8e0d85e4c6769af2aacb7a1b8d1230ad572d4f2666",
     "giangndm/yolo11-onnx@2026.4.0-opt3-sample1#4d52ac8d4f672be214505866b0e6129b4d17642194fbd49e2a9ce1989d46d55b",
     "stabilityai/TripoSR@0.2.0-experimental-textured#bb4a82470e43f293c01add8b08e698aca45ed14cb882fbea9eb6dcae73f3543f",
     "RedHatAI/Qwen3.5-9B-FP8-dynamic@ctx262k-v1#229f330733b2d80d9f1b3af4a528830c459aa81593ec2e2929f4a1b8fa082866",
-    "RedHatAI/Qwen3.5-9B-FP8-dynamic@ctx262k-prefix-v1#e90007707da70915ca59571805b22b8cb885f77a759725eb425a54064424f201"
+    "RedHatAI/Qwen3.5-9B-FP8-dynamic@ctx262k-prefix-v1#e90007707da70915ca59571805b22b8cb885f77a759725eb425a54064424f201",
+    "black-forest-labs/FLUX.2-klein-4B@2026.4.0-klein4b-fxbx1#9f5377b386f2125ac087b1a858a4ab859e79abb9d2a3a2a500e6221eac1f8724"
   ],
   "models": [
+    {
+      "schema_version": 1,
+      "model": {
+        "name": "black-forest-labs/FLUX.2-klein-4B",
+        "short_description": "새로 캡처한 NPU 실행물을 담은 512×512 이미지 생성 패키지입니다.",
+        "readme": "Furiosa RNGD에서 512×512 이미지를 만드는 FLUX.2 Klein 4B 패키지입니다. BF16·4단계·시퀀스 길이 128·fusion 8 / Single 프로필입니다.\n\n25번 서버에서 새로 캡처한 SDK 실행물 205개를 담았습니다. 별도 오프라인 프로세스에서 이 파일을 열어 512×512 PNG를 생성했고, 같은 프롬프트와 시드의 빌드 이미지와 SHA-256이 일치했습니다. 공식 NPU 트레이스는 Task 9,708개를 기록했습니다. SDK CPU 폴백, 런타임 컴파일 호출, 외부 Hugging Face 모델 캐시 접근은 각각 0건이었습니다.\n\n텍스트로 이미지 생성하는 예제를 실행합니다.\n\n```bash\nfxbx run ./FLUX.2-klein-4B.fxbx --sample -o result.json\n```\n\n생성된 PNG 경로는 `result.json`의 `image_path`에 기록됩니다. 호스트에는 Furiosa Torch SDK 2026.4.0, Torch 2.10.0+cpu, Diffusers 0.41.0, Transformers 5.20.2 및 호환 드라이버가 필요합니다.",
+        "category": "Image Generation",
+        "source_repo": "black-forest-labs/FLUX.2-klein-4B",
+        "source_revision": "e7b7dc27f91deacad38e78976d1f2b499d76a294",
+        "source_license": "Apache-2.0",
+        "package_license": "가중치 Apache-2.0, 동봉 어댑터 코드에 별도 라이선스 표기 없음",
+        "cover_url": ""
+      },
+      "release": {
+        "version": "2026.4.0-klein4b-fxbx1",
+        "target": "Furiosa RNGD",
+        "precision": "BF16",
+        "sdk_version": "2026.4.0",
+        "runtime_version": "0.8.3",
+        "adapter": "flux2_klein_replay",
+        "weights_mode": "standalone",
+        "author_sha256": "9f5377b386f2125ac087b1a858a4ab859e79abb9d2a3a2a500e6221eac1f8724",
+        "artifact_url": "https://huggingface.co/softandsweet/black-forest-labs-flux-2-klein-4b-rngd-fxbex/resolve/57aa0bef31f963de10edd84f803ea2f0c5475be6/releases/2026.4.0-klein4b-fxbx1/9f5377b386f2125ac087b1a858a4ab859e79abb9d2a3a2a500e6221eac1f8724/FLUX.2-klein-4B.fxbx"
+      }
+    },
     {
       "model": {
         "category": "LLM",
@@ -114,31 +138,6 @@
     },
     {
       "model": {
-        "category": "Image Generation",
-        "cover_url": "",
-        "name": "black-forest-labs/FLUX.2-klein-4B",
-        "package_license": "Apache-2.0 model weights; bundled adapter code has no separate license declared",
-        "readme": "Standalone text-to-image package with the model weights and saved Furiosa SDK Runnables. This release was tested from the exact `.fxbex` file in a fresh offline process on a Furiosa RNGD NPU.\n\n## Generate an image\n\nInstall the current FXBEX runtime and matching Furiosa SDK/driver on an RNGD host. Then download the `.fxbex` release from the Files tab.\n\n```python\nfrom fxbex import ImageGeneration\n\nwith ImageGeneration(\"model.fxbex\") as model:\n    result = model.generate(\n        \"A small red fox beside a mountain lake at sunrise, golden autumn trees\",\n        steps=4, seed=20261102, width=512, height=512,\n    )\nprint(result[\"image_path\"])\n```\n\n## Tested scope\n\n- Text-to-image at 512×512, BF16, four denoising steps, sequence length 128, fusion8 / Single mesh.\n- Exact 15,999,871,549-byte standalone package tested with HF model cache inaccessible and offline mode enabled.\n- Three same-seed image outputs had identical SHA256 `dc836e4b699d78ad2454981a8408d32f76eb44b0de9e1c0657e64e272a9a0615`; each image was 512×512 with 158,026 unique colors.\n- Official RNGD trace: 9,708 NPU Task events, zero SDK CPU executions, zero unknown graphs. SDK CPU fallback disabled; 205 captured Runnables replayed; no compilation during package loading; no external HF cache reads.\n- Image editing and other resolutions, step counts, precisions, or sequence lengths are not validated.\n\nModel source: [Black Forest Labs FLUX.2 Klein 4B](https://huggingface.co/black-forest-labs/FLUX.2-klein-4B), pinned to `e7b7dc27f91deacad38e78976d1f2b499d76a294`. Upstream weights are licensed under Apache-2.0; the upstream license is included in this repository. Bundled adapter code has no separate license declared. No Furiosa SDK binaries are bundled.\n\nThis release includes io_contract and a self-contained example for fxbex run. Metadata/example static checks passed; fresh NPU rerun is pending because the device is occupied.",
-        "short_description": "Standalone FLUX.2 Klein 4B text-to-image FXBEX for Furiosa RNGD; exact package passed offline NPU inference.",
-        "source_license": "Apache-2.0",
-        "source_repo": "black-forest-labs/FLUX.2-klein-4B",
-        "source_revision": "e7b7dc27f91deacad38e78976d1f2b499d76a294"
-      },
-      "release": {
-        "adapter": "flux2_klein_replay",
-        "artifact_url": "https://huggingface.co/softandsweet/black-forest-labs-flux-2-klein-4b-rngd-fxbex/resolve/09a39f3444b7e9eb7f4d9b22c335c08fcc5fb443/releases/2026.4.0-klein4b-portable2/5261d52163cfd0d6c08b5f8e0d85e4c6769af2aacb7a1b8d1230ad572d4f2666/FLUX.2-klein-4B.fxbex",
-        "author_sha256": "5261d52163cfd0d6c08b5f8e0d85e4c6769af2aacb7a1b8d1230ad572d4f2666",
-        "precision": "BF16",
-        "runtime_version": "0.4.0",
-        "sdk_version": "2026.4.0",
-        "target": "Furiosa RNGD",
-        "version": "2026.4.0-klein4b-portable2",
-        "weights_mode": "standalone"
-      },
-      "schema_version": 1
-    },
-    {
-      "model": {
         "category": "Computer Vision",
         "cover_url": "",
         "name": "YOLO11n RNGD FXBEX (640, portable)",
@@ -158,31 +157,6 @@
         "sdk_version": "2026.4.0",
         "target": "Furiosa RNGD",
         "version": "2026.4.0-opt3-sample1",
-        "weights_mode": "standalone"
-      },
-      "schema_version": 1
-    },
-    {
-      "model": {
-        "category": "Image Generation",
-        "cover_url": "",
-        "name": "black-forest-labs/FLUX.2-klein-4B",
-        "package_license": "Apache-2.0 model weights; bundled adapter code has no separate license declared",
-        "readme": "Standalone text-to-image package with the model weights and saved Furiosa SDK Runnables. This release was tested from the exact `.fxbex` file in a fresh offline process on a Furiosa RNGD NPU.\n\n## Generate an image\n\nInstall the current FXBEX runtime and matching Furiosa SDK/driver on an RNGD host. Then download the `.fxbex` release from the Files tab.\n\n```python\nfrom fxbex import ImageGeneration\n\nwith ImageGeneration(\"model.fxbex\") as model:\n    result = model.generate(\n        \"A small red fox beside a mountain lake at sunrise, golden autumn trees\",\n        steps=4, seed=20261102, width=512, height=512,\n    )\nprint(result[\"image_path\"])\n```\n\n## Tested scope\n\n- Text-to-image at 512×512, BF16, four denoising steps, sequence length 128, fusion8 / Single mesh.\n- Exact 15,999,871,549-byte standalone package tested with HF model cache inaccessible and offline mode enabled.\n- Three same-seed image outputs had identical SHA256 `dc836e4b699d78ad2454981a8408d32f76eb44b0de9e1c0657e64e272a9a0615`; each image was 512×512 with 158,026 unique colors.\n- Official RNGD trace: 9,708 NPU Task events, zero SDK CPU executions, zero unknown graphs. SDK CPU fallback disabled; 205 captured Runnables replayed; no compilation during package loading; no external HF cache reads.\n- Image editing and other resolutions, step counts, precisions, or sequence lengths are not validated.\n\nModel source: [Black Forest Labs FLUX.2 Klein 4B](https://huggingface.co/black-forest-labs/FLUX.2-klein-4B), pinned to `e7b7dc27f91deacad38e78976d1f2b499d76a294`. Upstream weights are licensed under Apache-2.0; the upstream license is included in this repository. Bundled adapter code has no separate license declared. No Furiosa SDK binaries are bundled.",
-        "short_description": "Standalone FLUX.2 Klein 4B text-to-image FXBEX for Furiosa RNGD; exact package passed offline NPU inference.",
-        "source_license": "Apache-2.0",
-        "source_repo": "black-forest-labs/FLUX.2-klein-4B",
-        "source_revision": "e7b7dc27f91deacad38e78976d1f2b499d76a294"
-      },
-      "release": {
-        "adapter": "flux2_klein_replay",
-        "artifact_url": "https://huggingface.co/softandsweet/black-forest-labs-flux-2-klein-4b-rngd-fxbex/resolve/cba26ed6025d7ee97c735e51f3975f1661ede233/releases/2026.4.0-klein4b-portable1/26669e2b74c35980c17c0d67a178f7ab5b1d1a9a1e965541b77fcdf526d72445/model.fxbex",
-        "author_sha256": "26669e2b74c35980c17c0d67a178f7ab5b1d1a9a1e965541b77fcdf526d72445",
-        "precision": "BF16",
-        "runtime_version": "0.4.0",
-        "sdk_version": "2026.4.0",
-        "target": "Furiosa RNGD",
-        "version": "2026.4.0-klein4b-portable1",
         "weights_mode": "standalone"
       },
       "schema_version": 1

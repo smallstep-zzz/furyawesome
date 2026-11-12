@@ -1,0 +1,25 @@
+{
+  "schema_version": 1,
+  "model": {
+    "name": "black-forest-labs/FLUX.2-klein-4B",
+    "short_description": "새로 캡처한 NPU 실행물을 담은 512×512 이미지 생성 패키지입니다.",
+    "readme": "Furiosa RNGD에서 512×512 이미지를 만드는 FLUX.2 Klein 4B 패키지입니다. BF16·4단계·시퀀스 길이 128·fusion 8 / Single 프로필입니다.\n\n25번 서버에서 새로 캡처한 SDK 실행물 205개를 담았습니다. 별도 오프라인 프로세스에서 이 파일을 열어 512×512 PNG를 생성했고, 같은 프롬프트와 시드의 빌드 이미지와 SHA-256이 일치했습니다. 공식 NPU 트레이스는 Task 9,708개를 기록했습니다. SDK CPU 폴백, 런타임 컴파일 호출, 외부 Hugging Face 모델 캐시 접근은 각각 0건이었습니다.\n\n텍스트로 이미지 생성하는 예제를 실행합니다.\n\n```bash\nfxbx run ./FLUX.2-klein-4B.fxbx --sample -o result.json\n```\n\n생성된 PNG 경로는 `result.json`의 `image_path`에 기록됩니다. 호스트에는 Furiosa Torch SDK 2026.4.0, Torch 2.10.0+cpu, Diffusers 0.41.0, Transformers 5.20.2 및 호환 드라이버가 필요합니다.",
+    "category": "Image Generation",
+    "source_repo": "black-forest-labs/FLUX.2-klein-4B",
+    "source_revision": "e7b7dc27f91deacad38e78976d1f2b499d76a294",
+    "source_license": "Apache-2.0",
+    "package_license": "가중치 Apache-2.0, 동봉 어댑터 코드에 별도 라이선스 표기 없음",
+    "cover_url": ""
+  },
+  "release": {
+    "version": "2026.4.0-klein4b-fxbx1",
+    "target": "Furiosa RNGD",
+    "precision": "BF16",
+    "sdk_version": "2026.4.0",
+    "runtime_version": "0.8.3",
+    "adapter": "flux2_klein_replay",
+    "weights_mode": "standalone",
+    "author_sha256": "9f5377b386f2125ac087b1a858a4ab859e79abb9d2a3a2a500e6221eac1f8724",
+    "artifact_url": "https://huggingface.co/softandsweet/black-forest-labs-flux-2-klein-4b-rngd-fxbex/resolve/57aa0bef31f963de10edd84f803ea2f0c5475be6/releases/2026.4.0-klein4b-fxbx1/9f5377b386f2125ac087b1a858a4ab859e79abb9d2a3a2a500e6221eac1f8724/FLUX.2-klein-4B.fxbx"
+  }
+}
