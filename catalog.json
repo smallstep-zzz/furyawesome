@@ -2,12 +2,6 @@
   "schema_version": 1,
   "source": "smallstep-zzz/furyawesome",
   "release_order": [
-    "RedHatAI/Qwen3.5-9B-FP8-dynamic@2026.4.0-portable2#cae0c65b4283c72778431f83c63c7ec8e0e2b64edd49f5fceeb00bf1b3bd7b32",
-    "giangndm/yolo11-onnx@2026.4.0-opt3-minimal1#cac265de482649f3aa020ceed99a3391daee10ab2d4fe7e8768ad685dc3a078d",
-    "giangndm/yolo11-onnx@2026.4.0-opt3-sample1#4d52ac8d4f672be214505866b0e6129b4d17642194fbd49e2a9ce1989d46d55b",
-    "stabilityai/TripoSR@0.2.0-experimental-textured#bb4a82470e43f293c01add8b08e698aca45ed14cb882fbea9eb6dcae73f3543f",
-    "RedHatAI/Qwen3.5-9B-FP8-dynamic@ctx262k-v1#229f330733b2d80d9f1b3af4a528830c459aa81593ec2e2929f4a1b8fa082866",
-    "RedHatAI/Qwen3.5-9B-FP8-dynamic@ctx262k-prefix-v1#e90007707da70915ca59571805b22b8cb885f77a759725eb425a54064424f201",
     "black-forest-labs/FLUX.2-klein-4B@2026.4.0-klein4b-fxbx1#9f5377b386f2125ac087b1a858a4ab859e79abb9d2a3a2a500e6221eac1f8724",
     "stabilityai/sdxl-turbo@2026.4.0-sdxl-turbo-fxbx1#2764d996e37745e5c25991a679f3f1bbb2848547079baa4ccb9c06d5d50874f3"
   ],
@@ -38,106 +32,6 @@
       }
     },
     {
-      "model": {
-        "category": "LLM",
-        "cover_url": "",
-        "name": "RedHatAI/Qwen3.5-9B-FP8-dynamic",
-        "package_license": "Apache-2.0 weights; bundled adapter license undeclared",
-        "readme": "Standalone FXBEX with bundled model weights, tokenizer/configuration, and Python adapter/runtime. It targets Furiosa RNGD SDK 2026.4.0, BF16 execution, fusion8, context 512. Source checkpoint: RedHatAI/Qwen3.5-9B-FP8-dynamic at the pinned revision below.\n\nNPU test: exact package SHA loaded in a fresh RNGD process with Hugging Face caches empty and offline mode enabled; filesystem audit observed zero reads from the existing HF cache. Load 254.99 s. Acceptance: cosine 0.999929, RMSE 0.044703, top-1 match; 1,562 NPU tasks, 0 CPU-routed tasks, 0 unknown graphs. Chat prompts returned `4`, follow-up returned `12`, and repeats returned `4`. Compiler calls 0; replay hits 511. This evidence covers the tested text path and environment only.\n\nInstall compatible Furiosa SDK/driver, then run `fxbex validate model.fxbex` and `fxbex run model.fxbex` on supported RNGD hardware. Package size is ~13.5 GB. Source model card declares Apache-2.0; license text is included in the HF release. Bundled adapter has no separate license declaration. No SDK or driver binaries are included.\n\nportable2 adds io_contract and built-in sample input. Weights, kernels and Python runtime are unchanged. Static metadata checks passed; fresh NPU test was blocked by another NPU owner. Existing runtime numerical acceptance remains required.",
-        "short_description": "Standalone bundled-weight Qwen3.5 9B text FXBEX for Furiosa RNGD, tested offline on NPU.",
-        "source_license": "Apache-2.0",
-        "source_repo": "RedHatAI/Qwen3.5-9B-FP8-dynamic",
-        "source_revision": "790f0576d2d77dd5322aa0603a470bd9e3a3d1f6"
-      },
-      "release": {
-        "adapter": "qwen35_replay",
-        "artifact_url": "https://huggingface.co/softandsweet/redhatai-qwen3-5-9b-fp8-dynamic-rngd-fxbex/resolve/ab0d316c4ce4f766adf34bcbf170cf3a2104faf4/releases/2026.4.0-portable2/cae0c65b4283c72778431f83c63c7ec8e0e2b64edd49f5fceeb00bf1b3bd7b32/model.fxbex",
-        "author_sha256": "cae0c65b4283c72778431f83c63c7ec8e0e2b64edd49f5fceeb00bf1b3bd7b32",
-        "precision": "BF16",
-        "runtime_version": "0.4.0",
-        "sdk_version": "2026.4.0",
-        "target": "Furiosa RNGD",
-        "version": "2026.4.0-portable2",
-        "weights_mode": "standalone"
-      },
-      "schema_version": 1
-    },
-    {
-      "model": {
-        "category": "LLM",
-        "cover_url": "",
-        "name": "RedHatAI/Qwen3.5-9B-FP8-dynamic",
-        "package_license": "Apache-2.0 weights; bundled adapter license undeclared",
-        "readme": "Text-only Qwen3.5 on RNGD; FP8 checkpoint weights are dequantized to BF16 for NPU computation. FXBEX run opens interactive chat; use --sample for one packaged example. A 114-token second turn reused 83 input tokens and took median 4.95s versus 17.31s baseline in three unprofiled repeats. The exact-prefix route matched output logits and was independently reloaded with zero compilation. An NPU boundary probe restored state at token510 and crossed page512 to token515 with RMSE0 and matching top-1. The checkpoint retained 65.5MiB of additional logical tensor objects; physical memory is not measured. The configured limit is 262144 tokens; full-length natural-input performance remains unvalidated. Prior runs observed intermittent native SDK crashes and some dropped profiler spans; inspect runtime diagnostics if needed.",
-        "short_description": "Qwen3.5 text generation on Furiosa RNGD with exact-prefix state reuse.",
-        "source_license": "Apache-2.0",
-        "source_repo": "RedHatAI/Qwen3.5-9B-FP8-dynamic",
-        "source_revision": "790f0576d2d77dd5322aa0603a470bd9e3a3d1f6"
-      },
-      "release": {
-        "adapter": "qwen35_replay",
-        "artifact_url": "https://huggingface.co/softandsweet/redhatai-qwen3-5-9b-fp8-dynamic-rngd-fxbex/resolve/5246087b3c4135600ed65132d764f89ee576b2be/releases/ctx262k-prefix-v1/e90007707da70915ca59571805b22b8cb885f77a759725eb425a54064424f201/model.fxbex",
-        "author_sha256": "e90007707da70915ca59571805b22b8cb885f77a759725eb425a54064424f201",
-        "precision": "BF16",
-        "runtime_version": "0.6.7",
-        "sdk_version": "2026.4.0",
-        "target": "Furiosa RNGD",
-        "version": "ctx262k-prefix-v1",
-        "weights_mode": "standalone"
-      },
-      "schema_version": 1
-    },
-    {
-      "model": {
-        "category": "LLM",
-        "cover_url": "",
-        "name": "RedHatAI/Qwen3.5-9B-FP8-dynamic",
-        "package_license": "Apache-2.0 weights; bundled adapter license undeclared",
-        "readme": "## Paged context release: ctx262k-v1\n\nThis standalone FXBEX includes the pinned original FP8 checkpoint, BF16 NPU compute kernels, tokenizer/config and executable adapter. No Model Forge checkout or HF model cache is needed to run it. Use a matching RNGD SDK host; FXBEX does not install drivers or the SDK.\n\n```bash\npython -m pip install --upgrade fxbex\nfxbex run Qwen3.5-9B-FP8-dynamic@ctx262k-v1\nfxbex chat Qwen3.5-9B-FP8-dynamic@ctx262k-v1 --max-new-tokens 1024\n```\n\nThe explicit release selector avoids reusing an older local512-token package. On a fresh directory the short model identifier resolves via FuryAwesome. `run` uses the packaged2+2 sample (observed answer4); `chat` shows >>> and retains conversation history. Use /reset and /quit.\n\nPython:\n```python\nfrom fxbex import LLM\nfrom fxbex.hub import resolve_package\npackage = resolve_package(\"Qwen3.5-9B-FP8-dynamic@ctx262k-v1\")\nwith LLM(package) as llm:\n    print(llm.generate(\"What is 2+2? Reply briefly.\", max_new_tokens=32))\n```\n\nRuntime: https://github.com/smallstep-zzz/FXBEX (recommended FXBEX>=0.6.1). Tested host: Python3.10, furiosa-torch/furiosa-tcc2026.4.0, torch2.10.0+cpu, transformers5.20.2; fusion8, Single mesh. Python/transformers combinations previously exhibited intermittent native crashes; this release does not claim to fix the SDK crash.\n\n### Capacity versus validation\n- Original/configured limit:262144 input+output tokens, lazy512-token NPU KV pages. Older portable1/portable2 releases remain limited to512.\n- Real dialogue:586-token prompt→4;610-token follow-up history→12. Two short repeats→4, about4.1s wall time each. Zero compiler calls on standalone replay.\n- Boundary positions510–514:8032 official NPU tasks,0 SDK CPU routes,0 unknown graphs. This is graph coverage over a continuous window; SDK restart can drop individual initial spans.\n- Synthetic maximum-position probe: all512 KV pages per full-attention layer and position262143; see VALIDATION.json for the measured result. This is NOT a262144-token natural prompt or long-range quality test.\n- CPU public-attention tests cross a page boundary in FP32/BF16 and compare512-page reduction to a262144-token reference at small head dimensions.\n- Whole-model first-token cosine0.999945, RMSE0.03655, top1 match. Checkpoint FP8 is dequantized once to BF16; this is not native FP8 arithmetic.\n\n### Performance limits\nPrefill is sequential:586-token input took106.5s with boundary profiling;610-token history took87.2s. The template's generation-only empty thinking block prevents exact-prefix reuse on that follow-up, so it was recomputed correctly. Very long prefill is not yet optimized; full262144-token prompt throughput/quality is unvalidated. Capacity is not a promise of fast full-length service. Tokenization, scheduling and greedy sampling remain host work; model graph CPU fallback is disabled.\n\nThe raw SMI counter may report0; physical HBM allocator bytes are not established by that counter. SMI diagnosis is outside this release's completion scope.\n",
-        "short_description": "RNGD BF16 paged KV: configured262144 context; real610-token history verified, full-length prefill not benchmarked.",
-        "source_license": "Apache-2.0",
-        "source_repo": "RedHatAI/Qwen3.5-9B-FP8-dynamic",
-        "source_revision": "790f0576d2d77dd5322aa0603a470bd9e3a3d1f6"
-      },
-      "release": {
-        "adapter": "qwen35_replay",
-        "artifact_url": "https://huggingface.co/softandsweet/redhatai-qwen3-5-9b-fp8-dynamic-rngd-fxbex/resolve/2f17001491070dec5d9f6b02ae877b874eadbb00/releases/ctx262k-v1/229f330733b2d80d9f1b3af4a528830c459aa81593ec2e2929f4a1b8fa082866/model.fxbex",
-        "author_sha256": "229f330733b2d80d9f1b3af4a528830c459aa81593ec2e2929f4a1b8fa082866",
-        "precision": "BF16",
-        "runtime_version": "0.6.1",
-        "sdk_version": "2026.4.0",
-        "target": "Furiosa RNGD",
-        "version": "ctx262k-v1",
-        "weights_mode": "standalone"
-      },
-      "schema_version": 1
-    },
-    {
-      "model": {
-        "category": "Computer Vision",
-        "cover_url": "",
-        "name": "YOLO11n RNGD FXBEX (640, portable)",
-        "package_license": "AGPL-3.0 weights; bundled source has no separate license; SDK host terms apply",
-        "readme": "YOLO11n 객체 감지 모델을 Furiosa RNGD SDK 2026.4.0용 FXBEX로 묶었습니다. 입력은 RGB 640x640, batch 1입니다. 결과에는 감지 상자, 클래스 ID, 점수가 포함됩니다.\n\n이 standalone 패키지에는 ONNX 가중치, 90개 저장된 Runnable, 실행에 필요한 YOLO 어댑터와 컴파일러 보조 모듈이 들어 있습니다. `LICENSE-AGPL-3.0.txt`는 원본 YOLO 가중치 라이선스 전문입니다. 함께 포함된 프로젝트 소스에는 별도의 라이선스가 없으며, Furiosa SDK 호스트 구성요소는 해당 SDK 조건을 따릅니다.\n\n호스트는 Furiosa SDK 2026.4.0, FXBEX 0.4.0, ONNX 1.17.0, onnx2torch 1.5.15, torchvision, NumPy, Pillow가 필요합니다. 상세 실행 예시는 패키지의 `USAGE.txt`를 참고하세요.",
-        "short_description": "YOLO11n 640x640 object detection package for Furiosa RNGD with 90 saved SDK Runnables.",
-        "source_license": "AGPL-3.0",
-        "source_repo": "giangndm/yolo11-onnx",
-        "source_revision": "8b180c762d5cf217886d16e64403508042207e4d"
-      },
-      "release": {
-        "adapter": "yolo11n640_portable",
-        "artifact_url": "https://huggingface.co/softandsweet/giangndm-yolo11-onnx-rngd-fxbex/resolve/a90ba55456e501f15d0d4ec38d94f22d65fc4016/releases/2026.4.0-opt3-minimal1/cac265de482649f3aa020ceed99a3391daee10ab2d4fe7e8768ad685dc3a078d/model.fxbex",
-        "author_sha256": "cac265de482649f3aa020ceed99a3391daee10ab2d4fe7e8768ad685dc3a078d",
-        "precision": "Mixed",
-        "runtime_version": "2026.4.0",
-        "sdk_version": "2026.4.0",
-        "target": "Furiosa RNGD",
-        "version": "2026.4.0-opt3-minimal1",
-        "weights_mode": "standalone"
-      },
-      "schema_version": 1
-    },
-    {
       "schema_version": 1,
       "model": {
         "name": "stabilityai/sdxl-turbo",
@@ -161,56 +55,6 @@
         "author_sha256": "2764d996e37745e5c25991a679f3f1bbb2848547079baa4ccb9c06d5d50874f3",
         "artifact_url": "https://huggingface.co/softandsweet/stabilityai-sdxl-turbo-rngd-fxbex/resolve/fdeb45cef8c18f92055d40df7231f3f33a56a71b/releases/2026.4.0-sdxl-turbo-fxbx1/2764d996e37745e5c25991a679f3f1bbb2848547079baa4ccb9c06d5d50874f3/SDXL-Turbo.fxbx"
       }
-    },
-    {
-      "model": {
-        "category": "Computer Vision",
-        "cover_url": "",
-        "name": "YOLO11n RNGD FXBEX (640, portable)",
-        "package_license": "AGPL-3.0 weights; bundled source has no separate license; SDK host terms apply",
-        "readme": "YOLO11n 객체 감지 모델을 Furiosa RNGD SDK 2026.4.0용 FXBEX로 묶었습니다. 입력은 RGB 640x640, batch 1입니다. 결과에는 감지 상자, 클래스 ID, 점수가 포함됩니다.\n\n이 standalone 패키지에는 ONNX 가중치, 90개 저장된 Runnable, 실행에 필요한 YOLO 어댑터와 컴파일러 보조 모듈이 들어 있습니다. `LICENSE-AGPL-3.0.txt`는 원본 YOLO 가중치 라이선스 전문입니다. 함께 포함된 프로젝트 소스에는 별도의 라이선스가 없으며, Furiosa SDK 호스트 구성요소는 해당 SDK 조건을 따릅니다.\n\n호스트는 Furiosa SDK 2026.4.0, FXBEX 0.4.0, ONNX 1.17.0, onnx2torch 1.5.15, torchvision, NumPy, Pillow가 필요합니다. 상세 실행 예시는 패키지의 `USAGE.txt`를 참고하세요.\n\nThis release includes io_contract and a self-contained example for fxbex run. Metadata/example static checks passed; fresh NPU rerun is pending because the device is occupied.",
-        "short_description": "YOLO11n 640x640 object detection package for Furiosa RNGD with 90 saved SDK Runnables.",
-        "source_license": "AGPL-3.0",
-        "source_repo": "giangndm/yolo11-onnx",
-        "source_revision": "8b180c762d5cf217886d16e64403508042207e4d"
-      },
-      "release": {
-        "adapter": "yolo11n640_portable",
-        "artifact_url": "https://huggingface.co/softandsweet/giangndm-yolo11-onnx-rngd-fxbex/resolve/5b6604c64477d3d518ab6a15070ab78d6005998c/releases/2026.4.0-opt3-sample1/4d52ac8d4f672be214505866b0e6129b4d17642194fbd49e2a9ce1989d46d55b/yolo11-onnx.fxbex",
-        "author_sha256": "4d52ac8d4f672be214505866b0e6129b4d17642194fbd49e2a9ce1989d46d55b",
-        "precision": "Mixed",
-        "runtime_version": "2026.4.0",
-        "sdk_version": "2026.4.0",
-        "target": "Furiosa RNGD",
-        "version": "2026.4.0-opt3-sample1",
-        "weights_mode": "standalone"
-      },
-      "schema_version": 1
-    },
-    {
-      "model": {
-        "category": "3D",
-        "cover_url": "",
-        "name": "stabilityai/TripoSR",
-        "package_license": "MIT model/weights; bundled adapter license undeclared",
-        "readme": "Requires Furiosa RNGD, SDK 2026.4.0, the current FXBEX main runtime, xatlas 0.0.11, moderngl 5.13.0 and a headless EGL runtime (Ubuntu: libegl1 libegl-mesa0). The packaged example input is samples/robot.png and predict requires JSON fields image and output; inspect the exact contract with `fxbex describe model.fxbex` and extract the example with `fxbex sample model.fxbex`. It produces a 64-resolution GLB mesh with a 2048px UV texture. NPU replay was verified with zero compiler calls and zero SDK CPU fallback. CPU/NPU RGB and final mesh pass the 1e-4 comparison, but triplane and 52/262144 density values exceed that gate, so this is an experimental release rather than full numerical acceptance.",
-        "short_description": "Experimental standalone TripoSR image-to-textured-GLB package for Furiosa RNGD.",
-        "source_license": "MIT",
-        "source_repo": "stabilityai/TripoSR",
-        "source_revision": "5b521936b01fbe1890f6f9baed0254ab6351c04a"
-      },
-      "release": {
-        "adapter": "triposr_replay",
-        "artifact_url": "https://huggingface.co/softandsweet/stabilityai-triposr-rngd-fxbex/resolve/c2f9a8cb81cd0df85f7105192bf85678c968dd34/releases/0.2.0-experimental-textured/bb4a82470e43f293c01add8b08e698aca45ed14cb882fbea9eb6dcae73f3543f/model.fxbex",
-        "author_sha256": "bb4a82470e43f293c01add8b08e698aca45ed14cb882fbea9eb6dcae73f3543f",
-        "precision": "FP32",
-        "runtime_version": "main@fad9892c01faf00a119f577c1b71eb361928e156",
-        "sdk_version": "2026.4.0",
-        "target": "Furiosa RNGD",
-        "version": "0.2.0-experimental-textured",
-        "weights_mode": "standalone"
-      },
-      "schema_version": 1
     }
   ],
   "candidates": []
