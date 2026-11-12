@@ -3,7 +3,7 @@ import json,re,sys
 from pathlib import Path
 ROOT=Path(__file__).resolve().parents[1]
 REPO=re.compile(r'[A-Za-z0-9][A-Za-z0-9_.-]*/[A-Za-z0-9][A-Za-z0-9_.-]*')
-HF=re.compile(r'https://huggingface\.co/[A-Za-z0-9][A-Za-z0-9_.-]*/[A-Za-z0-9][A-Za-z0-9_.-]*/resolve/[0-9a-f]{40}/[A-Za-z0-9_./-]+\.fxbex')
+HF=re.compile(r'https://huggingface\.co/[A-Za-z0-9][A-Za-z0-9_.-]*/[A-Za-z0-9][A-Za-z0-9_.-]*/resolve/[0-9a-f]{40}/[A-Za-z0-9_./-]+\.fxb(?:x|ex)')
 SHA40=re.compile(r'[0-9a-f]{40}')
 SHA64=re.compile(r'[0-9a-f]{64}')
 START='<!-- furyawesome:models:start -->'
@@ -12,7 +12,7 @@ def validate(root=ROOT):
     readme=(root/'README.md').read_text()
     if readme.count(START)!=1 or readme.count(END)!=1:raise ValueError('README markers absent or repeated')
     data=json.loads((root/'catalog.json').read_text())
-    if set(data)!={'schema_version','source','models','candidates'} or data['schema_version']!=1 or data['source']!='smallstep-zzz/furyawesome':raise ValueError('Invalid catalog contract')
+    if set(data)-{'release_order'}!={'schema_version','source','models','candidates'} or data['schema_version']!=1 or data['source']!='smallstep-zzz/furyawesome':raise ValueError('Invalid catalog contract')
     entries=[json.loads(p.read_text()) for p in sorted((root/'models').glob('*.json'))]
     for x in entries:
         if set(x)!={'schema_version','model','release'} or x['schema_version']!=1:raise ValueError('Invalid model entry schema')
