@@ -4,7 +4,8 @@
   "release_order": [
     "black-forest-labs/FLUX.2-klein-4B@2026.4.0-klein4b-fxbx1#9f5377b386f2125ac087b1a858a4ab859e79abb9d2a3a2a500e6221eac1f8724",
     "stabilityai/sdxl-turbo@2026.4.0-sdxl-turbo-fxbx1#2764d996e37745e5c25991a679f3f1bbb2848547079baa4ccb9c06d5d50874f3",
-    "giangndm/yolo11-onnx@2026.4.0-opt3-fxbx1#d40ec9f9fc18c8cb5ad247513859ea130938ec09527bb99527d109e0899511b8"
+    "giangndm/yolo11-onnx@2026.4.0-opt3-fxbx1#d40ec9f9fc18c8cb5ad247513859ea130938ec09527bb99527d109e0899511b8",
+    "stabilityai/TripoSR@2026.4.0-vision-fxbx1#67aabf1557b7f6c82810bf33a0aa6aeb6753990b99ac74278f5cc7c5a874d8e2"
   ],
   "models": [
     {
@@ -80,6 +81,31 @@
         "weights_mode": "standalone",
         "author_sha256": "2764d996e37745e5c25991a679f3f1bbb2848547079baa4ccb9c06d5d50874f3",
         "artifact_url": "https://huggingface.co/softandsweet/stabilityai-sdxl-turbo-rngd-fxbex/resolve/fdeb45cef8c18f92055d40df7231f3f33a56a71b/releases/2026.4.0-sdxl-turbo-fxbx1/2764d996e37745e5c25991a679f3f1bbb2848547079baa4ccb9c06d5d50874f3/SDXL-Turbo.fxbx"
+      }
+    },
+    {
+      "schema_version": 1,
+      "model": {
+        "category": "3D",
+        "cover_url": "",
+        "name": "stabilityai/TripoSR",
+        "package_license": "MIT model/weights; bundled adapter license undeclared",
+        "readme": "VisionModel 컴파일러 힌트를 적용한 이미지→3D 실험용 모델입니다. 배포 파일에서 텍스처를 포함한 샘플 GLB 생성을 검증했습니다. 실행 환경에는 Transformers 4.35.0, xatlas 0.0.11, moderngl, glcontext 및 EGL이 필요합니다. CPU 기준의 엄격한 중간 텐서 오차 검증에는 알려진 편차가 있습니다.",
+        "short_description": "VisionModel 컴파일러 힌트를 적용한 이미지→3D 실험용 모델입니다.",
+        "source_license": "MIT",
+        "source_repo": "stabilityai/TripoSR",
+        "source_revision": "5b521936b01fbe1890f6f9baed0254ab6351c04a"
+      },
+      "release": {
+        "adapter": "triposr_replay",
+        "precision": "FP32",
+        "runtime_version": "0.8.3",
+        "sdk_version": "2026.4.0",
+        "target": "Furiosa RNGD",
+        "version": "2026.4.0-vision-fxbx1",
+        "weights_mode": "standalone",
+        "author_sha256": "67aabf1557b7f6c82810bf33a0aa6aeb6753990b99ac74278f5cc7c5a874d8e2",
+        "artifact_url": "https://huggingface.co/softandsweet/stabilityai-triposr-rngd-fxbex/resolve/de9138f6a7d4d40a0ba29ea2f3cd24cd8bab8d24/releases/2026.4.0-vision-fxbx1/67aabf1557b7f6c82810bf33a0aa6aeb6753990b99ac74278f5cc7c5a874d8e2/TripoSR.fxbx"
       }
     }
   ],
