@@ -3,7 +3,8 @@
   "source": "smallstep-zzz/furyawesome",
   "release_order": [
     "black-forest-labs/FLUX.2-klein-4B@2026.4.0-klein4b-fxbx1#9f5377b386f2125ac087b1a858a4ab859e79abb9d2a3a2a500e6221eac1f8724",
-    "stabilityai/sdxl-turbo@2026.4.0-sdxl-turbo-fxbx1#2764d996e37745e5c25991a679f3f1bbb2848547079baa4ccb9c06d5d50874f3"
+    "stabilityai/sdxl-turbo@2026.4.0-sdxl-turbo-fxbx1#2764d996e37745e5c25991a679f3f1bbb2848547079baa4ccb9c06d5d50874f3",
+    "giangndm/yolo11-onnx@2026.4.0-opt3-fxbx1#d40ec9f9fc18c8cb5ad247513859ea130938ec09527bb99527d109e0899511b8"
   ],
   "models": [
     {
@@ -29,6 +30,31 @@
         "weights_mode": "standalone",
         "author_sha256": "9f5377b386f2125ac087b1a858a4ab859e79abb9d2a3a2a500e6221eac1f8724",
         "artifact_url": "https://huggingface.co/softandsweet/black-forest-labs-flux-2-klein-4b-rngd-fxbex/resolve/57aa0bef31f963de10edd84f803ea2f0c5475be6/releases/2026.4.0-klein4b-fxbx1/9f5377b386f2125ac087b1a858a4ab859e79abb9d2a3a2a500e6221eac1f8724/FLUX.2-klein-4B.fxbx"
+      }
+    },
+    {
+      "schema_version": 1,
+      "model": {
+        "category": "Computer Vision",
+        "cover_url": "",
+        "name": "YOLO11n RNGD FXBEX (640, portable)",
+        "package_license": "AGPL-3.0 weights; bundled source has no separate license; SDK host terms apply",
+        "readme": "합성곱과 활성화 융합, 연속 입력 레이아웃을 적용한 YOLO11n입니다. 640×640 단일 이미지의 탐지 결과를 검증했습니다.",
+        "short_description": "합성곱과 활성화 융합, 연속 입력 레이아웃을 적용한 YOLO11n입니다.",
+        "source_license": "AGPL-3.0",
+        "source_repo": "giangndm/yolo11-onnx",
+        "source_revision": "8b180c762d5cf217886d16e64403508042207e4d"
+      },
+      "release": {
+        "adapter": "yolo11n640_portable",
+        "precision": "Mixed",
+        "runtime_version": "0.8.3",
+        "sdk_version": "2026.4.0",
+        "target": "Furiosa RNGD",
+        "version": "2026.4.0-opt3-fxbx1",
+        "weights_mode": "standalone",
+        "author_sha256": "d40ec9f9fc18c8cb5ad247513859ea130938ec09527bb99527d109e0899511b8",
+        "artifact_url": "https://huggingface.co/softandsweet/giangndm-yolo11-onnx-rngd-fxbex/resolve/2036bc00de68e753ac2c247ccae39bb4de5de8fe/releases/2026.4.0-opt3-fxbx1/d40ec9f9fc18c8cb5ad247513859ea130938ec09527bb99527d109e0899511b8/yolo11-onnx.fxbx"
       }
     },
     {
