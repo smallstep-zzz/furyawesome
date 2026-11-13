@@ -6,7 +6,8 @@
     "stabilityai/sdxl-turbo@2026.4.0-sdxl-turbo-fxbx1#2764d996e37745e5c25991a679f3f1bbb2848547079baa4ccb9c06d5d50874f3",
     "giangndm/yolo11-onnx@2026.4.0-opt3-fxbx1#d40ec9f9fc18c8cb5ad247513859ea130938ec09527bb99527d109e0899511b8",
     "stabilityai/TripoSR@2026.4.0-vision-fxbx1#67aabf1557b7f6c82810bf33a0aa6aeb6753990b99ac74278f5cc7c5a874d8e2",
-    "SupersonicLabs/Julia-1@2026.4.0-choice40-fxbx1#f0d220719b0366e3ab301f5fdd8cfe765f2dc76a873e553805cef4e277d0ef43"
+    "SupersonicLabs/Julia-1@2026.4.0-choice40-fxbx1#f0d220719b0366e3ab301f5fdd8cfe765f2dc76a873e553805cef4e277d0ef43",
+    "convaiinnovations/laya-typed-decisions@2026.4.0-choice42-fxbx1#28888f0abc781f6b028cccb26be60e558f74422b5416694fc835eadc6db5596d"
   ],
   "models": [
     {
@@ -132,6 +133,31 @@
         "weights_mode": "standalone",
         "author_sha256": "67aabf1557b7f6c82810bf33a0aa6aeb6753990b99ac74278f5cc7c5a874d8e2",
         "artifact_url": "https://huggingface.co/softandsweet/stabilityai-triposr-rngd-fxbex/resolve/de9138f6a7d4d40a0ba29ea2f3cd24cd8bab8d24/releases/2026.4.0-vision-fxbx1/67aabf1557b7f6c82810bf33a0aa6aeb6753990b99ac74278f5cc7c5a874d8e2/TripoSR.fxbx"
+      }
+    },
+    {
+      "schema_version": 1,
+      "model": {
+        "name": "Laya Typed-Decisions",
+        "short_description": "42토큰·선택지 3개의 의사결정 프로필을 Furiosa RNGD에서 실행합니다.",
+        "readme": "FP32 전체 실행 계획을 5번 RNGD에서 5회 검증했습니다. 매회 NPU 단계 7,126개, CPU 폴백 및 재컴파일 0건이며 프로파일링 구간은 0.88–1.00초였습니다. 외부 가중치와 동봉된 Python 예제가 필요합니다. [설치 및 실행](https://huggingface.co/softandsweet/convaiinnovations-laya-typed-decisions-rngd-fxbx/blob/46163265e171c549be84893ed2d1cfc20b137dd0/README.md)",
+        "category": "Other",
+        "source_repo": "convaiinnovations/laya-typed-decisions",
+        "source_revision": "e929ae5cf69bc34259cd2f95c9e91145b818b1f0",
+        "source_license": "Apache-2.0",
+        "package_license": "Apache-2.0",
+        "cover_url": ""
+      },
+      "release": {
+        "version": "2026.4.0-choice42-fxbx1",
+        "target": "Furiosa RNGD",
+        "precision": "FP32",
+        "sdk_version": "2026.4.0",
+        "runtime_version": "0.8.3",
+        "adapter": "execution_plan",
+        "weights_mode": "external",
+        "author_sha256": "28888f0abc781f6b028cccb26be60e558f74422b5416694fc835eadc6db5596d",
+        "artifact_url": "https://huggingface.co/softandsweet/convaiinnovations-laya-typed-decisions-rngd-fxbx/resolve/46163265e171c549be84893ed2d1cfc20b137dd0/Laya-Typed-Decisions.fxbx"
       }
     }
   ],
