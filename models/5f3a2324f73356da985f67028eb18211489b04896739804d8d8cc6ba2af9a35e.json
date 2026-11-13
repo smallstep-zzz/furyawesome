@@ -1,0 +1,25 @@
+{
+  "schema_version": 1,
+  "model": {
+    "name": "all-MiniLM-L6-v2",
+    "short_description": "최대 16토큰 문장 임베딩 인코더",
+    "readme": "최대 16토큰 문장 임베딩 인코더. 별도 가중치와 동봉 Python 예제로 재실행할 수 있습니다. [사용법](https://huggingface.co/softandsweet/sentence-transformers-all-minilm-l6-v2-rngd-fxbx/blob/2720858d12c28d73aedb6b78e9a23b2518b81d43/USAGE.md)",
+    "category": "Other",
+    "source_repo": "sentence-transformers/all-MiniLM-L6-v2",
+    "source_revision": "1110a243fdf4706b3f48f1d95db1a4f5529b4d41",
+    "source_license": "Apache-2.0",
+    "package_license": "Apache-2.0",
+    "cover_url": ""
+  },
+  "release": {
+    "version": "2026.4.0-embed16-fxbx1",
+    "target": "Furiosa RNGD",
+    "precision": "BF16",
+    "sdk_version": "2026.4.0",
+    "runtime_version": "0.8.3",
+    "adapter": "execution_plan",
+    "weights_mode": "external",
+    "author_sha256": "d060ad42ac0ef293ee3e67608b087c16ecc06a4098c1ecba7289d3ed56040824",
+    "artifact_url": "https://huggingface.co/softandsweet/sentence-transformers-all-minilm-l6-v2-rngd-fxbx/resolve/2720858d12c28d73aedb6b78e9a23b2518b81d43/all-MiniLM-L6-v2.fxbx"
+  }
+}
