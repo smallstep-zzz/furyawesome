@@ -54,7 +54,11 @@ python -m pip install --upgrade "fxbx[weights]>=0.8.4" requests
 
 결제 문의의 선택과 확률을 표시합니다.
 
-Furiosa Torch/TCC 2026.4.0, Torch 2.10.0+cpu, Transformers 5.20.2가 필요합니다.
+Furiosa Torch/TCC 2026.4.0, Torch 2.10.0+cpu, Transformers 5.20.2가 필요합니다. 릴리스 검증에 사용한 fxbX가 필요하면 아래 명령으로 설치합니다.
+
+```bash
+python -m pip install "fxbx[weights] @ git+https://github.com/smallstep-zzz/fxbX.git@790106499cc0767e73637e1cbb84ad1c07e8e851"
+```
 
 ## 모델 범위
 
