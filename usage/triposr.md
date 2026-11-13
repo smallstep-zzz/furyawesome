@@ -18,7 +18,7 @@ source .venv-triposr/bin/activate
 python --version
 python -m pip install --index-url https://download.pytorch.org/whl/cpu torch==2.10.0+cpu
 python -m pip install --only-binary=tokenizers \
-  'fxbx @ git+https://github.com/smallstep-zzz/fxbX.git@ea2b501' \
+  'fxbx @ git+https://github.com/smallstep-zzz/fxbX.git@9cfc771' \
   'furiosa-torch==2026.4.0' 'furiosa-tcc==2026.4.0' \
   'transformers==4.40.2' 'huggingface-hub==0.36.2' \
   trimesh scikit-image einops omegaconf xatlas moderngl requests

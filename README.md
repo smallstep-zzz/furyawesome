@@ -21,7 +21,7 @@ fxbx run FLUX.2-klein-4B --sample
 | [yolo11-onnx](https://huggingface.co/softandsweet/giangndm-yolo11-onnx-rngd-fxbex) | 컴퓨터 비전 | 2026.4.0-opt3-fxbx1-compat1 | Mixed / 2026.4.0 | AGPL-3.0 · [상세](models/133242d04a43111c1e261aa165c6f5c20bc275356185c13269e062f8ee911174.json) | [예제](usage/yolo11-onnx.md) | [모델 파일](https://huggingface.co/softandsweet/giangndm-yolo11-onnx-rngd-fxbex/resolve/19256433b820f68e3934a49451b64952c9c0ce3f/releases/2026.4.0-opt3-fxbx1-compat1/504f9df65809be73602475493ebfe0b816e3a256e7c3c876533af3db6fef9e72/yolo11-onnx.fxbx) |
 | [sdxl-turbo](https://huggingface.co/softandsweet/stabilityai-sdxl-turbo-rngd-fxbex) | 이미지 생성 | 2026.4.0-sdxl-turbo-fxbx1-compat1 | BF16 / 2026.4.0 | Stability AI Community License · [상세](models/9070a230bb9035fdf5ccee351137fff1b1b4f815bd5761d913354f8cac676d93.json) | [예제](usage/sdxl-turbo.md) | [모델 파일](https://huggingface.co/softandsweet/stabilityai-sdxl-turbo-rngd-fxbex/resolve/d1ea7e6869c5212cdca79f0734eb7ad2c46ca497/releases/2026.4.0-sdxl-turbo-fxbx1-compat1/457b0cce4875248002a3651ff1cce19799b6edf86c76c2fc8639d4177779f7b0/SDXL-Turbo.fxbx) |
 | [FLUX.2-klein-4B](https://huggingface.co/softandsweet/black-forest-labs-flux-2-klein-4b-rngd-fxbex) | 이미지 생성 | 2026.4.0-klein4b-fxbx1-compat1 | BF16 / 2026.4.0 | Apache-2.0 · [상세](models/4d023041150cfc0168b39d76e654fad55a7038ddf31b6e4dde2d90ecf381924a.json) | [예제](usage/flux.2-klein-4b.md) | [모델 파일](https://huggingface.co/softandsweet/black-forest-labs-flux-2-klein-4b-rngd-fxbex/resolve/5223781896b1b3641d66be3404411003dc020c99/releases/2026.4.0-klein4b-fxbx1-compat1/cce7b067ed2f992fadb4eea4f019efde224cdb490e8342e0a278dd190730afe9/FLUX.2-klein-4B.fxbx) |
-| [all-MiniLM-L6-v2](https://huggingface.co/softandsweet/sentence-transformers-all-minilm-l6-v2-rngd-fxbx) | 문장 임베딩 | 2026.4.0-embed16-fxbx1 | BF16 / 2026.4.0 | Apache-2.0 · [상세](models/5f3a2324f73356da985f67028eb18211489b04896739804d8d8cc6ba2af9a35e.json) | [Python 예제·가중치](https://huggingface.co/softandsweet/sentence-transformers-all-minilm-l6-v2-rngd-fxbx/blob/2720858d12c28d73aedb6b78e9a23b2518b81d43/USAGE.md) | [모델 파일](https://huggingface.co/softandsweet/sentence-transformers-all-minilm-l6-v2-rngd-fxbx/resolve/2720858d12c28d73aedb6b78e9a23b2518b81d43/all-MiniLM-L6-v2.fxbx) |
+| [all-MiniLM-L6-v2](https://huggingface.co/softandsweet/sentence-transformers-all-minilm-l6-v2-rngd-fxbx) | 문장 임베딩 | 2026.4.0-embed16-fxbx1 | BF16 / 2026.4.0 | Apache-2.0 · [상세](models/5f3a2324f73356da985f67028eb18211489b04896739804d8d8cc6ba2af9a35e.json) | [예제](usage/all-minilm-l6-v2.md) | [모델 파일](https://huggingface.co/softandsweet/sentence-transformers-all-minilm-l6-v2-rngd-fxbx/resolve/2720858d12c28d73aedb6b78e9a23b2518b81d43/all-MiniLM-L6-v2.fxbx) |
 | [Laya Typed-Decisions](https://huggingface.co/softandsweet/convaiinnovations-laya-typed-decisions-rngd-fxbx) | 의사결정 | 2026.4.0-choice42-fxbx2 | FP32 / 2026.4.0 | Apache-2.0 · [상세](models/89754425b4094e22288f971a0afa600e3d7013bbad06f8991abba30ebaa306fe.json) | [예제](usage/laya-typed-decisions.md) | [모델 파일](https://huggingface.co/softandsweet/convaiinnovations-laya-typed-decisions-rngd-fxbx/resolve/e8703c9d2af850dce1d23ac125441e95cf9668bb/Laya-Typed-Decisions.fxbx) |
 
 <!-- furyawesome:models:end -->
@@ -31,10 +31,9 @@ fxbx run FLUX.2-klein-4B --sample
 
 **준비물:** Furiosa RNGD 서버(Linux), 해당 서버에서 동작하는 Furiosa 드라이버·SDK, Python 환경, 모델을 받을 디스크 공간이 필요합니다. `fxbx`는 SDK·드라이버를 대신 설치하지 않으며, 각 모델에 필요한 어댑터와 라이선스도 확인해야 합니다.
 
-먼저 RNGD 서버에서 설치와 모델 실행을 확인합니다.
+모델별 **예제**에서 Python·SDK와 의존성을 먼저 설치합니다. FLUX.2 예제 환경에서 다음 명령으로 실행합니다.
 
 ```bash
-python -m pip install --upgrade fxbx
 fxbx doctor
 fxbx run FLUX.2-klein-4B --sample
 ```
