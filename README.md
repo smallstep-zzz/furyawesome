@@ -8,7 +8,6 @@ Furiosa RNGD에서 사용할 수 있는 fxbX 모델을 모아 놓은 카탈로�
 ```bash
 pip install --upgrade fxbx
 fxbx run FLUX.2-klein-4B --sample
-fxbx run sdxl-turbo --sample
 ```
 
 표에 등록한 모델은 Furiosa RNGD에서 각 패키지의 샘플 실행을 검증했습니다. 프롬프트를 지정하는 방법은 표의 **사용법**을 참고하세요.
@@ -23,6 +22,86 @@ fxbx run sdxl-turbo --sample
 | [FLUX.2-klein-4B](https://huggingface.co/softandsweet/black-forest-labs-flux-2-klein-4b-rngd-fxbex) | 이미지 생성 | 2026.4.0-klein4b-fxbx1 | BF16 / 2026.4.0 | Apache-2.0 · [상세](models/0f7b0d97e9fb510cbe1c4d001df893e0037fa898073bc7bbc67c14e087d1df6a.json) | [예제](https://huggingface.co/softandsweet/black-forest-labs-flux-2-klein-4b-rngd-fxbex/blob/57aa0bef31f963de10edd84f803ea2f0c5475be6/releases/2026.4.0-klein4b-fxbx1/9f5377b386f2125ac087b1a858a4ab859e79abb9d2a3a2a500e6221eac1f8724/USAGE.md) | [모델 파일](https://huggingface.co/softandsweet/black-forest-labs-flux-2-klein-4b-rngd-fxbex/resolve/57aa0bef31f963de10edd84f803ea2f0c5475be6/releases/2026.4.0-klein4b-fxbx1/9f5377b386f2125ac087b1a858a4ab859e79abb9d2a3a2a500e6221eac1f8724/FLUX.2-klein-4B.fxbx) |
 
 <!-- furyawesome:models:end -->
+
+
+## 처음 사용하는 분을 위한 fxbX 빠른 시작
+
+**준비물:** Furiosa RNGD 서버(Linux), 해당 서버에서 동작하는 Furiosa 드라이버·SDK, Python 환경, 모델을 받을 디스크 공간이 필요합니다. `fxbx`는 SDK·드라이버를 대신 설치하지 않으며, 각 모델에 필요한 어댑터와 라이선스도 확인해야 합니다.
+
+먼저 RNGD 서버에서 설치와 모델 실행을 확인합니다.
+
+```bash
+python -m pip install --upgrade fxbx
+fxbx doctor
+fxbx run FLUX.2-klein-4B --sample
+```
+
+모델 이름은 위 표에서 확인합니다. 첫 실행 시 모델 다운로드 및 NPU 적재에 시간이 걸릴 수 있습니다. `fxbx run`의 `--sample`은 **등록된 샘플 입력으로 한 번 실행**하는 옵션입니다.
+
+### 예제 1 — 이미지 생성 모델을 HTTP로 서빙하고 Python에서 호출하기
+
+RNGD 서버에서 모델을 상주시킵니다.
+
+```bash
+fxbx serve FLUX.2-klein-4B --port 8000
+```
+
+서버에 접속한 **다른 터미널**에서 Python으로 요청합니다.
+
+```python
+import requests
+
+response = requests.post(
+    "http://127.0.0.1:8000/predict",
+    json={"prompt": "A small penguin on a sunny island"},
+    timeout=300,
+)
+response.raise_for_status()
+print(response.json())  # 결과 형식과 이미지 저장 경로는 모델 어댑터별로 다릅니다.
+```
+
+기본 서버는 `127.0.0.1`에만 바인딩합니다. 원격 PC에서는 SSH 포트 포워딩을 사용하세요. `/predict`는 모델이 지원하는 입력 계약에 맞춰 호출해야 하며, 모든 모델에 동일한 API가 적용되는 것은 아닙니다.
+
+### 예제 2 — Python에서 이미지 직접 생성하기
+
+```bash
+fxbx fetch FLUX.2-klein-4B
+```
+
+`fetch`가 출력하는 실제 패키지 경로를 아래에 지정합니다.
+
+```python
+from fxbx import ImageGeneration
+
+package = "/path/to/downloaded/FLUX.2-klein-4B.fxbx"
+with ImageGeneration(package) as model:
+    result = model.generate(
+        "A watercolor illustration of a penguin in a garden",
+        seed=42,
+    )
+    print(result)  # 이미지 파일 또는 결과 위치는 패키지 어댑터 계약에 따릅니다.
+```
+
+이 API는 이미지 생성 파이프라인을 위한 **Python 인터페이스**입니다. 내부 NPU 계산과 이미지 디코딩·저장 작업은 모델 어댑터가 처리합니다.
+
+### 예제 3 — PyTorch 텐서로 컴파일된 모델 호출하기
+
+입출력이 텐서로 정의된 fxbX 패키지라면 `torch.nn.Module` 형태로도 사용할 수 있습니다.
+
+```python
+import torch
+from fxbx import as_torch
+
+package = "/path/to/tensor-model.fxbx"  # 텐서 입출력을 지원하는 패키지
+with as_torch(package, output_device="cpu") as model:
+    x = torch.randn(1, 3, 224, 224)  # 실제 입력 shape·dtype는 모델 계약에 맞추세요.
+    output = model(x)
+    print(output)
+```
+
+`as_torch()`는 **추론 전용**이며, 해당 패키지에 `predict_tensors` 어댑터가 있어야 합니다. 모델에 따라 입력이 여러 개일 수 있으므로 표의 **사용법**과 `fxbx describe <패키지>`로 입출력을 먼저 확인하세요. 일반적인 FLUX/SDXL 이미지 생성 파이프라인 전체가 이 API로 바로 실행되는 것은 아닙니다. 이미지 생성에는 위의 `ImageGeneration`을 사용하세요.
+
+> **패키지 형식:** fxbX 패키지는 `.fxbx`(과거 `.fxbex`)이며, Furiosa의 공식 `.fxb` 파일과는 다릅니다. 공식 FXB는 `furiosa_llm` 등 해당 공식 런타임으로 실행합니다.
 
 - 호환되는 Furiosa RNGD 하드웨어·드라이버·SDK가 필요합니다. 모델별 환경과 추가 의존성은 HF 안내를 따르세요.
 - 원본·패키지 라이선스와 검증 범위는 각 모델의 상세 정보에서 확인하세요.
