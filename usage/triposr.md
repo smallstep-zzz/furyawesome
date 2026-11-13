@@ -2,67 +2,59 @@
 
 ## 1. 샘플 실행
 
+Linux의 Furiosa RNGD 서버에서 실행합니다. Furiosa Torch 2026.4.0, PyTorch 2.10.0+cpu와 호환 드라이버가 필요합니다. 검증 환경은 Transformers 4.40.2와 Mesa EGL을 사용했습니다.
+
+Ubuntu 22.04에서 EGL이 없다면 시스템에 설치합니다.
+
 ```bash
-fxbx run TripoSR --sample
+sudo apt-get install libegl1-mesa-dev libegl-mesa0 libgl1-mesa-dri
 ```
 
-동봉된 이미지로 3D 모델을 만들고 결과 경로를 표시합니다. 첫 실행에 필요한 모델은 fxbX가 받아 캐시에 저장합니다.
+TripoSR 전용 Python 환경에서 실행합니다.
+
+```bash
+python -m pip install 'fxbx @ git+https://github.com/smallstep-zzz/fxbX.git@ea2b501'
+python -m pip install 'transformers==4.40.2' 'huggingface-hub==0.36.2' \
+  trimesh scikit-image einops omegaconf xatlas moderngl requests
+fxbx run TripoSR --sample -o result.json
+```
+
+동봉된 로봇 이미지로 텍스처가 포함된 GLB를 만듭니다. GLB와 텍스처 경로는 각각 `result.json`의 `mesh`와 `texture`에 기록됩니다. 다운로드만 하려면 `fxbx fetch TripoSR`을 실행하세요.
 
 ## 2. 서빙하고 Python으로 호출
 
-첫 번째 터미널에서 모델을 서빙합니다.
+RNGD 서버의 첫 번째 터미널에서 모델을 서빙합니다.
 
 ```bash
 fxbx serve TripoSR --port 8000
 ```
 
-서버가 준비되면 같은 서버의 다른 터미널에서 아래 Python 코드를 실행합니다. `requests`가 필요합니다. 짧은 응답은 터미널에 표시하고, 2,000자를 넘으면 현재 폴더에 저장합니다.
+같은 서버의 두 번째 터미널에서 Python으로 호출합니다.
 
 ```python
 from pathlib import Path
-import json
-import requests
-from shutil import copyfile
+from tempfile import mkdtemp
 from zipfile import ZipFile
+
+import requests
 from fxbex.hub import resolve_package
 
-with ZipFile(resolve_package('TripoSR')) as package:
-    Path('input-1-robot.png').write_bytes(package.read('samples/robot.png'))
+image = Path("robot.png").resolve()
+with ZipFile(resolve_package("TripoSR")) as package:
+    image.write_bytes(package.read("samples/robot.png"))
 
-payload = {'image': str(Path('input-1-robot.png').resolve()), 'output': './triposr-output'}
-from tempfile import mkdtemp
-payload["output"] = mkdtemp(prefix="model-output-", dir=Path.cwd())
-
+output = mkdtemp(prefix="triposr-", dir=Path.cwd())
 response = requests.post(
-    "http://127.0.0.1:8000/predict", json=payload, timeout=300,
+    "http://127.0.0.1:8000/predict",
+    json={"image": str(image), "output": output},
+    timeout=1800,
 )
 response.raise_for_status()
 result = response.json()
-source = Path(result['mesh'])
-output = Path('model.glb')
-if source.resolve() != output.resolve():
-    copyfile(source, output)
-print(output.resolve())
-source = Path(result['texture'])
-output = Path('texture.png')
-if source.resolve() != output.resolve():
-    copyfile(source, output)
-print(output.resolve())
-text = json.dumps(result, ensure_ascii=False, indent=2)
-filename = "result.json"
-if len(text) > 2000:
-    Path(filename).write_text(text + "\n", encoding="utf-8")
-    print(Path(filename).resolve())
-else:
-    print(text)
+print(result["mesh"])
+print(result["texture"])
 ```
 
-## 설치 및 실행 환경
+## 검증 범위
 
-```bash
-python -m pip install --upgrade "fxbx[weights]>=0.8.4" requests
-```
-
-다운로드만 하려면 `fxbx fetch TripoSR`을 실행합니다.
-
-VisionModel 컴파일러 힌트를 적용한 이미지→3D 실험용 모델입니다. 배포 파일에서 텍스처를 포함한 샘플 GLB 생성을 검증했습니다. 실행 환경에는 Transformers 4.35.0, xatlas 0.0.11, moderngl, glcontext 및 EGL이 필요합니다. CPU 기준의 엄격한 중간 텐서 오차 검증에는 알려진 편차가 있습니다.
+`2026.4.0-vision-fxbx1-compat1`에 지원 범위가 포함되어 있습니다. 동일 실행물로 Python 3.10.12와 TCC 2026.4.0, Python 3.11.18과 TCC 2026.4.0 및 2026.4.1에서 256px UV 텍스처 GLB와 NPU 실행을 확인했습니다. 기본 텍스처 해상도는 2048px로 실행 시간이 길어질 수 있습니다. Transformers 5.20.2에서는 체크포인트 로드가 실패했습니다. 이 번들은 실험판이며 일부 중간 텐서에 알려진 수치 편차가 있습니다.
