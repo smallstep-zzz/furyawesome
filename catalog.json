@@ -13,7 +13,11 @@
     "stabilityai/sdxl-turbo@2026.4.0-sdxl-turbo-fxbx1-compat1#457b0cce4875248002a3651ff1cce19799b6edf86c76c2fc8639d4177779f7b0",
     "black-forest-labs/FLUX.2-klein-4B@2026.4.0-klein4b-fxbx1-compat1#cce7b067ed2f992fadb4eea4f019efde224cdb490e8342e0a278dd190730afe9",
     "sentence-transformers/all-MiniLM-L6-v2@2026.4.0-embed16-fxbx1#d060ad42ac0ef293ee3e67608b087c16ecc06a4098c1ecba7289d3ed56040824",
-    "convaiinnovations/laya-typed-decisions@2026.4.0-choice42-fxbx2#e541b6657fb2d7fb5ea4e53d363f2d579996f832fcb1c7144246c708ee90dbab"
+    "convaiinnovations/laya-typed-decisions@2026.4.0-choice42-fxbx2#e541b6657fb2d7fb5ea4e53d363f2d579996f832fcb1c7144246c708ee90dbab",
+    "stabilityai/sdxl-turbo@2026.4.0-sdxl-turbo-fxbx1-setup1#ebc7d8facb004a0f23e7c0f7497a77a79a5c8cb9395ae2b37ff9693cc6a278e6",
+    "giangndm/yolo11-onnx@2026.4.0-opt3-fxbx1-setup1#f6e279e44345fd9510feddf62aaec448ef9d16aca08d468f6a6f90a4c8f05823",
+    "black-forest-labs/FLUX.2-klein-4B@2026.4.0-klein4b-fxbx1-setup1#dfd350553ccb04b112427372faf2fc0819a8ef18a2adb6fad9095f5f864b21fb",
+    "stabilityai/TripoSR@2026.4.0-vision-fxbx1-setup1#4019baff7302e64e731ddffe63832a674c59fec2db72069d188974a05ef9794e"
   ],
   "models": [
     {
@@ -314,6 +318,106 @@
         "weights_mode": "external",
         "author_sha256": "e541b6657fb2d7fb5ea4e53d363f2d579996f832fcb1c7144246c708ee90dbab",
         "artifact_url": "https://huggingface.co/softandsweet/convaiinnovations-laya-typed-decisions-rngd-fxbx/resolve/e8703c9d2af850dce1d23ac125441e95cf9668bb/Laya-Typed-Decisions.fxbx"
+      }
+    },
+    {
+      "schema_version": 1,
+      "model": {
+        "name": "stabilityai/sdxl-turbo",
+        "short_description": "Furiosa RNGD에서 검증한 SDXL Turbo 이미지 생성 패키지입니다.",
+        "readme": "Powered by Stability AI\n\nFuriosa RNGD에서 512×512 이미지를 만드는 SDXL Turbo 패키지입니다. BF16·1단계·fusion 8 / Single 프로필입니다.\n\n별도 오프라인 프로세스에서 이 파일을 열어 이미지를 생성했습니다. 동일 프롬프트와 시드의 캡처 이미지와 파일 해시가 일치했습니다. 동일 시드의 반복 요청에서 수집한 공식 NPU 트레이스 Task 10,542개, 실행물 재사용 983건, SDK CPU 실행 및 재컴파일 0건을 기록했습니다.\n\n호스트에는 Furiosa Torch SDK 2026.4.0, Torch 2.10.0+cpu, Diffusers 0.41.0, Transformers 5.20.2 및 호환 드라이버가 필요합니다. 연구·비상업 평가 배포이며, 사용 조건은 원본 [Stability AI Community License](https://huggingface.co/stabilityai/sdxl-turbo/blob/71153311d3dbb46851df1931d3ca6e939de83304/LICENSE.md)를 따릅니다.",
+        "category": "Image Generation",
+        "source_repo": "stabilityai/sdxl-turbo",
+        "source_revision": "71153311d3dbb46851df1931d3ca6e939de83304",
+        "source_license": "Stability AI Community License",
+        "package_license": "가중치 Stability AI Community License, 동봉 어댑터 코드에 별도 라이선스 표기 없음",
+        "cover_url": ""
+      },
+      "release": {
+        "version": "2026.4.0-sdxl-turbo-fxbx1-setup1",
+        "target": "Furiosa RNGD",
+        "precision": "BF16",
+        "sdk_version": "2026.4.0",
+        "runtime_version": "0.8.3",
+        "adapter": "sdxl_turbo_replay",
+        "weights_mode": "standalone",
+        "author_sha256": "ebc7d8facb004a0f23e7c0f7497a77a79a5c8cb9395ae2b37ff9693cc6a278e6",
+        "artifact_url": "https://huggingface.co/softandsweet/stabilityai-sdxl-turbo-rngd-fxbex/resolve/04e502687630f5da0060b006d95410a0081a8bdf/releases/2026.4.0-sdxl-turbo-fxbx1-setup1/ebc7d8facb004a0f23e7c0f7497a77a79a5c8cb9395ae2b37ff9693cc6a278e6/sdxl-turbo.fxbx"
+      }
+    },
+    {
+      "schema_version": 1,
+      "model": {
+        "category": "Computer Vision",
+        "cover_url": "",
+        "name": "YOLO11n RNGD FXBEX (640, portable)",
+        "package_license": "AGPL-3.0 weights; bundled source has no separate license; SDK host terms apply",
+        "readme": "합성곱과 활성화 융합, 연속 입력 레이아웃을 적용한 YOLO11n입니다. 640×640 단일 이미지의 탐지 결과를 검증했습니다.",
+        "short_description": "합성곱과 활성화 융합, 연속 입력 레이아웃을 적용한 YOLO11n입니다.",
+        "source_license": "AGPL-3.0",
+        "source_repo": "giangndm/yolo11-onnx",
+        "source_revision": "8b180c762d5cf217886d16e64403508042207e4d"
+      },
+      "release": {
+        "adapter": "yolo11n640_portable",
+        "precision": "Mixed",
+        "runtime_version": "0.8.3",
+        "sdk_version": "2026.4.0",
+        "target": "Furiosa RNGD",
+        "version": "2026.4.0-opt3-fxbx1-setup1",
+        "weights_mode": "standalone",
+        "author_sha256": "f6e279e44345fd9510feddf62aaec448ef9d16aca08d468f6a6f90a4c8f05823",
+        "artifact_url": "https://huggingface.co/softandsweet/giangndm-yolo11-onnx-rngd-fxbex/resolve/f1eace438198884a4c020145a36d165cf1776f2e/releases/2026.4.0-opt3-fxbx1-setup1/f6e279e44345fd9510feddf62aaec448ef9d16aca08d468f6a6f90a4c8f05823/yolo11-onnx.fxbx"
+      }
+    },
+    {
+      "schema_version": 1,
+      "model": {
+        "name": "black-forest-labs/FLUX.2-klein-4B",
+        "short_description": "새로 캡처한 NPU 실행물을 담은 512×512 이미지 생성 패키지입니다.",
+        "readme": "Furiosa RNGD에서 512×512 이미지를 만드는 FLUX.2 Klein 4B 패키지입니다. BF16·4단계·시퀀스 길이 128·fusion 8 / Single 프로필입니다.\n\n25번 서버에서 새로 캡처한 SDK 실행물 205개를 담았습니다. 별도 오프라인 프로세스에서 이 파일을 열어 512×512 PNG를 생성했고, 같은 프롬프트와 시드의 빌드 이미지와 SHA-256이 일치했습니다. 공식 NPU 트레이스는 Task 9,708개를 기록했습니다. SDK CPU 폴백, 런타임 컴파일 호출, 외부 Hugging Face 모델 캐시 접근은 각각 0건이었습니다.\n\n텍스트로 이미지 생성하는 예제를 실행합니다.\n\n```bash\nfxbx run ./FLUX.2-klein-4B.fxbx --sample -o result.json\n```\n\n생성된 PNG 경로는 `result.json`의 `image_path`에 기록됩니다. 호스트에는 Furiosa Torch SDK 2026.4.0, Torch 2.10.0+cpu, Diffusers 0.41.0, Transformers 5.20.2 및 호환 드라이버가 필요합니다.",
+        "category": "Image Generation",
+        "source_repo": "black-forest-labs/FLUX.2-klein-4B",
+        "source_revision": "e7b7dc27f91deacad38e78976d1f2b499d76a294",
+        "source_license": "Apache-2.0",
+        "package_license": "가중치 Apache-2.0, 동봉 어댑터 코드에 별도 라이선스 표기 없음",
+        "cover_url": ""
+      },
+      "release": {
+        "version": "2026.4.0-klein4b-fxbx1-setup1",
+        "target": "Furiosa RNGD",
+        "precision": "BF16",
+        "sdk_version": "2026.4.0",
+        "runtime_version": "0.8.3",
+        "adapter": "flux2_klein_replay",
+        "weights_mode": "standalone",
+        "author_sha256": "dfd350553ccb04b112427372faf2fc0819a8ef18a2adb6fad9095f5f864b21fb",
+        "artifact_url": "https://huggingface.co/softandsweet/black-forest-labs-flux-2-klein-4b-rngd-fxbex/resolve/428fa9eab88ea7d9927aa237f4869f6a9fc19d13/releases/2026.4.0-klein4b-fxbx1-setup1/dfd350553ccb04b112427372faf2fc0819a8ef18a2adb6fad9095f5f864b21fb/FLUX.2-klein-4B.fxbx"
+      }
+    },
+    {
+      "schema_version": 1,
+      "model": {
+        "category": "3D",
+        "cover_url": "",
+        "name": "stabilityai/TripoSR",
+        "package_license": "MIT model/weights; bundled adapter license undeclared",
+        "readme": "VisionModel 컴파일러 힌트를 적용한 이미지→3D 실험용 모델입니다. 배포 파일에서 텍스처를 포함한 샘플 GLB 생성을 검증했습니다. 실행 환경에는 Transformers 4.35.0, xatlas 0.0.11, moderngl, glcontext 및 EGL이 필요합니다. CPU 기준의 엄격한 중간 텐서 오차 검증에는 알려진 편차가 있습니다.",
+        "short_description": "VisionModel 컴파일러 힌트를 적용한 이미지→3D 실험용 모델입니다.",
+        "source_license": "MIT",
+        "source_repo": "stabilityai/TripoSR",
+        "source_revision": "5b521936b01fbe1890f6f9baed0254ab6351c04a"
+      },
+      "release": {
+        "adapter": "triposr_replay",
+        "precision": "FP32",
+        "runtime_version": "0.8.3",
+        "sdk_version": "2026.4.0",
+        "target": "Furiosa RNGD",
+        "version": "2026.4.0-vision-fxbx1-setup1",
+        "weights_mode": "standalone",
+        "author_sha256": "4019baff7302e64e731ddffe63832a674c59fec2db72069d188974a05ef9794e",
+        "artifact_url": "https://huggingface.co/softandsweet/stabilityai-triposr-rngd-fxbex/resolve/5d73e679491b2d8e85b50c0c7da1814af59ba6d2/releases/2026.4.0-vision-fxbx1-setup1/4019baff7302e64e731ddffe63832a674c59fec2db72069d188974a05ef9794e/TripoSR.fxbx"
       }
     }
   ],

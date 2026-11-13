@@ -1,0 +1,25 @@
+{
+  "schema_version": 1,
+  "model": {
+    "name": "stabilityai/sdxl-turbo",
+    "short_description": "Furiosa RNGD에서 검증한 SDXL Turbo 이미지 생성 패키지입니다.",
+    "readme": "Powered by Stability AI\n\nFuriosa RNGD에서 512×512 이미지를 만드는 SDXL Turbo 패키지입니다. BF16·1단계·fusion 8 / Single 프로필입니다.\n\n별도 오프라인 프로세스에서 이 파일을 열어 이미지를 생성했습니다. 동일 프롬프트와 시드의 캡처 이미지와 파일 해시가 일치했습니다. 동일 시드의 반복 요청에서 수집한 공식 NPU 트레이스 Task 10,542개, 실행물 재사용 983건, SDK CPU 실행 및 재컴파일 0건을 기록했습니다.\n\n호스트에는 Furiosa Torch SDK 2026.4.0, Torch 2.10.0+cpu, Diffusers 0.41.0, Transformers 5.20.2 및 호환 드라이버가 필요합니다. 연구·비상업 평가 배포이며, 사용 조건은 원본 [Stability AI Community License](https://huggingface.co/stabilityai/sdxl-turbo/blob/71153311d3dbb46851df1931d3ca6e939de83304/LICENSE.md)를 따릅니다.",
+    "category": "Image Generation",
+    "source_repo": "stabilityai/sdxl-turbo",
+    "source_revision": "71153311d3dbb46851df1931d3ca6e939de83304",
+    "source_license": "Stability AI Community License",
+    "package_license": "가중치 Stability AI Community License, 동봉 어댑터 코드에 별도 라이선스 표기 없음",
+    "cover_url": ""
+  },
+  "release": {
+    "version": "2026.4.0-sdxl-turbo-fxbx1-setup1",
+    "target": "Furiosa RNGD",
+    "precision": "BF16",
+    "sdk_version": "2026.4.0",
+    "runtime_version": "0.8.3",
+    "adapter": "sdxl_turbo_replay",
+    "weights_mode": "standalone",
+    "author_sha256": "ebc7d8facb004a0f23e7c0f7497a77a79a5c8cb9395ae2b37ff9693cc6a278e6",
+    "artifact_url": "https://huggingface.co/softandsweet/stabilityai-sdxl-turbo-rngd-fxbex/resolve/04e502687630f5da0060b006d95410a0081a8bdf/releases/2026.4.0-sdxl-turbo-fxbx1-setup1/ebc7d8facb004a0f23e7c0f7497a77a79a5c8cb9395ae2b37ff9693cc6a278e6/sdxl-turbo.fxbx"
+  }
+}
