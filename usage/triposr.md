@@ -10,11 +10,14 @@ Ubuntu 22.04에서 EGL이 없다면 시스템에 설치합니다.
 sudo apt-get install libegl1-mesa-dev libegl-mesa0 libgl1-mesa-dri
 ```
 
-TripoSR 전용 Python 환경에서 실행합니다.
+Python 3.11로 TripoSR 전용 환경을 만듭니다. Conda를 쓰는 경우에도 전용 환경의 Python이 3.11인지 확인하세요. Python 3.14에서는 이전 `tokenizers` wheel을 찾지 못해 소스 빌드가 시작될 수 있습니다.
 
 ```bash
+python3.11 -m venv .venv-triposr
+source .venv-triposr/bin/activate
+python --version
 python -m pip install 'fxbx @ git+https://github.com/smallstep-zzz/fxbX.git@ea2b501'
-python -m pip install 'transformers==4.40.2' 'huggingface-hub==0.36.2' \
+python -m pip install --only-binary=tokenizers 'transformers==4.40.2' 'huggingface-hub==0.36.2' \
   trimesh scikit-image einops omegaconf xatlas moderngl requests
 fxbx run TripoSR --sample -o result.json
 ```
