@@ -12,7 +12,8 @@
     "stabilityai/TripoSR@2026.4.0-vision-fxbx1-compat1#bade8faa34da0bfa8157568c3e37eeeddd63f1ad25726ad91dbb5be3de5bed69",
     "stabilityai/sdxl-turbo@2026.4.0-sdxl-turbo-fxbx1-compat1#457b0cce4875248002a3651ff1cce19799b6edf86c76c2fc8639d4177779f7b0",
     "black-forest-labs/FLUX.2-klein-4B@2026.4.0-klein4b-fxbx1-compat1#cce7b067ed2f992fadb4eea4f019efde224cdb490e8342e0a278dd190730afe9",
-    "sentence-transformers/all-MiniLM-L6-v2@2026.4.0-embed16-fxbx1#d060ad42ac0ef293ee3e67608b087c16ecc06a4098c1ecba7289d3ed56040824"
+    "sentence-transformers/all-MiniLM-L6-v2@2026.4.0-embed16-fxbx1#d060ad42ac0ef293ee3e67608b087c16ecc06a4098c1ecba7289d3ed56040824",
+    "convaiinnovations/laya-typed-decisions@2026.4.0-choice42-fxbx2#e541b6657fb2d7fb5ea4e53d363f2d579996f832fcb1c7144246c708ee90dbab"
   ],
   "models": [
     {
@@ -288,6 +289,31 @@
         "weights_mode": "external",
         "author_sha256": "d060ad42ac0ef293ee3e67608b087c16ecc06a4098c1ecba7289d3ed56040824",
         "artifact_url": "https://huggingface.co/softandsweet/sentence-transformers-all-minilm-l6-v2-rngd-fxbx/resolve/2720858d12c28d73aedb6b78e9a23b2518b81d43/all-MiniLM-L6-v2.fxbx"
+      }
+    },
+    {
+      "schema_version": 1,
+      "model": {
+        "name": "Laya Typed-Decisions",
+        "short_description": "42토큰·선택지 3개의 의사결정 모델",
+        "readme": "42토큰·선택지 3개의 의사결정 모델. 별도 가중치와 동봉 Python 예제로 재실행할 수 있습니다. [사용법](https://huggingface.co/softandsweet/convaiinnovations-laya-typed-decisions-rngd-fxbx/blob/e8703c9d2af850dce1d23ac125441e95cf9668bb/USAGE.md)",
+        "category": "Other",
+        "source_repo": "convaiinnovations/laya-typed-decisions",
+        "source_revision": "e929ae5cf69bc34259cd2f95c9e91145b818b1f0",
+        "source_license": "Apache-2.0",
+        "package_license": "Apache-2.0",
+        "cover_url": ""
+      },
+      "release": {
+        "version": "2026.4.0-choice42-fxbx2",
+        "target": "Furiosa RNGD",
+        "precision": "FP32",
+        "sdk_version": "2026.4.0",
+        "runtime_version": "0.8.4",
+        "adapter": "execution_plan",
+        "weights_mode": "external",
+        "author_sha256": "e541b6657fb2d7fb5ea4e53d363f2d579996f832fcb1c7144246c708ee90dbab",
+        "artifact_url": "https://huggingface.co/softandsweet/convaiinnovations-laya-typed-decisions-rngd-fxbx/resolve/e8703c9d2af850dce1d23ac125441e95cf9668bb/Laya-Typed-Decisions.fxbx"
       }
     }
   ],
