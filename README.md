@@ -50,6 +50,9 @@ fxbx serve FLUX.2-klein-4B --port 8000
 서버에 접속한 **다른 터미널**에서 Python으로 요청합니다.
 
 ```python
+from pathlib import Path
+from shutil import copyfile
+
 import requests
 
 response = requests.post(
@@ -58,8 +61,12 @@ response = requests.post(
     timeout=300,
 )
 response.raise_for_status()
-print(response.json())  # 결과 형식과 이미지 저장 경로는 모델 어댑터별로 다릅니다.
+output = Path("penguin.png")
+copyfile(response.json()["image_path"], output)
+print(output.resolve())
 ```
+
+생성 이미지는 Python을 실행한 현재 폴더의 `penguin.png`에 복사됩니다. 이 예제는 모델 서버와 Python이 같은 파일시스템을 사용할 때 동작합니다. 내 PC에서 SSH 터널로 호출하면 응답의 `image_path`는 원격 경로이므로, `scp SERVER:/서버/이미지.png ./penguin.png`로 받습니다.
 
 기본 서버는 `127.0.0.1`에만 바인딩합니다. 원격 PC에서는 **SSH 포트 포워딩**으로 안전하게 접속할 수 있습니다.
 
