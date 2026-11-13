@@ -60,3 +60,15 @@ Furiosa RNGD에서 512×512 이미지를 만드는 SDXL Turbo 패키지입니다
 별도 오프라인 프로세스에서 이 파일을 열어 이미지를 생성했습니다. 동일 프롬프트와 시드의 캡처 이미지와 파일 해시가 일치했습니다. 동일 시드의 반복 요청에서 수집한 공식 NPU 트레이스 Task 10,542개, 실행물 재사용 983건, SDK CPU 실행 및 재컴파일 0건을 기록했습니다.
 
 호스트에는 Furiosa Torch SDK 2026.4.0, Torch 2.10.0+cpu, Diffusers 0.41.0, Transformers 5.20.2 및 호환 드라이버가 필요합니다. 연구·비상업 평가 배포이며, 사용 조건은 원본 [Stability AI Community License](https://huggingface.co/stabilityai/sdxl-turbo/blob/71153311d3dbb46851df1931d3ca6e939de83304/LICENSE.md)를 따릅니다.
+
+### Furiosa SDK 준비
+
+- SDK가 없으면 RNGD 서버에서 모델에 명시된 버전에 맞춰 드라이버와 Python SDK를 설치합니다. [Furiosa 공식 안내](https://developer.furiosa.ai/latest/en/get_started/upgrade_guide.html)
+- SDK가 설치된 Python에 `python -m pip install --upgrade 'fxbx[weights]'`로 fxbX를 설치합니다. 다른 환경에서 fxbX를 호출할 경우 SDK Python의 절대 경로를 지정합니다.
+
+```bash
+export FXBEX_WORKER_PYTHON=/path/to/sdk/bin/python
+fxbx doctor
+```
+
+`Missing required packages in Python`에 표시된 경로와 누락 목록을 확인합니다. 필요한 패키지가 모두 설치되어 있고 버전만 다르면 `--allow-sdk-mismatch`로 실행을 시도할 수 있습니다.
