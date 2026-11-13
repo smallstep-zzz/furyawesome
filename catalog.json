@@ -6,7 +6,12 @@
     "stabilityai/sdxl-turbo@2026.4.0-sdxl-turbo-fxbx1#2764d996e37745e5c25991a679f3f1bbb2848547079baa4ccb9c06d5d50874f3",
     "giangndm/yolo11-onnx@2026.4.0-opt3-fxbx1#d40ec9f9fc18c8cb5ad247513859ea130938ec09527bb99527d109e0899511b8",
     "stabilityai/TripoSR@2026.4.0-vision-fxbx1#67aabf1557b7f6c82810bf33a0aa6aeb6753990b99ac74278f5cc7c5a874d8e2",
-    "SupersonicLabs/Julia-1@2026.4.0-choice40-fxbx1#f0d220719b0366e3ab301f5fdd8cfe765f2dc76a873e553805cef4e277d0ef43"
+    "SupersonicLabs/Julia-1@2026.4.0-choice40-fxbx1#f0d220719b0366e3ab301f5fdd8cfe765f2dc76a873e553805cef4e277d0ef43",
+    "SupersonicLabs/Julia-1@2026.4.0-choice40-fxbx1-compat1#1d9efac8ca878128f8043c134a67b1fc8ab3d8d6dafb925f3000802dd35a2d39",
+    "giangndm/yolo11-onnx@2026.4.0-opt3-fxbx1-compat1#504f9df65809be73602475493ebfe0b816e3a256e7c3c876533af3db6fef9e72",
+    "stabilityai/TripoSR@2026.4.0-vision-fxbx1-compat1#bade8faa34da0bfa8157568c3e37eeeddd63f1ad25726ad91dbb5be3de5bed69",
+    "stabilityai/sdxl-turbo@2026.4.0-sdxl-turbo-fxbx1-compat1#457b0cce4875248002a3651ff1cce19799b6edf86c76c2fc8639d4177779f7b0",
+    "black-forest-labs/FLUX.2-klein-4B@2026.4.0-klein4b-fxbx1-compat1#cce7b067ed2f992fadb4eea4f019efde224cdb490e8342e0a278dd190730afe9"
   ],
   "models": [
     {
@@ -132,6 +137,131 @@
         "weights_mode": "standalone",
         "author_sha256": "67aabf1557b7f6c82810bf33a0aa6aeb6753990b99ac74278f5cc7c5a874d8e2",
         "artifact_url": "https://huggingface.co/softandsweet/stabilityai-triposr-rngd-fxbex/resolve/de9138f6a7d4d40a0ba29ea2f3cd24cd8bab8d24/releases/2026.4.0-vision-fxbx1/67aabf1557b7f6c82810bf33a0aa6aeb6753990b99ac74278f5cc7c5a874d8e2/TripoSR.fxbx"
+      }
+    },
+    {
+      "schema_version": 1,
+      "model": {
+        "name": "SupersonicLabs/Julia-1",
+        "short_description": "세 선택지의 의사결정을 실행하는 Julia-1 RNGD 패키지입니다.",
+        "readme": "질문 하나, 선택지 세 개, 총 40토큰의 FP32 의사결정 프로필입니다. 원본 Julia-1 체크포인트와 공식 토크나이저를 사용했습니다. 5번 RNGD에서 결제 샘플이 CPU 기준과 같은 billing을 반환했고 확률 최대 절대 차이는 0.00000147이었습니다. 공식 트레이스에 Runnable 호출 2,577개와 NPU Task 5,154개, SDK CPU 폴백 0건이 기록됐습니다. 토큰화와 확률 정규화는 호스트에서 수행합니다.",
+        "category": "Other",
+        "source_repo": "SupersonicLabs/Julia-1",
+        "source_revision": "9c4e0c5870f7841fb74a23033eab723b3fea7bd7",
+        "source_license": "Apache-2.0",
+        "package_license": "Apache-2.0",
+        "cover_url": ""
+      },
+      "release": {
+        "version": "2026.4.0-choice40-fxbx1-compat1",
+        "target": "Furiosa RNGD",
+        "precision": "FP32",
+        "sdk_version": "2026.4.0",
+        "runtime_version": "0.8.3+7901064",
+        "adapter": "julia_rngd",
+        "weights_mode": "standalone",
+        "author_sha256": "1d9efac8ca878128f8043c134a67b1fc8ab3d8d6dafb925f3000802dd35a2d39",
+        "artifact_url": "https://huggingface.co/softandsweet/supersoniclabs-julia-1-rngd-fxbex/resolve/3d579aa22291c792b8842d736d00becaad163fb5/releases/2026.4.0-choice40-fxbx1-compat1/1d9efac8ca878128f8043c134a67b1fc8ab3d8d6dafb925f3000802dd35a2d39/Julia-1.fxbx"
+      }
+    },
+    {
+      "schema_version": 1,
+      "model": {
+        "category": "Computer Vision",
+        "cover_url": "",
+        "name": "YOLO11n RNGD FXBEX (640, portable)",
+        "package_license": "AGPL-3.0 weights; bundled source has no separate license; SDK host terms apply",
+        "readme": "합성곱과 활성화 융합, 연속 입력 레이아웃을 적용한 YOLO11n입니다. 640×640 단일 이미지의 탐지 결과를 검증했습니다.",
+        "short_description": "합성곱과 활성화 융합, 연속 입력 레이아웃을 적용한 YOLO11n입니다.",
+        "source_license": "AGPL-3.0",
+        "source_repo": "giangndm/yolo11-onnx",
+        "source_revision": "8b180c762d5cf217886d16e64403508042207e4d"
+      },
+      "release": {
+        "adapter": "yolo11n640_portable",
+        "precision": "Mixed",
+        "runtime_version": "0.8.3",
+        "sdk_version": "2026.4.0",
+        "target": "Furiosa RNGD",
+        "version": "2026.4.0-opt3-fxbx1-compat1",
+        "weights_mode": "standalone",
+        "author_sha256": "504f9df65809be73602475493ebfe0b816e3a256e7c3c876533af3db6fef9e72",
+        "artifact_url": "https://huggingface.co/softandsweet/giangndm-yolo11-onnx-rngd-fxbex/resolve/19256433b820f68e3934a49451b64952c9c0ce3f/releases/2026.4.0-opt3-fxbx1-compat1/504f9df65809be73602475493ebfe0b816e3a256e7c3c876533af3db6fef9e72/yolo11-onnx.fxbx"
+      }
+    },
+    {
+      "schema_version": 1,
+      "model": {
+        "category": "3D",
+        "cover_url": "",
+        "name": "stabilityai/TripoSR",
+        "package_license": "MIT model/weights; bundled adapter license undeclared",
+        "readme": "VisionModel 컴파일러 힌트를 적용한 이미지→3D 실험용 모델입니다. 배포 파일에서 텍스처를 포함한 샘플 GLB 생성을 검증했습니다. 실행 환경에는 Transformers 4.35.0, xatlas 0.0.11, moderngl, glcontext 및 EGL이 필요합니다. CPU 기준의 엄격한 중간 텐서 오차 검증에는 알려진 편차가 있습니다.",
+        "short_description": "VisionModel 컴파일러 힌트를 적용한 이미지→3D 실험용 모델입니다.",
+        "source_license": "MIT",
+        "source_repo": "stabilityai/TripoSR",
+        "source_revision": "5b521936b01fbe1890f6f9baed0254ab6351c04a"
+      },
+      "release": {
+        "adapter": "triposr_replay",
+        "precision": "FP32",
+        "runtime_version": "0.8.3",
+        "sdk_version": "2026.4.0",
+        "target": "Furiosa RNGD",
+        "version": "2026.4.0-vision-fxbx1-compat1",
+        "weights_mode": "standalone",
+        "author_sha256": "bade8faa34da0bfa8157568c3e37eeeddd63f1ad25726ad91dbb5be3de5bed69",
+        "artifact_url": "https://huggingface.co/softandsweet/stabilityai-triposr-rngd-fxbex/resolve/fb99a57aa27bfba1ad96f3e2dd5e48196582bb61/releases/2026.4.0-vision-fxbx1-compat1/bade8faa34da0bfa8157568c3e37eeeddd63f1ad25726ad91dbb5be3de5bed69/TripoSR.fxbx"
+      }
+    },
+    {
+      "schema_version": 1,
+      "model": {
+        "name": "stabilityai/sdxl-turbo",
+        "short_description": "Furiosa RNGD에서 검증한 SDXL Turbo 이미지 생성 패키지입니다.",
+        "readme": "Powered by Stability AI\n\nFuriosa RNGD에서 512×512 이미지를 만드는 SDXL Turbo 패키지입니다. BF16·1단계·fusion 8 / Single 프로필입니다.\n\n별도 오프라인 프로세스에서 이 파일을 열어 이미지를 생성했습니다. 동일 프롬프트와 시드의 캡처 이미지와 파일 해시가 일치했습니다. 동일 시드의 반복 요청에서 수집한 공식 NPU 트레이스 Task 10,542개, 실행물 재사용 983건, SDK CPU 실행 및 재컴파일 0건을 기록했습니다.\n\n호스트에는 Furiosa Torch SDK 2026.4.0, Torch 2.10.0+cpu, Diffusers 0.41.0, Transformers 5.20.2 및 호환 드라이버가 필요합니다. 연구·비상업 평가 배포이며, 사용 조건은 원본 [Stability AI Community License](https://huggingface.co/stabilityai/sdxl-turbo/blob/71153311d3dbb46851df1931d3ca6e939de83304/LICENSE.md)를 따릅니다.",
+        "category": "Image Generation",
+        "source_repo": "stabilityai/sdxl-turbo",
+        "source_revision": "71153311d3dbb46851df1931d3ca6e939de83304",
+        "source_license": "Stability AI Community License",
+        "package_license": "가중치 Stability AI Community License, 동봉 어댑터 코드에 별도 라이선스 표기 없음",
+        "cover_url": ""
+      },
+      "release": {
+        "version": "2026.4.0-sdxl-turbo-fxbx1-compat1",
+        "target": "Furiosa RNGD",
+        "precision": "BF16",
+        "sdk_version": "2026.4.0",
+        "runtime_version": "0.8.3",
+        "adapter": "sdxl_turbo_replay",
+        "weights_mode": "standalone",
+        "author_sha256": "457b0cce4875248002a3651ff1cce19799b6edf86c76c2fc8639d4177779f7b0",
+        "artifact_url": "https://huggingface.co/softandsweet/stabilityai-sdxl-turbo-rngd-fxbex/resolve/d1ea7e6869c5212cdca79f0734eb7ad2c46ca497/releases/2026.4.0-sdxl-turbo-fxbx1-compat1/457b0cce4875248002a3651ff1cce19799b6edf86c76c2fc8639d4177779f7b0/SDXL-Turbo.fxbx"
+      }
+    },
+    {
+      "schema_version": 1,
+      "model": {
+        "name": "black-forest-labs/FLUX.2-klein-4B",
+        "short_description": "새로 캡처한 NPU 실행물을 담은 512×512 이미지 생성 패키지입니다.",
+        "readme": "Furiosa RNGD에서 512×512 이미지를 만드는 FLUX.2 Klein 4B 패키지입니다. BF16·4단계·시퀀스 길이 128·fusion 8 / Single 프로필입니다.\n\n25번 서버에서 새로 캡처한 SDK 실행물 205개를 담았습니다. 별도 오프라인 프로세스에서 이 파일을 열어 512×512 PNG를 생성했고, 같은 프롬프트와 시드의 빌드 이미지와 SHA-256이 일치했습니다. 공식 NPU 트레이스는 Task 9,708개를 기록했습니다. SDK CPU 폴백, 런타임 컴파일 호출, 외부 Hugging Face 모델 캐시 접근은 각각 0건이었습니다.\n\n텍스트로 이미지 생성하는 예제를 실행합니다.\n\n```bash\nfxbx run ./FLUX.2-klein-4B.fxbx --sample -o result.json\n```\n\n생성된 PNG 경로는 `result.json`의 `image_path`에 기록됩니다. 호스트에는 Furiosa Torch SDK 2026.4.0, Torch 2.10.0+cpu, Diffusers 0.41.0, Transformers 5.20.2 및 호환 드라이버가 필요합니다.",
+        "category": "Image Generation",
+        "source_repo": "black-forest-labs/FLUX.2-klein-4B",
+        "source_revision": "e7b7dc27f91deacad38e78976d1f2b499d76a294",
+        "source_license": "Apache-2.0",
+        "package_license": "가중치 Apache-2.0, 동봉 어댑터 코드에 별도 라이선스 표기 없음",
+        "cover_url": ""
+      },
+      "release": {
+        "version": "2026.4.0-klein4b-fxbx1-compat1",
+        "target": "Furiosa RNGD",
+        "precision": "BF16",
+        "sdk_version": "2026.4.0",
+        "runtime_version": "0.8.3",
+        "adapter": "flux2_klein_replay",
+        "weights_mode": "standalone",
+        "author_sha256": "cce7b067ed2f992fadb4eea4f019efde224cdb490e8342e0a278dd190730afe9",
+        "artifact_url": "https://huggingface.co/softandsweet/black-forest-labs-flux-2-klein-4b-rngd-fxbex/resolve/5223781896b1b3641d66be3404411003dc020c99/releases/2026.4.0-klein4b-fxbx1-compat1/cce7b067ed2f992fadb4eea4f019efde224cdb490e8342e0a278dd190730afe9/FLUX.2-klein-4B.fxbx"
       }
     }
   ],

@@ -1,0 +1,25 @@
+{
+  "schema_version": 1,
+  "model": {
+    "name": "SupersonicLabs/Julia-1",
+    "short_description": "세 선택지의 의사결정을 실행하는 Julia-1 RNGD 패키지입니다.",
+    "readme": "질문 하나, 선택지 세 개, 총 40토큰의 FP32 의사결정 프로필입니다. 원본 Julia-1 체크포인트와 공식 토크나이저를 사용했습니다. 5번 RNGD에서 결제 샘플이 CPU 기준과 같은 billing을 반환했고 확률 최대 절대 차이는 0.00000147이었습니다. 공식 트레이스에 Runnable 호출 2,577개와 NPU Task 5,154개, SDK CPU 폴백 0건이 기록됐습니다. 토큰화와 확률 정규화는 호스트에서 수행합니다.",
+    "category": "Other",
+    "source_repo": "SupersonicLabs/Julia-1",
+    "source_revision": "9c4e0c5870f7841fb74a23033eab723b3fea7bd7",
+    "source_license": "Apache-2.0",
+    "package_license": "Apache-2.0",
+    "cover_url": ""
+  },
+  "release": {
+    "version": "2026.4.0-choice40-fxbx1-compat1",
+    "target": "Furiosa RNGD",
+    "precision": "FP32",
+    "sdk_version": "2026.4.0",
+    "runtime_version": "0.8.3+7901064",
+    "adapter": "julia_rngd",
+    "weights_mode": "standalone",
+    "author_sha256": "1d9efac8ca878128f8043c134a67b1fc8ab3d8d6dafb925f3000802dd35a2d39",
+    "artifact_url": "https://huggingface.co/softandsweet/supersoniclabs-julia-1-rngd-fxbex/resolve/3d579aa22291c792b8842d736d00becaad163fb5/releases/2026.4.0-choice40-fxbx1-compat1/1d9efac8ca878128f8043c134a67b1fc8ab3d8d6dafb925f3000802dd35a2d39/Julia-1.fxbx"
+  }
+}
