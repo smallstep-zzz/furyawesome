@@ -44,21 +44,15 @@ else:
     print(text)
 ```
 
-## 설치 및 실행 환경
+## 처음 설치할 때
+
+Linux RNGD 서버에서 호환 드라이버와 Furiosa Torch/TCC 2026.4.0, PyTorch 2.10.0+cpu를 준비합니다. Python 3.11 전용 환경에서 아래 명령을 실행합니다.
 
 ```bash
-python -m pip install --upgrade "fxbx[weights]>=0.8.4" requests
+python -m pip install "fxbx[weights] @ git+https://github.com/smallstep-zzz/fxbX.git@ea2b501" "transformers==5.20.2" requests
 ```
 
-다운로드만 하려면 `fxbx fetch Julia-1`을 실행합니다.
-
-결제 문의의 선택과 확률을 표시합니다.
-
-Furiosa Torch/TCC 2026.4.0, Torch 2.10.0+cpu, Transformers 5.20.2가 필요합니다. 릴리스 검증에 사용한 fxbX가 필요하면 아래 명령으로 설치합니다.
-
-```bash
-python -m pip install "fxbx[weights] @ git+https://github.com/smallstep-zzz/fxbX.git@790106499cc0767e73637e1cbb84ad1c07e8e851"
-```
+다운로드만 하려면 `fxbx fetch Julia-1`을 실행합니다. 현재 카탈로그 릴리스는 `2026.4.0-choice40-fxbx1-compat1`입니다.
 
 ## 모델 범위
 
