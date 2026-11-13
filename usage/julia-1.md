@@ -67,3 +67,15 @@ python -m pip install "fxbx[weights] @ git+https://github.com/smallstep-zzz/fxbX
 ## 문제 해결
 
 `fxbx doctor`로 SDK와 NPU를 확인합니다. 입력이 길면 질문이나 선택지 설명을 줄입니다.
+
+### Furiosa SDK 준비
+
+- SDK가 없으면 RNGD 서버에서 모델에 명시된 버전에 맞춰 드라이버와 Python SDK를 설치합니다. [Furiosa 공식 안내](https://developer.furiosa.ai/latest/en/get_started/upgrade_guide.html)
+- SDK가 설치된 Python에 `python -m pip install --upgrade 'fxbx[weights]'`로 fxbX를 설치합니다. 다른 환경에서 fxbX를 호출할 경우 SDK Python의 절대 경로를 지정합니다.
+
+```bash
+export FXBEX_WORKER_PYTHON=/path/to/sdk/bin/python
+fxbx doctor
+```
+
+`Missing required packages in Python`에 표시된 경로와 누락 목록을 확인합니다. 필요한 패키지가 모두 설치되어 있고 버전만 다르면 `--allow-sdk-mismatch`로 실행을 시도할 수 있습니다.
