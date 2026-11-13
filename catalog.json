@@ -5,7 +5,8 @@
     "black-forest-labs/FLUX.2-klein-4B@2026.4.0-klein4b-fxbx1#9f5377b386f2125ac087b1a858a4ab859e79abb9d2a3a2a500e6221eac1f8724",
     "stabilityai/sdxl-turbo@2026.4.0-sdxl-turbo-fxbx1#2764d996e37745e5c25991a679f3f1bbb2848547079baa4ccb9c06d5d50874f3",
     "giangndm/yolo11-onnx@2026.4.0-opt3-fxbx1#d40ec9f9fc18c8cb5ad247513859ea130938ec09527bb99527d109e0899511b8",
-    "stabilityai/TripoSR@2026.4.0-vision-fxbx1#67aabf1557b7f6c82810bf33a0aa6aeb6753990b99ac74278f5cc7c5a874d8e2"
+    "stabilityai/TripoSR@2026.4.0-vision-fxbx1#67aabf1557b7f6c82810bf33a0aa6aeb6753990b99ac74278f5cc7c5a874d8e2",
+    "SupersonicLabs/Julia-1@2026.4.0-choice40-fxbx1#f0d220719b0366e3ab301f5fdd8cfe765f2dc76a873e553805cef4e277d0ef43"
   ],
   "models": [
     {
@@ -31,6 +32,31 @@
         "weights_mode": "standalone",
         "author_sha256": "9f5377b386f2125ac087b1a858a4ab859e79abb9d2a3a2a500e6221eac1f8724",
         "artifact_url": "https://huggingface.co/softandsweet/black-forest-labs-flux-2-klein-4b-rngd-fxbex/resolve/57aa0bef31f963de10edd84f803ea2f0c5475be6/releases/2026.4.0-klein4b-fxbx1/9f5377b386f2125ac087b1a858a4ab859e79abb9d2a3a2a500e6221eac1f8724/FLUX.2-klein-4B.fxbx"
+      }
+    },
+    {
+      "schema_version": 1,
+      "model": {
+        "name": "SupersonicLabs/Julia-1",
+        "short_description": "세 선택지의 의사결정을 실행하는 Julia-1 RNGD 패키지입니다.",
+        "readme": "질문 하나, 선택지 세 개, 총 40토큰의 FP32 의사결정 프로필입니다. 원본 Julia-1 체크포인트와 공식 토크나이저를 사용했습니다. 5번 RNGD에서 결제 샘플이 CPU 기준과 같은 billing을 반환했고 확률 최대 절대 차이는 0.00000147이었습니다. 공식 트레이스에 Runnable 호출 2,577개와 NPU Task 5,154개, SDK CPU 폴백 0건이 기록됐습니다. 토큰화와 확률 정규화는 호스트에서 수행합니다.",
+        "category": "Other",
+        "source_repo": "SupersonicLabs/Julia-1",
+        "source_revision": "9c4e0c5870f7841fb74a23033eab723b3fea7bd7",
+        "source_license": "Apache-2.0",
+        "package_license": "Apache-2.0",
+        "cover_url": ""
+      },
+      "release": {
+        "version": "2026.4.0-choice40-fxbx1",
+        "target": "Furiosa RNGD",
+        "precision": "FP32",
+        "sdk_version": "2026.4.0",
+        "runtime_version": "0.8.3+7901064",
+        "adapter": "julia_rngd",
+        "weights_mode": "standalone",
+        "author_sha256": "f0d220719b0366e3ab301f5fdd8cfe765f2dc76a873e553805cef4e277d0ef43",
+        "artifact_url": "https://huggingface.co/softandsweet/supersoniclabs-julia-1-rngd-fxbex/resolve/d978f8a871c2a3a3d199f64ade72a7b8c945e779/releases/2026.4.0-choice40-fxbx1/f0d220719b0366e3ab301f5fdd8cfe765f2dc76a873e553805cef4e277d0ef43/Julia-1.fxbx"
       }
     },
     {
