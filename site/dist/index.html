@@ -775,13 +775,13 @@ a,button{transition:color .18s,background-color .18s,border-color .18s,box-shado
        <div class="reason-foot"><span>사용 목적과 기대하는 점을 자유롭게 적어주세요.</span><span id="request-reason-count">0 / 700</span></div>
        <p class="field-error" id="request-reason-error" hidden></p>
       </div>
-      <label class="request-consent"><input type="checkbox" id="request-consent" required><span>작성한 내용이 <strong>GitHub 공개 이슈</strong>로 게시되는 것에 동의합니다.</span></label>
-      <div class="request-submit-row"><button type="submit" class="request-submit"><span data-icon="github"></span>GitHub에서 요청 등록<span class="submit-arrow" aria-hidden="true">↗</span></button><a class="request-list-link" href="https://github.com/smallstep-zzz/furyawesome/issues" target="_blank" rel="noopener noreferrer">요청 목록 보기 <span aria-hidden="true">↗</span></a></div>
-      <p class="request-submit-note">제목과 내용이 채워진 GitHub 작성창이 열립니다. 로그인 후 <strong>Create issue</strong>를 누르면 등록됩니다.</p>
-      <div id="request-status" class="request-status" role="status" aria-live="polite" hidden><span id="request-status-message"></span><a id="request-open-again" target="_blank" rel="noopener noreferrer">작성창 다시 열기 ↗</a><button id="request-copy-body" type="button">본문 복사</button></div>
+      <label class="request-consent"><input type="checkbox" id="request-consent" required><span>작성한 내용이 <strong>비공개 요청함</strong>로 게시되는 것에 동의합니다.</span></label>
+      <div class="request-submit-row"><button type="submit" class="request-submit"><span data-icon="github"></span>모델 요청 등록<span class="submit-arrow" aria-hidden="true">↗</span></button></div>
+      <p class="request-submit-note">운영자가 비공개로 요청을 확인합니다.</p>
+      <div id="request-status" class="request-status" role="status" aria-live="polite" hidden><span id="request-status-message"></span></div>
      </form>
      <dialog class="request-dialog" id="request-consent-dialog" aria-labelledby="request-consent-title">
-      <h3 id="request-consent-title">공개 이슈로 게시되는 점을 확인해주세요.</h3>
+      <h3 id="request-consent-title">운영자에게 요청 내용을 전달하는 데 동의해주세요.</h3>
       <form method="dialog"><button class="request-dialog-primary" autofocus>확인</button></form>
      </dialog>
      <dialog class="request-dialog" id="request-confirm-dialog" aria-labelledby="request-confirm-title">
@@ -1560,9 +1560,7 @@ refreshCatalog();
  const form = $('model-request-form');
  if (!form) return;
  const model = $('request-model'), reason = $('request-reason'), consent = $('request-consent');
- const repo = 'https://github.com/smallstep-zzz/furyawesome';
  const example = 'Qwen/Qwen3-VL-4B-Instruct-FP8';
- let draftBody = '';
  const error = (id, message) => {
   const el = $(id+'-error');
   el.textContent = message;
@@ -1600,15 +1598,7 @@ refreshCatalog();
   else if(description.length>700){error('request-reason','요청 이유는 700자 이내로 작성해주세요.');valid=false;}
   else error('request-reason','');
   if(!valid){form.querySelector('[aria-invalid="true"]').focus();return null;}
-  // Block quote preserves line breaks; escape HTML, Markdown and mentions in user text.
-  const md = s => s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/([\\`*_{}\[\]#!|])/g,'\\$1').replace(/@/g,'@\u200b');
-  const body=['## 요청 모델',md(parsed.name),'','## 저장소 주소',parsed.url || '모델 이름으로 요청했습니다. 정확한 저장소 확인이 필요합니다.','','## 요청 이유 / 사용 목적',description.split('\n').map(line=>'> '+md(line)).join('\n'),'','---','FuryAwesome 플레이스 · 모델 전환 요청','16B 이상은 전환이 어려울 수 있으며, 요청 등록은 전환이나 공개를 보장하지 않습니다.'].join('\n');
-  const url=new URL(repo+'/issues/new');
-  url.searchParams.set('title','[모델 요청] '+parsed.name);
-  url.searchParams.set('body',body);
-  // Avoid permission-sensitive labels, assignees and projects parameters.
-  if(url.href.length>7800){url.searchParams.delete('body');return {url:url.href,body,needsPaste:true};}
-  return {url:url.href,body,needsPaste:false};
+  return { ...parsed, reason: description, consent: true };
  }
  $('request-fill-example').addEventListener('click',()=>{model.value=example;error('request-model','');model.focus();});
  model.addEventListener('input',()=>{error('request-model','');$('request-status').hidden=true;});
@@ -1623,30 +1613,47 @@ refreshCatalog();
    consentDialog.showModal();
    return;
   }
+  if (form.querySelector('button[type="submit"]').disabled) return;
   pendingDraft = prepareIssue();
   if (pendingDraft) confirmDialog.showModal();
  });
  confirmDialog.addEventListener('close', () => { pendingDraft = null; });
- $('request-confirm-submit').addEventListener('click', () => {
+ const submitButton = form.querySelector('button[type="submit"]');
+ $('request-confirm-submit').addEventListener('click', async () => {
   const draft = pendingDraft;
-  if (!draft || !confirmDialog.open) return;
+  if (!draft || !confirmDialog.open || submitButton.disabled) return;
+  const submittedModel = model.value;
   pendingDraft = null;
+  submitButton.disabled = true;
   confirmDialog.close();
-  draftBody=draft.body;
-  const link=$('request-open-again');link.href=draft.url;
-  $('request-status-message').textContent=draft.needsPaste?'내용이 길어 제목만 채워집니다. 아래 본문 복사 버튼으로 본문을 복사해 GitHub에 붙여넣고 Create issue를 눌러주세요. 아직 등록 전입니다.':'GitHub에 로그인하고 내용을 확인한 뒤 Create issue를 눌러주세요. 이 단계에서는 아직 요청이 등록되지 않았습니다.';
-  $('request-status').hidden=false;
-  // User gesture + anchor avoids reverse-tabnabbing and still provides a retry link.
-  const a=document.createElement('a');a.href=draft.url;a.target='_blank';a.rel='noopener noreferrer';
-  document.body.appendChild(a);a.click();a.remove();
- });
- $('request-copy-body').addEventListener('click',async()=>{
-  const btn=$('request-copy-body');
+  const status = $('request-status');
+  const message = $('request-status-message');
+  status.hidden = false;
+  message.textContent = '모델 요청을 보내고 있습니다.';
   try {
-   if(navigator.clipboard && window.isSecureContext) await navigator.clipboard.writeText(draftBody);
-   else {const t=document.createElement('textarea');t.value=draftBody;t.style.cssText='position:fixed;left:-9999px';document.body.appendChild(t);t.select();const ok=document.execCommand('copy');t.remove();if(!ok)throw new Error('copy');}
-   btn.textContent='본문 복사됨';setTimeout(()=>btn.textContent='본문 복사',2000);
-  } catch (_) {btn.textContent='복사 실패 · 작성창을 이용해주세요';}
+   const response = await fetch('/api/model-requests', {
+    method: 'POST',
+    headers: { 'content-type': 'application/json' },
+    body: JSON.stringify(draft),
+   });
+   if (response.status === 429) {
+    message.textContent = '요청을 너무 자주 보냈습니다. 잠시 뒤 다시 시도해주세요.';
+    return;
+   }
+   if (response.status !== 201) throw new Error('Request not accepted');
+   const receipt = await response.json();
+   if (!Number.isInteger(receipt.number)) throw new Error('Missing receipt');
+   if (model.value === submittedModel && reason.value.trim() === draft.reason) {
+    form.reset();
+    $('request-reason-count').textContent = '0 / 700';
+   }
+   message.textContent = '모델 요청을 접수했습니다. 접수 번호 ' + receipt.number;
+  } catch {
+   message.textContent = '접수 완료를 확인하지 못했습니다. 잠시 뒤 다시 시도해주세요.';
+  } finally {
+   status.hidden = false;
+   submitButton.disabled = false;
+  }
  });
  // app.js hydrates static data-icon elements, including this page.
 })();
