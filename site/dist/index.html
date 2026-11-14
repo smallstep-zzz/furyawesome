@@ -758,14 +758,14 @@ a,button{transition:color .18s,background-color .18s,border-color .18s,box-shado
      <div class="order-heading"><div class="order-title-group"><span class="order-tool" data-icon="tool"></span><div><span class="tiny-label">SERVICE ORDER</span><h2 id="request-form-title">모델 정비 요청서</h2></div></div><span class="order-mark">RNGD <span aria-hidden="true">///</span></span></div>
      <form id="model-request-form" novalidate>
       <div class="request-field">
-       <label for="request-model"><span class="field-number">01</span>Hugging Face 주소 또는 모델 이름 <span class="required-note">필수</span></label>
-       <div class="request-input-wrap"><span data-icon="link"></span><input id="request-model" name="model" type="text" maxlength="220" placeholder="huggingface.co/작성자/모델명 또는 모델 이름" required autocomplete="off" spellcheck="false" aria-describedby="request-example request-model-error"></div>
-       <div id="request-example" class="request-example"><span>예시</span><button id="request-fill-example" type="button" aria-label="예시 모델 이름 입력">xtools-at/DeepSeek-V4-Pro-Qwen3.5-9B-UNCENSORED-heretic</button></div>
+       <label for="request-model"><span class="field-number">01</span>Hugging Face모델 이름 또는 Github주소 <span class="required-note">필수</span></label>
+       <div class="request-input-wrap"><span data-icon="link"></span><input id="request-model" name="model" type="text" maxlength="220" placeholder="예) Qwen/Qwen3-VL-4B-Instruct-FP8" required autocomplete="off" spellcheck="false" aria-describedby="request-example request-model-error"></div>
+       <div id="request-example" class="request-example"><span>예시</span><button id="request-fill-example" type="button" aria-label="예시 모델 이름 입력">Qwen/Qwen3-VL-4B-Instruct-FP8</button></div>
        <p class="field-error" id="request-model-error" hidden></p>
       </div>
       <div class="request-field reason-field">
        <label for="request-reason"><span class="field-number">02</span>왜 이 모델이 필요한가요? <span class="required-note">필수</span></label>
-       <textarea id="request-reason" name="reason" rows="4" minlength="1" maxlength="700" placeholder="어떤 작업에 쓰고 싶은지, 현재 어떤 점이 아쉬운지 알려주세요. 구체적인 사용 목적이 검토에 도움이 됩니다." required aria-describedby="request-reason-count request-reason-error"></textarea>
+       <textarea id="request-reason" name="reason" rows="4" minlength="1" maxlength="700" placeholder="예) 사진 이해, OCR, 차트·문서 분석, 화면 UI 인식이 가능합니다. 공식 FP8 체크포인트가 있고 Apache 2.0 라이선스입니다" required aria-describedby="request-reason-count request-reason-error"></textarea>
        <div class="reason-foot"><span>사용 목적과 기대하는 점을 자유롭게 적어주세요.</span><span id="request-reason-count">0 / 700</span></div>
        <p class="field-error" id="request-reason-error" hidden></p>
       </div>
@@ -1520,7 +1520,7 @@ refreshCatalog();
  if (!form) return;
  const model = $('request-model'), reason = $('request-reason'), consent = $('request-consent');
  const repo = 'https://github.com/smallstep-zzz/furyawesome';
- const example = 'xtools-at/DeepSeek-V4-Pro-Qwen3.5-9B-UNCENSORED-heretic';
+ const example = 'Qwen/Qwen3-VL-4B-Instruct-FP8';
  let draftBody = '';
  const error = (id, message) => {
   const el = $(id+'-error');
@@ -1530,24 +1530,25 @@ refreshCatalog();
  };
  function parseModel(raw) {
   const text = raw.trim();
-  if (!text) throw new Error('Hugging Face 주소 또는 모델 이름을 남겨주세요.');
+  if (!text) throw new Error('Hugging Face모델 이름 또는 Github주소을 남겨주세요.');
   if (text.length > 220 || /[\u0000-\u001f\u007f]/.test(text)) throw new Error('모델 이름은 220자 이내의 한 줄로 입력해주세요.');
-  const urlLike = /^[a-z][a-z\d+.-]*:/i.test(text) || /^(?:www\.)?(?:huggingface\.co|hf\.co)\//i.test(text);
+  const urlLike = /^[a-z][a-z\d+.-]*:/i.test(text) || /^(?:www\.)?(?:huggingface\.co|hf\.co|github\.com)\//i.test(text);
   if (urlLike) {
    let url;
    try { url = new URL(/^https?:\/\//i.test(text) ? text : /^[a-z][a-z\d+.-]*:/i.test(text) ? text : 'https://'+text); }
-   catch (_) { throw new Error('올바른 Hugging Face 모델 주소를 입력해주세요.'); }
-   if (url.protocol !== 'https:' || !['huggingface.co','www.huggingface.co','hf.co'].includes(url.hostname.toLowerCase()) || url.port || url.username || url.password) throw new Error('https://huggingface.co/작성자/모델명 형식의 주소를 입력해주세요.');
+   catch (_) { throw new Error('올바른 Hugging Face 또는 GitHub 저장소 주소를 입력해주세요.'); }
+   if (url.protocol !== 'https:' || !['huggingface.co','www.huggingface.co','hf.co','github.com','www.github.com'].includes(url.hostname.toLowerCase()) || url.port || url.username || url.password) throw new Error('Hugging Face 또는 GitHub의 HTTPS 저장소 주소를 입력해주세요.');
    const path = url.pathname.split('/').filter(Boolean);
-   if (path.length < 2 || ['datasets','spaces','collections','models','api','settings'].includes(path[0].toLowerCase())) throw new Error('데이터셋이나 Space가 아닌 모델 저장소 주소를 입력해주세요.');
+   const github = ['github.com','www.github.com'].includes(url.hostname);
+   if (path.length < 2 || (!github && ['datasets','spaces','collections','models','api','settings'].includes(path[0].toLowerCase()))) throw new Error('모델 또는 GitHub 저장소 주소를 입력해주세요.');
    let owner, name;
    try { owner = decodeURIComponent(path[0]); name = decodeURIComponent(path[1]); } catch (_) { throw new Error('모델 주소의 인코딩이 올바르지 않습니다.'); }
    if (![owner,name].every(p=>/^[A-Za-z0-9][A-Za-z0-9._-]*$/.test(p))) throw new Error('주소의 작성자와 모델 이름을 확인해주세요.');
    // Drop access tokens, query strings, fragments and file/revision suffixes.
-   return {name:owner+'/'+name, url:'https://huggingface.co/'+owner+'/'+name};
+   return {name:owner+'/'+name, url:(github?'https://github.com/':'https://huggingface.co/')+owner+'/'+name};
   }
   if (/^[A-Za-z0-9][A-Za-z0-9._-]*\/[A-Za-z0-9][A-Za-z0-9._-]*$/.test(text)) return {name:text,url:'https://huggingface.co/'+text};
-  if (/[<>`\\]|:\/\/|\//.test(text)) throw new Error('모델 이름 또는 작성자/모델명 형식으로 입력해주세요.');
+  if (/[<>`\\]|:\/\/|\//.test(text)) throw new Error('Hugging Face 모델 이름 또는 GitHub 저장소 주소를 입력해주세요.');
   return {name:text,url:null};
  }
  function prepareIssue() {
@@ -1561,7 +1562,7 @@ refreshCatalog();
   if(!valid){form.querySelector('[aria-invalid="true"]').focus();return null;}
   // Block quote preserves line breaks; escape HTML, Markdown and mentions in user text.
   const md = s => s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/([\\`*_{}\[\]#!|])/g,'\\$1').replace(/@/g,'@\u200b');
-  const body=['## 요청 모델',md(parsed.name),'','## Hugging Face 주소',parsed.url || '모델 이름으로 요청했습니다. 정확한 저장소 확인이 필요합니다.','','## 요청 이유 / 사용 목적',description.split('\n').map(line=>'> '+md(line)).join('\n'),'','---','FuryAwesome 플레이스 · 모델 전환 요청','16B 이상은 전환이 어려울 수 있으며, 요청 등록은 전환이나 공개를 보장하지 않습니다.'].join('\n');
+  const body=['## 요청 모델',md(parsed.name),'','## 저장소 주소',parsed.url || '모델 이름으로 요청했습니다. 정확한 저장소 확인이 필요합니다.','','## 요청 이유 / 사용 목적',description.split('\n').map(line=>'> '+md(line)).join('\n'),'','---','FuryAwesome 플레이스 · 모델 전환 요청','16B 이상은 전환이 어려울 수 있으며, 요청 등록은 전환이나 공개를 보장하지 않습니다.'].join('\n');
   const url=new URL(repo+'/issues/new');
   url.searchParams.set('title','[모델 요청] '+parsed.name);
   url.searchParams.set('body',body);
