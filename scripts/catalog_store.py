@@ -238,7 +238,8 @@ def changes_for(files, paths, *, add=None, remove=None, category=None):
     changes = {path: value for path, value in output.items()
                if (not path.startswith('models/') or path in files or path not in paths)
                and files.get(path) != value}
-    changes.update({path: None for path in paths if path.startswith('models/') and path not in output})
+    changes.update({path: None for path in paths
+                    if re.fullmatch(r'models/[a-f0-9]{64}\.json', path) and path not in output})
     return changes
 
 
