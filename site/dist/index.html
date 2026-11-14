@@ -682,6 +682,12 @@ a,button{transition:color .18s,background-color .18s,border-color .18s,box-shado
 .request-submit-note{margin:10px 0 0;font-size:9px;color:#adb5be;line-height:1.8}
 .request-submit-note strong{font-weight:500;color:#d5dce3}
 .request-status{margin-top:13px;background:#27352e;border:1px solid #566f61;padding:10px 12px;border-radius:6px;color:#d5e8dd;font-size:11px;line-height:1.8}
+.request-dialog{box-sizing:border-box;width:min(380px,calc(100% - 32px));padding:22px;background:#202428;color:#f2f3f4;border:1px solid #5b6269;border-radius:12px}
+.request-dialog::backdrop{background:#000a}
+.request-dialog h3{margin:0 0 20px;font-size:17px}
+.request-dialog form{display:flex;justify-content:flex-end;gap:8px}
+.request-dialog button{min-height:40px;padding:0 16px;border:1px solid #626970;border-radius:6px;background:#30363c;color:inherit;cursor:pointer;font:inherit}
+.request-dialog .request-dialog-primary{background:#a82e32;border-color:#d96864}
 .request-status>span{display:block}
 .request-status a,.request-status button{display:inline-block;font:500 10px var(--body-font);text-decoration:underline;text-underline-offset:3px;color:#d7ebdf;margin:5px 12px 0 0;border:0;padding:0;background:none}
 .request-process{display:flex;align-items:center;gap:18px;padding:19px 2px 0;color:#bdc4ca;font-size:10px;flex-wrap:wrap}
@@ -769,12 +775,22 @@ a,button{transition:color .18s,background-color .18s,border-color .18s,box-shado
        <div class="reason-foot"><span>사용 목적과 기대하는 점을 자유롭게 적어주세요.</span><span id="request-reason-count">0 / 700</span></div>
        <p class="field-error" id="request-reason-error" hidden></p>
       </div>
-      <label class="request-consent"><input type="checkbox" id="request-consent" required aria-describedby="request-consent-error"><span>작성한 내용이 <strong>GitHub 공개 이슈</strong>로 게시되는 것에 동의합니다.</span></label>
-      <p class="field-error" id="request-consent-error" hidden></p>
+      <label class="request-consent"><input type="checkbox" id="request-consent" required><span>작성한 내용이 <strong>GitHub 공개 이슈</strong>로 게시되는 것에 동의합니다.</span></label>
       <div class="request-submit-row"><button type="submit" class="request-submit"><span data-icon="github"></span>GitHub에서 요청 등록<span class="submit-arrow" aria-hidden="true">↗</span></button><a class="request-list-link" href="https://github.com/smallstep-zzz/furyawesome/issues" target="_blank" rel="noopener noreferrer">요청 목록 보기 <span aria-hidden="true">↗</span></a></div>
       <p class="request-submit-note">제목과 내용이 채워진 GitHub 작성창이 열립니다. 로그인 후 <strong>Create issue</strong>를 누르면 등록됩니다.</p>
       <div id="request-status" class="request-status" role="status" aria-live="polite" hidden><span id="request-status-message"></span><a id="request-open-again" target="_blank" rel="noopener noreferrer">작성창 다시 열기 ↗</a><button id="request-copy-body" type="button">본문 복사</button></div>
      </form>
+     <dialog class="request-dialog" id="request-consent-dialog" aria-labelledby="request-consent-title">
+      <h3 id="request-consent-title">공개 이슈로 게시되는 점을 확인해주세요.</h3>
+      <form method="dialog"><button class="request-dialog-primary" autofocus>확인</button></form>
+     </dialog>
+     <dialog class="request-dialog" id="request-confirm-dialog" aria-labelledby="request-confirm-title">
+      <h3 id="request-confirm-title">모델 요청을 보낼까요?</h3>
+      <form method="dialog">
+       <button autofocus>취소</button>
+       <button class="request-dialog-primary" id="request-confirm-submit" type="button">등록</button>
+      </form>
+     </dialog>
     </section>
    </div>
    <div class="request-process" aria-label="모델 요청 처리 흐름"><span><b>01</b>모델 추천</span><i aria-hidden="true">→</i><span><b>02</b>구조 · 라이선스 검토</span><i aria-hidden="true">→</i><span><b>03</b>포팅 · NPU 검증</span><i aria-hidden="true">→</i><span><b>04</b>FuryAwesome 공유</span><p>요청 등록이 모델 전환이나 공개를 보장하지는 않습니다.</p></div>
@@ -1583,7 +1599,6 @@ refreshCatalog();
   if(!description){error('request-reason','이 모델이 필요한 이유를 남겨주세요.');valid=false;}
   else if(description.length>700){error('request-reason','요청 이유는 700자 이내로 작성해주세요.');valid=false;}
   else error('request-reason','');
-  if(!consent.checked){error('request-consent','공개 이슈로 게시되는 점을 확인해주세요.');valid=false;} else error('request-consent','');
   if(!valid){form.querySelector('[aria-invalid="true"]').focus();return null;}
   // Block quote preserves line breaks; escape HTML, Markdown and mentions in user text.
   const md = s => s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/([\\`*_{}\[\]#!|])/g,'\\$1').replace(/@/g,'@\u200b');
@@ -1598,10 +1613,25 @@ refreshCatalog();
  $('request-fill-example').addEventListener('click',()=>{model.value=example;error('request-model','');model.focus();});
  model.addEventListener('input',()=>{error('request-model','');$('request-status').hidden=true;});
  reason.addEventListener('input',()=>{$('request-reason-count').textContent=reason.value.length+' / 700';error('request-reason','');$('request-status').hidden=true;});
- consent.addEventListener('change',()=>{error('request-consent','');});
+ const consentDialog = $('request-consent-dialog');
+ const confirmDialog = $('request-confirm-dialog');
+ let pendingDraft = null;
+ consentDialog.addEventListener('close', () => consent.focus());
  form.addEventListener('submit',e=>{
   e.preventDefault();
-  const draft=prepareIssue();if(!draft)return;
+  if (!consent.checked) {
+   consentDialog.showModal();
+   return;
+  }
+  pendingDraft = prepareIssue();
+  if (pendingDraft) confirmDialog.showModal();
+ });
+ confirmDialog.addEventListener('close', () => { pendingDraft = null; });
+ $('request-confirm-submit').addEventListener('click', () => {
+  const draft = pendingDraft;
+  if (!draft || !confirmDialog.open) return;
+  pendingDraft = null;
+  confirmDialog.close();
   draftBody=draft.body;
   const link=$('request-open-again');link.href=draft.url;
   $('request-status-message').textContent=draft.needsPaste?'내용이 길어 제목만 채워집니다. 아래 본문 복사 버튼으로 본문을 복사해 GitHub에 붙여넣고 Create issue를 눌러주세요. 아직 등록 전입니다.':'GitHub에 로그인하고 내용을 확인한 뒤 Create issue를 눌러주세요. 이 단계에서는 아직 요청이 등록되지 않았습니다.';
