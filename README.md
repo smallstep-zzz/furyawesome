@@ -27,6 +27,8 @@ fxbx run FLUX.2-klein-4B --sample
 
 <!-- furyawesome:models:end -->
 
+[RF-DETR Seg Nano의 RNGD 가상환경별 실행 검증](usage/rf-detr-seg-nano.md)
+
 
 ## 처음 사용하는 분을 위한 fxbX 빠른 시작
 
