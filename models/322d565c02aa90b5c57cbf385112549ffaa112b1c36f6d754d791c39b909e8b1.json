@@ -1,0 +1,25 @@
+{
+  "model": {
+    "category": "Computer Vision",
+    "cover_url": "",
+    "name": "RF-DETR Seg Nano",
+    "package_license": "Apache-2.0",
+    "readme": "312×312 이미지 한 장에서 객체 100개 후보의 클래스·박스·마스크를 내는 인스턴스 분할 모델. 별도 가중치와 동봉 Python 예제로 재실행할 수 있습니다. 병합 실행 파일을 쓰면 실행 횟수가 22,968번에서 596번으로 줄어 7.0배 빨라집니다. [사용법](https://huggingface.co/softandsweet/roboflow-rf-detr-seg-nano-rngd-fxbx/blob/a9da25af1027ec9730599f29a1f3037db3d2ad5c/USAGE.md)",
+    "short_description": "312×312 이미지의 인스턴스 분할 모델(클래스·박스·마스크)",
+    "source_license": "Apache-2.0",
+    "source_repo": "Roboflow/rf-detr-seg-nano",
+    "source_revision": "472badbc863609789ce1f69311244c670bdfd2b9"
+  },
+  "release": {
+    "adapter": "execution_plan",
+    "artifact_url": "https://huggingface.co/softandsweet/roboflow-rf-detr-seg-nano-rngd-fxbx/resolve/a9da25af1027ec9730599f29a1f3037db3d2ad5c/rf-detr-seg.fxbx",
+    "author_sha256": "d82ab7210c9be2659572a70f86b3ff1b87c6407d2c9c7e987328437099bb1b50",
+    "precision": "FP32",
+    "runtime_version": "0.9.1",
+    "sdk_version": "2026.4.0",
+    "target": "Furiosa RNGD",
+    "version": "2026.4.0-seg312-fxbx1",
+    "weights_mode": "external"
+  },
+  "schema_version": 1
+}

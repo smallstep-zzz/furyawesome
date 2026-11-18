@@ -1,10 +1,26 @@
-# RF-DETR Seg Nano RNGD 실행 검증
+# RF-DETR Seg Nano RNGD 사용법
+
+FuryAwesome에 `rf-detr-seg-nano`로 등록했습니다. 패키지, 외부 가중치, 고정 입력 샘플과 기준값은
+[softandsweet/roboflow-rf-detr-seg-nano-rngd-fxbx](https://huggingface.co/softandsweet/roboflow-rf-detr-seg-nano-rngd-fxbx/tree/a9da25af1027ec9730599f29a1f3037db3d2ad5c)에 있습니다.
+
+```bash
+hf download softandsweet/roboflow-rf-detr-seg-nano-rngd-fxbx --revision a9da25af1027ec9730599f29a1f3037db3d2ad5c --local-dir .
+tar -xf weights.tar
+python -m pip install 'fxbx[weights]==0.9.1'
+python run.py
+```
+
+2026-11-18에 25번 RNGD 서버의 새 폴더에서 공개 fxbx 0.9.1로 위 순서를 실행해 CPU 기준값(`atol=0.02, rtol=0.02`)을 통과했습니다.
+
+## 병합 실행 파일 (선택)
+
+같은 커밋의 `rf-detr-seg.fxbx.merged.zip`은 실행 횟수를 22,968번에서 596번으로 줄입니다.
+25번 서버에서 병합 전 517 ms, 병합 후 73 ms(7.0배)였습니다. 이 파일은 아직 배포되지 않은
+fxbX(smallstep-zzz/fxbX#10)에서만 쓰이고, 현재 fxbx는 무시합니다. 검증 내용은 Hugging Face README에 있습니다.
+
+## 이전 실행 검증 기록 (2026-11-15)
 
 25번 RNGD 서버에서 fxbX 0.9.1의 고정 입력 샘플을 검증했습니다.
-환경별 표는 릴리스 후보로 작성했고, 이미지 검증 환경에서는 공개 PyPI wheel을
-새로 설치해 NPU 실행과 출력 수치 비교를 다시 통과했습니다.
-패키지와 외부 가중치, 샘플 텐서는 같은 디렉터리에 둡니다.
-이 페이지는 실행 검증 기록이며 FuryAwesome 모델명 다운로드 등록은 아직 없습니다.
 
 ```bash
 python -m pip install 'fxbx==0.9.1' safetensors
