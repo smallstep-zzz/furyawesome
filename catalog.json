@@ -19,7 +19,7 @@
     "black-forest-labs/FLUX.2-klein-4B@2026.4.0-klein4b-fxbx1-setup1#dfd350553ccb04b112427372faf2fc0819a8ef18a2adb6fad9095f5f864b21fb",
     "stabilityai/TripoSR@2026.4.0-vision-fxbx1-setup1#4019baff7302e64e731ddffe63832a674c59fec2db72069d188974a05ef9794e",
     "Roboflow/rf-detr-seg-nano@2026.4.0-seg312-fxbx1#d82ab7210c9be2659572a70f86b3ff1b87c6407d2c9c7e987328437099bb1b50",
-    "depth-anything/Depth-Anything-V2-Small-hf@2026.4.0-depth518-bf16-fxbx1#e31b18ee7cb0792a2f9640cd1eb61f994f6cb18bc6956dc739eef0b071abd3ce"
+    "depth-anything/Depth-Anything-V2-Small-hf@2026.4.0-depth518-bf16-fxbx2#0da5236d13d3a9e147d0a9cfd36c3ae953502647f1bac303591b3d4be7a17eed"
   ],
   "models": [
     {
@@ -453,21 +453,21 @@
         "cover_url": "",
         "name": "Depth Anything V2 Small",
         "package_license": "Apache-2.0",
-        "readme": "518×518 이미지 한 장의 상대 깊이 지도를 내는 단안 깊이 추정 모델. 어텐션·합성곱·리사이즈를 BF16 행렬 연산으로 NPU에서 실행하며 CPU 폴백이 없습니다. 병합 실행 파일을 쓰면 실행 횟수가 1,404번에서 268번으로 줄어 요청당 32 ms입니다. [사용법](https://huggingface.co/softandsweet/depth-anything-depth-anything-v2-small-hf-rngd-fxbx/blob/0328da59549019bcd6c628f07ae07f5516e56daa/USAGE.md)",
-        "short_description": "518×518 깊이 추정 · BF16 NPU 실행, 병합 실행 요청당 32ms(fxbX 0.9.2 이상)",
+        "readme": "518×518 이미지 한 장의 상대 깊이 지도를 내는 단안 깊이 추정 모델. 어텐션·합성곱·리사이즈를 BF16 행렬 연산으로 NPU에서 실행하며 CPU 폴백이 없습니다. 가중치 사본 없이 원본 체크포인트(depth-anything/Depth-Anything-V2-Small-hf@5426e4f0)를 받아 적재할 때 BF16으로 바꿉니다. 병합 실행 파일을 쓰면 실행 횟수가 1,404번에서 268번으로 줄어 요청당 32 ms입니다. [사용법](https://huggingface.co/softandsweet/depth-anything-depth-anything-v2-small-hf-rngd-fxbx/blob/de305a6332d57727a285671afe97859b496a863a/USAGE.md)",
+        "short_description": "518×518 깊이 추정 · BF16 NPU 실행, 원본 HF 가중치를 그대로 받아 실행, 병합 실행 요청당 32ms",
         "source_license": "Apache-2.0",
         "source_repo": "depth-anything/Depth-Anything-V2-Small-hf",
         "source_revision": "5426e4f0f36572d16453bbda7a8389317b1bef99"
       },
       "release": {
         "adapter": "execution_plan",
-        "artifact_url": "https://huggingface.co/softandsweet/depth-anything-depth-anything-v2-small-hf-rngd-fxbx/resolve/0328da59549019bcd6c628f07ae07f5516e56daa/depth-anything-v2-small-bf16.fxbx",
-        "author_sha256": "e31b18ee7cb0792a2f9640cd1eb61f994f6cb18bc6956dc739eef0b071abd3ce",
+        "artifact_url": "https://huggingface.co/softandsweet/depth-anything-depth-anything-v2-small-hf-rngd-fxbx/resolve/de305a6332d57727a285671afe97859b496a863a/depth-anything-v2-small-bf16.fxbx",
+        "author_sha256": "0da5236d13d3a9e147d0a9cfd36c3ae953502647f1bac303591b3d4be7a17eed",
         "precision": "BF16",
-        "runtime_version": "0.9.2",
+        "runtime_version": "0.9.3",
         "sdk_version": "2026.4.0",
         "target": "Furiosa RNGD",
-        "version": "2026.4.0-depth518-bf16-fxbx1",
+        "version": "2026.4.0-depth518-bf16-fxbx2",
         "weights_mode": "external"
       },
       "schema_version": 1
