@@ -6,25 +6,25 @@
         "cover_url": "",
         "name": "all-MiniLM-L6-v2",
         "package_license": "Apache-2.0",
-        "readme": "최대 16토큰 문장 임베딩 인코더. 별도 가중치와 동봉 Python 예제로 재실행할 수 있습니다. [사용법](https://huggingface.co/softandsweet/sentence-transformers-all-minilm-l6-v2-rngd-fxbx/blob/2720858d12c28d73aedb6b78e9a23b2518b81d43/USAGE.md)",
-        "short_description": "최대 16토큰 문장 임베딩 인코더",
+        "readme": "배치 1, 최대 16토큰 입력의 문장 임베딩 인코더. NPU에서 토큰별 은닉 상태를 계산하고 호스트에서 마스크 평균과 L2 정규화를 적용합니다. 가중치 사본 없이 원본 체크포인트(sentence-transformers/all-MiniLM-L6-v2@1110a243)를 받아 적재할 때 BF16으로 바꿉니다. 병합 실행 파일을 쓰면 NPU 실행 횟수가 300번에서 20번으로 줄어 요청당 1.0 ms입니다(장치에 올려 둔 입력 기준). [사용법](https://huggingface.co/softandsweet/sentence-transformers-all-minilm-l6-v2-rngd-fxbx/blob/b5b3e44a0a298efd65feb17c0b2c58fecf3f0bf5/USAGE.md)",
+        "short_description": "최대 16토큰 문장 임베딩 · BF16 NPU 실행, 원본 HF 가중치를 그대로 받아 실행, 병합 실행 1.0 ms",
         "source_license": "Apache-2.0",
         "source_repo": "sentence-transformers/all-MiniLM-L6-v2",
         "source_revision": "1110a243fdf4706b3f48f1d95db1a4f5529b4d41"
       },
       "release": {
         "adapter": "execution_plan",
-        "artifact_url": "https://huggingface.co/softandsweet/sentence-transformers-all-minilm-l6-v2-rngd-fxbx/resolve/ab271a57c4b195b8a2820254f0c08bc6840a35a5/all-MiniLM-L6-v2.fxbx",
-        "author_sha256": "d060ad42ac0ef293ee3e67608b087c16ecc06a4098c1ecba7289d3ed56040824",
+        "artifact_url": "https://huggingface.co/softandsweet/sentence-transformers-all-minilm-l6-v2-rngd-fxbx/resolve/b5b3e44a0a298efd65feb17c0b2c58fecf3f0bf5/all-MiniLM-L6-v2.fxbx",
+        "author_sha256": "ce09b0bb89147843658cac218c1c13fdbadc875133d04221b5e240e82270c465",
         "precision": "BF16",
-        "runtime_version": "0.8.3",
+        "runtime_version": "0.9.4",
         "sdk_version": "2026.4.0",
         "target": "Furiosa RNGD",
-        "version": "2026.4.0-embed16-fxbx1",
+        "version": "2026.4.0-embed16-fxbx2",
         "weights_mode": "external"
       },
       "schema_version": 1
     },
-    "published_on": "2026-11-13"
+    "published_on": "2026-11-19"
   }
 ]
