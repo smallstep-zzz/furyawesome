@@ -12,14 +12,14 @@
     "stabilityai/TripoSR@2026.4.0-vision-fxbx1-compat1#bade8faa34da0bfa8157568c3e37eeeddd63f1ad25726ad91dbb5be3de5bed69",
     "stabilityai/sdxl-turbo@2026.4.0-sdxl-turbo-fxbx1-compat1#457b0cce4875248002a3651ff1cce19799b6edf86c76c2fc8639d4177779f7b0",
     "black-forest-labs/FLUX.2-klein-4B@2026.4.0-klein4b-fxbx1-compat1#cce7b067ed2f992fadb4eea4f019efde224cdb490e8342e0a278dd190730afe9",
-    "sentence-transformers/all-MiniLM-L6-v2@2026.4.0-embed16-fxbx1#d060ad42ac0ef293ee3e67608b087c16ecc06a4098c1ecba7289d3ed56040824",
-    "convaiinnovations/laya-typed-decisions@2026.4.0-choice42-fxbx2#e541b6657fb2d7fb5ea4e53d363f2d579996f832fcb1c7144246c708ee90dbab",
     "stabilityai/sdxl-turbo@2026.4.0-sdxl-turbo-fxbx1-setup1#ebc7d8facb004a0f23e7c0f7497a77a79a5c8cb9395ae2b37ff9693cc6a278e6",
     "giangndm/yolo11-onnx@2026.4.0-opt3-fxbx1-setup1#f6e279e44345fd9510feddf62aaec448ef9d16aca08d468f6a6f90a4c8f05823",
     "black-forest-labs/FLUX.2-klein-4B@2026.4.0-klein4b-fxbx1-setup1#dfd350553ccb04b112427372faf2fc0819a8ef18a2adb6fad9095f5f864b21fb",
     "stabilityai/TripoSR@2026.4.0-vision-fxbx1-setup1#4019baff7302e64e731ddffe63832a674c59fec2db72069d188974a05ef9794e",
     "Roboflow/rf-detr-seg-nano@2026.4.0-seg312-fxbx1#d82ab7210c9be2659572a70f86b3ff1b87c6407d2c9c7e987328437099bb1b50",
-    "depth-anything/Depth-Anything-V2-Small-hf@2026.4.0-depth518-bf16-fxbx2#0da5236d13d3a9e147d0a9cfd36c3ae953502647f1bac303591b3d4be7a17eed"
+    "depth-anything/Depth-Anything-V2-Small-hf@2026.4.0-depth518-bf16-fxbx2#0da5236d13d3a9e147d0a9cfd36c3ae953502647f1bac303591b3d4be7a17eed",
+    "sentence-transformers/all-MiniLM-L6-v2@2026.4.0-embed16-fxbx2#ce09b0bb89147843658cac218c1c13fdbadc875133d04221b5e240e82270c465",
+    "convaiinnovations/laya-typed-decisions@2026.4.0-choice42-fxbx3#352a52452ee3d144f738e1348905bf268d23139b343178e000cd91571c30150b"
   ],
   "models": [
     {
@@ -273,56 +273,6 @@
       }
     },
     {
-      "model": {
-        "category": "Other",
-        "cover_url": "",
-        "name": "all-MiniLM-L6-v2",
-        "package_license": "Apache-2.0",
-        "readme": "최대 16토큰 문장 임베딩 인코더. 별도 가중치와 동봉 Python 예제로 재실행할 수 있습니다. [사용법](https://huggingface.co/softandsweet/sentence-transformers-all-minilm-l6-v2-rngd-fxbx/blob/2720858d12c28d73aedb6b78e9a23b2518b81d43/USAGE.md)",
-        "short_description": "최대 16토큰 문장 임베딩 인코더",
-        "source_license": "Apache-2.0",
-        "source_repo": "sentence-transformers/all-MiniLM-L6-v2",
-        "source_revision": "1110a243fdf4706b3f48f1d95db1a4f5529b4d41"
-      },
-      "release": {
-        "adapter": "execution_plan",
-        "artifact_url": "https://huggingface.co/softandsweet/sentence-transformers-all-minilm-l6-v2-rngd-fxbx/resolve/ab271a57c4b195b8a2820254f0c08bc6840a35a5/all-MiniLM-L6-v2.fxbx",
-        "author_sha256": "d060ad42ac0ef293ee3e67608b087c16ecc06a4098c1ecba7289d3ed56040824",
-        "precision": "BF16",
-        "runtime_version": "0.8.3",
-        "sdk_version": "2026.4.0",
-        "target": "Furiosa RNGD",
-        "version": "2026.4.0-embed16-fxbx1",
-        "weights_mode": "external"
-      },
-      "schema_version": 1
-    },
-    {
-      "model": {
-        "category": "Other",
-        "cover_url": "",
-        "name": "Laya Typed-Decisions",
-        "package_license": "Apache-2.0",
-        "readme": "42토큰·선택지 3개의 의사결정 모델. 별도 가중치와 동봉 Python 예제로 재실행할 수 있습니다. [사용법](https://huggingface.co/softandsweet/convaiinnovations-laya-typed-decisions-rngd-fxbx/blob/e8703c9d2af850dce1d23ac125441e95cf9668bb/USAGE.md)",
-        "short_description": "42토큰·선택지 3개의 의사결정 모델",
-        "source_license": "Apache-2.0",
-        "source_repo": "convaiinnovations/laya-typed-decisions",
-        "source_revision": "e929ae5cf69bc34259cd2f95c9e91145b818b1f0"
-      },
-      "release": {
-        "adapter": "execution_plan",
-        "artifact_url": "https://huggingface.co/softandsweet/convaiinnovations-laya-typed-decisions-rngd-fxbx/resolve/ce08ea4329243a62a10ecc43261b7ee927fd2216/Laya-Typed-Decisions.fxbx",
-        "author_sha256": "e541b6657fb2d7fb5ea4e53d363f2d579996f832fcb1c7144246c708ee90dbab",
-        "precision": "FP32",
-        "runtime_version": "0.8.4",
-        "sdk_version": "2026.4.0",
-        "target": "Furiosa RNGD",
-        "version": "2026.4.0-choice42-fxbx2",
-        "weights_mode": "external"
-      },
-      "schema_version": 1
-    },
-    {
       "schema_version": 1,
       "model": {
         "name": "stabilityai/sdxl-turbo",
@@ -468,6 +418,56 @@
         "sdk_version": "2026.4.0",
         "target": "Furiosa RNGD",
         "version": "2026.4.0-depth518-bf16-fxbx2",
+        "weights_mode": "external"
+      },
+      "schema_version": 1
+    },
+    {
+      "model": {
+        "category": "Other",
+        "cover_url": "",
+        "name": "all-MiniLM-L6-v2",
+        "package_license": "Apache-2.0",
+        "readme": "배치 1, 최대 16토큰 입력의 문장 임베딩 인코더. NPU에서 토큰별 은닉 상태를 계산하고 호스트에서 마스크 평균과 L2 정규화를 적용합니다. 가중치 사본 없이 원본 체크포인트(sentence-transformers/all-MiniLM-L6-v2@1110a243)를 받아 적재할 때 BF16으로 바꿉니다. 병합 실행 파일을 쓰면 NPU 실행 횟수가 300번에서 20번으로 줄어 요청당 1.0 ms입니다(장치에 올려 둔 입력 기준). [사용법](https://huggingface.co/softandsweet/sentence-transformers-all-minilm-l6-v2-rngd-fxbx/blob/b5b3e44a0a298efd65feb17c0b2c58fecf3f0bf5/USAGE.md)",
+        "short_description": "최대 16토큰 문장 임베딩 · BF16 NPU 실행, 원본 HF 가중치를 그대로 받아 실행, 병합 실행 1.0 ms",
+        "source_license": "Apache-2.0",
+        "source_repo": "sentence-transformers/all-MiniLM-L6-v2",
+        "source_revision": "1110a243fdf4706b3f48f1d95db1a4f5529b4d41"
+      },
+      "release": {
+        "adapter": "execution_plan",
+        "artifact_url": "https://huggingface.co/softandsweet/sentence-transformers-all-minilm-l6-v2-rngd-fxbx/resolve/b5b3e44a0a298efd65feb17c0b2c58fecf3f0bf5/all-MiniLM-L6-v2.fxbx",
+        "author_sha256": "ce09b0bb89147843658cac218c1c13fdbadc875133d04221b5e240e82270c465",
+        "precision": "BF16",
+        "runtime_version": "0.9.4",
+        "sdk_version": "2026.4.0",
+        "target": "Furiosa RNGD",
+        "version": "2026.4.0-embed16-fxbx2",
+        "weights_mode": "external"
+      },
+      "schema_version": 1
+    },
+    {
+      "model": {
+        "category": "Other",
+        "cover_url": "",
+        "name": "Laya Typed-Decisions",
+        "package_license": "Apache-2.0",
+        "readme": "42토큰·선택지 3개 고정 입력의 의사결정 모델. 선택지 로짓과 질문 유형 로짓을 내며 FP32와 같은 선택을 냅니다. 가중치 사본 없이 원본 체크포인트(convaiinnovations/laya-typed-decisions@e929ae5c)를 받아 적재할 때 BF16으로 바꿉니다. 병합 실행 파일을 쓰면 요청당 8.3 ms입니다(장치에 올려 둔 입력 기준). [사용법](https://huggingface.co/softandsweet/convaiinnovations-laya-typed-decisions-rngd-fxbx/blob/b0df150ff8ad54a114807a5c1f81f808d5a8dd95/USAGE.md)",
+        "short_description": "42토큰·선택지 3개의 의사결정 모델 · 원본 HF 가중치를 그대로 받아 실행, 병합 실행 8.3 ms",
+        "source_license": "Apache-2.0",
+        "source_repo": "convaiinnovations/laya-typed-decisions",
+        "source_revision": "e929ae5cf69bc34259cd2f95c9e91145b818b1f0"
+      },
+      "release": {
+        "adapter": "execution_plan",
+        "artifact_url": "https://huggingface.co/softandsweet/convaiinnovations-laya-typed-decisions-rngd-fxbx/resolve/b0df150ff8ad54a114807a5c1f81f808d5a8dd95/Laya-Typed-Decisions.fxbx",
+        "author_sha256": "352a52452ee3d144f738e1348905bf268d23139b343178e000cd91571c30150b",
+        "precision": "BF16",
+        "runtime_version": "0.9.4",
+        "sdk_version": "2026.4.0",
+        "target": "Furiosa RNGD",
+        "version": "2026.4.0-choice42-fxbx3",
         "weights_mode": "external"
       },
       "schema_version": 1
