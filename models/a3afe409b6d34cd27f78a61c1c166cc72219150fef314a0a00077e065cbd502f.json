@@ -1,0 +1,25 @@
+{
+  "model": {
+    "category": "Other",
+    "cover_url": "",
+    "name": "SupersonicLabs/Julia-1",
+    "package_license": "Apache-2.0",
+    "readme": "질문 하나, 선택지 세 개, 총 40토큰 이하의 의사결정 프로필입니다. 토큰화와 확률 정규화는 호스트에서 수행합니다. 가중치 사본 없이 원본 체크포인트(SupersonicLabs/Julia-1@9c4e0c58)를 받아 적재할 때 BF16으로 바꿉니다. 이전 FP32 릴리스와 문의 6개에서 같은 선택을 냈고(확률 차이 최대 0.012), 병합 실행으로 NPU 실행 횟수가 2,047번에서 162번, 요청당 시간이 245 ms에서 16.5 ms로 줄었습니다. [사용법](https://huggingface.co/softandsweet/supersoniclabs-julia-1-rngd-fxbex/blob/e22b9c73ae2d94acb89c3d3cc3b8f309096c1282/releases/2026.4.0-choice40-fxbx2/769747c36fbcccb01fbeac2666ae00b351aa9304385200a48555c13a92d8a996/USAGE.md)",
+    "short_description": "세 선택지의 의사결정 모델 · 원본 HF 가중치를 그대로 받아 실행, 요청당 16.5 ms",
+    "source_license": "Apache-2.0",
+    "source_repo": "SupersonicLabs/Julia-1",
+    "source_revision": "9c4e0c5870f7841fb74a23033eab723b3fea7bd7"
+  },
+  "release": {
+    "adapter": "julia_rngd",
+    "artifact_url": "https://huggingface.co/softandsweet/supersoniclabs-julia-1-rngd-fxbex/resolve/e22b9c73ae2d94acb89c3d3cc3b8f309096c1282/releases/2026.4.0-choice40-fxbx2/769747c36fbcccb01fbeac2666ae00b351aa9304385200a48555c13a92d8a996/Julia-1.fxbx",
+    "author_sha256": "769747c36fbcccb01fbeac2666ae00b351aa9304385200a48555c13a92d8a996",
+    "precision": "BF16",
+    "runtime_version": "0.9.4",
+    "sdk_version": "2026.4.0",
+    "target": "Furiosa RNGD",
+    "version": "2026.4.0-choice40-fxbx2",
+    "weights_mode": "external"
+  },
+  "schema_version": 1
+}

@@ -6,8 +6,6 @@
     "stabilityai/sdxl-turbo@2026.4.0-sdxl-turbo-fxbx1#2764d996e37745e5c25991a679f3f1bbb2848547079baa4ccb9c06d5d50874f3",
     "giangndm/yolo11-onnx@2026.4.0-opt3-fxbx1#d40ec9f9fc18c8cb5ad247513859ea130938ec09527bb99527d109e0899511b8",
     "stabilityai/TripoSR@2026.4.0-vision-fxbx1#67aabf1557b7f6c82810bf33a0aa6aeb6753990b99ac74278f5cc7c5a874d8e2",
-    "SupersonicLabs/Julia-1@2026.4.0-choice40-fxbx1#f0d220719b0366e3ab301f5fdd8cfe765f2dc76a873e553805cef4e277d0ef43",
-    "SupersonicLabs/Julia-1@2026.4.0-choice40-fxbx1-compat1#1d9efac8ca878128f8043c134a67b1fc8ab3d8d6dafb925f3000802dd35a2d39",
     "giangndm/yolo11-onnx@2026.4.0-opt3-fxbx1-compat1#504f9df65809be73602475493ebfe0b816e3a256e7c3c876533af3db6fef9e72",
     "stabilityai/TripoSR@2026.4.0-vision-fxbx1-compat1#bade8faa34da0bfa8157568c3e37eeeddd63f1ad25726ad91dbb5be3de5bed69",
     "stabilityai/sdxl-turbo@2026.4.0-sdxl-turbo-fxbx1-compat1#457b0cce4875248002a3651ff1cce19799b6edf86c76c2fc8639d4177779f7b0",
@@ -19,7 +17,8 @@
     "Roboflow/rf-detr-seg-nano@2026.4.0-seg312-fxbx1#d82ab7210c9be2659572a70f86b3ff1b87c6407d2c9c7e987328437099bb1b50",
     "depth-anything/Depth-Anything-V2-Small-hf@2026.4.0-depth518-bf16-fxbx2#0da5236d13d3a9e147d0a9cfd36c3ae953502647f1bac303591b3d4be7a17eed",
     "sentence-transformers/all-MiniLM-L6-v2@2026.4.0-embed16-fxbx2#ce09b0bb89147843658cac218c1c13fdbadc875133d04221b5e240e82270c465",
-    "convaiinnovations/laya-typed-decisions@2026.4.0-choice42-fxbx3#352a52452ee3d144f738e1348905bf268d23139b343178e000cd91571c30150b"
+    "convaiinnovations/laya-typed-decisions@2026.4.0-choice42-fxbx3#352a52452ee3d144f738e1348905bf268d23139b343178e000cd91571c30150b",
+    "SupersonicLabs/Julia-1@2026.4.0-choice40-fxbx2#769747c36fbcccb01fbeac2666ae00b351aa9304385200a48555c13a92d8a996"
   ],
   "models": [
     {
@@ -45,31 +44,6 @@
         "weights_mode": "standalone",
         "author_sha256": "9f5377b386f2125ac087b1a858a4ab859e79abb9d2a3a2a500e6221eac1f8724",
         "artifact_url": "https://huggingface.co/softandsweet/black-forest-labs-flux-2-klein-4b-rngd-fxbex/resolve/57aa0bef31f963de10edd84f803ea2f0c5475be6/releases/2026.4.0-klein4b-fxbx1/9f5377b386f2125ac087b1a858a4ab859e79abb9d2a3a2a500e6221eac1f8724/FLUX.2-klein-4B.fxbx"
-      }
-    },
-    {
-      "schema_version": 1,
-      "model": {
-        "name": "SupersonicLabs/Julia-1",
-        "short_description": "세 선택지의 의사결정을 실행하는 Julia-1 RNGD 패키지입니다.",
-        "readme": "질문 하나, 선택지 세 개, 총 40토큰의 FP32 의사결정 프로필입니다. 원본 Julia-1 체크포인트와 공식 토크나이저를 사용했습니다. 5번 RNGD에서 결제 샘플이 CPU 기준과 같은 billing을 반환했고 확률 최대 절대 차이는 0.00000147이었습니다. 공식 트레이스에 Runnable 호출 2,577개와 NPU Task 5,154개, SDK CPU 폴백 0건이 기록됐습니다. 토큰화와 확률 정규화는 호스트에서 수행합니다.",
-        "category": "Other",
-        "source_repo": "SupersonicLabs/Julia-1",
-        "source_revision": "9c4e0c5870f7841fb74a23033eab723b3fea7bd7",
-        "source_license": "Apache-2.0",
-        "package_license": "Apache-2.0",
-        "cover_url": ""
-      },
-      "release": {
-        "version": "2026.4.0-choice40-fxbx1",
-        "target": "Furiosa RNGD",
-        "precision": "FP32",
-        "sdk_version": "2026.4.0",
-        "runtime_version": "0.8.3+7901064",
-        "adapter": "julia_rngd",
-        "weights_mode": "standalone",
-        "author_sha256": "f0d220719b0366e3ab301f5fdd8cfe765f2dc76a873e553805cef4e277d0ef43",
-        "artifact_url": "https://huggingface.co/softandsweet/supersoniclabs-julia-1-rngd-fxbex/resolve/d978f8a871c2a3a3d199f64ade72a7b8c945e779/releases/2026.4.0-choice40-fxbx1/f0d220719b0366e3ab301f5fdd8cfe765f2dc76a873e553805cef4e277d0ef43/Julia-1.fxbx"
       }
     },
     {
@@ -145,31 +119,6 @@
         "weights_mode": "standalone",
         "author_sha256": "67aabf1557b7f6c82810bf33a0aa6aeb6753990b99ac74278f5cc7c5a874d8e2",
         "artifact_url": "https://huggingface.co/softandsweet/stabilityai-triposr-rngd-fxbex/resolve/de9138f6a7d4d40a0ba29ea2f3cd24cd8bab8d24/releases/2026.4.0-vision-fxbx1/67aabf1557b7f6c82810bf33a0aa6aeb6753990b99ac74278f5cc7c5a874d8e2/TripoSR.fxbx"
-      }
-    },
-    {
-      "schema_version": 1,
-      "model": {
-        "name": "SupersonicLabs/Julia-1",
-        "short_description": "세 선택지의 의사결정을 실행하는 Julia-1 RNGD 패키지입니다.",
-        "readme": "질문 하나, 선택지 세 개, 총 40토큰의 FP32 의사결정 프로필입니다. 원본 Julia-1 체크포인트와 공식 토크나이저를 사용했습니다. 5번 RNGD에서 결제 샘플이 CPU 기준과 같은 billing을 반환했고 확률 최대 절대 차이는 0.00000147이었습니다. 공식 트레이스에 Runnable 호출 2,577개와 NPU Task 5,154개, SDK CPU 폴백 0건이 기록됐습니다. 토큰화와 확률 정규화는 호스트에서 수행합니다.",
-        "category": "Other",
-        "source_repo": "SupersonicLabs/Julia-1",
-        "source_revision": "9c4e0c5870f7841fb74a23033eab723b3fea7bd7",
-        "source_license": "Apache-2.0",
-        "package_license": "Apache-2.0",
-        "cover_url": ""
-      },
-      "release": {
-        "version": "2026.4.0-choice40-fxbx1-compat1",
-        "target": "Furiosa RNGD",
-        "precision": "FP32",
-        "sdk_version": "2026.4.0",
-        "runtime_version": "0.8.3+7901064",
-        "adapter": "julia_rngd",
-        "weights_mode": "standalone",
-        "author_sha256": "1d9efac8ca878128f8043c134a67b1fc8ab3d8d6dafb925f3000802dd35a2d39",
-        "artifact_url": "https://huggingface.co/softandsweet/supersoniclabs-julia-1-rngd-fxbex/resolve/3d579aa22291c792b8842d736d00becaad163fb5/releases/2026.4.0-choice40-fxbx1-compat1/1d9efac8ca878128f8043c134a67b1fc8ab3d8d6dafb925f3000802dd35a2d39/Julia-1.fxbx"
       }
     },
     {
@@ -468,6 +417,31 @@
         "sdk_version": "2026.4.0",
         "target": "Furiosa RNGD",
         "version": "2026.4.0-choice42-fxbx3",
+        "weights_mode": "external"
+      },
+      "schema_version": 1
+    },
+    {
+      "model": {
+        "category": "Other",
+        "cover_url": "",
+        "name": "SupersonicLabs/Julia-1",
+        "package_license": "Apache-2.0",
+        "readme": "질문 하나, 선택지 세 개, 총 40토큰 이하의 의사결정 프로필입니다. 토큰화와 확률 정규화는 호스트에서 수행합니다. 가중치 사본 없이 원본 체크포인트(SupersonicLabs/Julia-1@9c4e0c58)를 받아 적재할 때 BF16으로 바꿉니다. 이전 FP32 릴리스와 문의 6개에서 같은 선택을 냈고(확률 차이 최대 0.012), 병합 실행으로 NPU 실행 횟수가 2,047번에서 162번, 요청당 시간이 245 ms에서 16.5 ms로 줄었습니다. [사용법](https://huggingface.co/softandsweet/supersoniclabs-julia-1-rngd-fxbex/blob/e22b9c73ae2d94acb89c3d3cc3b8f309096c1282/releases/2026.4.0-choice40-fxbx2/769747c36fbcccb01fbeac2666ae00b351aa9304385200a48555c13a92d8a996/USAGE.md)",
+        "short_description": "세 선택지의 의사결정 모델 · 원본 HF 가중치를 그대로 받아 실행, 요청당 16.5 ms",
+        "source_license": "Apache-2.0",
+        "source_repo": "SupersonicLabs/Julia-1",
+        "source_revision": "9c4e0c5870f7841fb74a23033eab723b3fea7bd7"
+      },
+      "release": {
+        "adapter": "julia_rngd",
+        "artifact_url": "https://huggingface.co/softandsweet/supersoniclabs-julia-1-rngd-fxbex/resolve/e22b9c73ae2d94acb89c3d3cc3b8f309096c1282/releases/2026.4.0-choice40-fxbx2/769747c36fbcccb01fbeac2666ae00b351aa9304385200a48555c13a92d8a996/Julia-1.fxbx",
+        "author_sha256": "769747c36fbcccb01fbeac2666ae00b351aa9304385200a48555c13a92d8a996",
+        "precision": "BF16",
+        "runtime_version": "0.9.4",
+        "sdk_version": "2026.4.0",
+        "target": "Furiosa RNGD",
+        "version": "2026.4.0-choice40-fxbx2",
         "weights_mode": "external"
       },
       "schema_version": 1

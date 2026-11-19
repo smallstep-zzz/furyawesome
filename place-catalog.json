@@ -58,15 +58,15 @@
       "id": "Julia-1",
       "source": "SupersonicLabs/Julia-1",
       "category": "decision",
-      "version": "2026.4.0-choice40-fxbx1-compat1",
-      "precision": "FP32",
+      "version": "2026.4.0-choice40-fxbx2",
+      "precision": "BF16",
       "sdk": "2026.4.0",
       "license": "Apache-2.0",
-      "description": "세 선택지의 의사결정을 실행하는 Julia-1 RNGD 패키지입니다.",
-      "published_on": "2026-11-13",
+      "description": "세 선택지의 의사결정 모델 · 원본 HF 가중치를 그대로 받아 실행, 요청당 16.5 ms",
+      "published_on": "2026-11-19",
       "hf": "https://huggingface.co/softandsweet/supersoniclabs-julia-1-rngd-fxbex",
       "usage": "https://github.com/smallstep-zzz/furyawesome/blob/main/usage/julia-1.md",
-      "weights_mode": "standalone"
+      "weights_mode": "external"
     },
     {
       "id": "laya-typed-decisions",
