@@ -9,7 +9,7 @@ furiosa-llm의 `.fxb`처럼 가중치는 패키지에도 이 저장소에도 넣
 - 원본 위치도 함께 기록했습니다: [depth-anything/Depth-Anything-V2-Small-hf@5426e4f0](https://huggingface.co/depth-anything/Depth-Anything-V2-Small-hf/tree/5426e4f0f36572d16453bbda7a8389317b1bef99)의 `model.safetensors`와 그 SHA-256.
 - fxbx는 적재할 때 이 파일을 Hugging Face 캐시로 받고 SHA-256을 확인합니다. 그다음 FP32 텐서를 BF16으로 바꾸며 NPU에 올립니다.
 - 따로 변환해 디스크에 저장하는 단계는 없습니다.
-- 이 기능은 원본 체크포인트 적재를 지원하는 fxbx(smallstep-zzz/fxbX `fetch-companions`, 다음 배포 예정)에서 동작합니다.
+- fxbx 0.9.3 이상이 필요합니다(`pip install --upgrade "fxbx[weights]"`).
 
 ```bash
 fxbx run depth-anything/Depth-Anything-V2-Small-hf --sample -o result.safetensors
