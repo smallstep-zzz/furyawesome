@@ -27,6 +27,20 @@
       "weights_mode": "external"
     },
     {
+      "id": "Depth-Anything-V2-Small-hf",
+      "source": "depth-anything/Depth-Anything-V2-Small-hf",
+      "category": "vision",
+      "version": "2026.4.0-depth518-bf16-fxbx1",
+      "precision": "BF16",
+      "sdk": "2026.4.0",
+      "license": "Apache-2.0",
+      "description": "518×518 깊이 추정 · BF16 NPU 실행, 병합 실행 요청당 32ms(fxbX 0.9.2 이상)",
+      "published_on": "2026-11-19",
+      "hf": "https://huggingface.co/softandsweet/depth-anything-depth-anything-v2-small-hf-rngd-fxbx",
+      "usage": "https://github.com/smallstep-zzz/furyawesome/blob/main/usage/depth-anything-v2-small-hf.md",
+      "weights_mode": "external"
+    },
+    {
       "id": "FLUX.2-klein-4B",
       "source": "black-forest-labs/FLUX.2-klein-4B",
       "category": "image",
