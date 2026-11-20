@@ -16,9 +16,9 @@
     "stabilityai/TripoSR@2026.4.0-vision-fxbx1-setup1#4019baff7302e64e731ddffe63832a674c59fec2db72069d188974a05ef9794e",
     "depth-anything/Depth-Anything-V2-Small-hf@2026.4.0-depth518-bf16-fxbx2#0da5236d13d3a9e147d0a9cfd36c3ae953502647f1bac303591b3d4be7a17eed",
     "sentence-transformers/all-MiniLM-L6-v2@2026.4.0-embed16-fxbx2#ce09b0bb89147843658cac218c1c13fdbadc875133d04221b5e240e82270c465",
-    "convaiinnovations/laya-typed-decisions@2026.4.0-choice42-fxbx3#352a52452ee3d144f738e1348905bf268d23139b343178e000cd91571c30150b",
     "SupersonicLabs/Julia-1@2026.4.0-choice40-fxbx2#769747c36fbcccb01fbeac2666ae00b351aa9304385200a48555c13a92d8a996",
-    "Roboflow/rf-detr-seg-nano@2026.4.0-seg312-fxbx2#ac4bee4bdd7643affc49e17ec12a64241ebf1e97d1494949fdc30dc8214f0dc2"
+    "Roboflow/rf-detr-seg-nano@2026.4.0-seg312-fxbx2#ac4bee4bdd7643affc49e17ec12a64241ebf1e97d1494949fdc30dc8214f0dc2",
+    "convaiinnovations/laya-typed-decisions@2026.4.0-choice42-fxbx4#352a52452ee3d144f738e1348905bf268d23139b343178e000cd91571c30150b"
   ],
   "models": [
     {
@@ -375,31 +375,6 @@
       "model": {
         "category": "Other",
         "cover_url": "",
-        "name": "Laya Typed-Decisions",
-        "package_license": "Apache-2.0",
-        "readme": "42토큰·선택지 3개 고정 입력의 의사결정 모델. 선택지 로짓과 질문 유형 로짓을 내며 FP32와 같은 선택을 냅니다. 가중치 사본 없이 원본 체크포인트(convaiinnovations/laya-typed-decisions@e929ae5c)를 받아 적재할 때 BF16으로 바꿉니다. 병합 실행 파일을 쓰면 요청당 8.3 ms입니다(장치에 올려 둔 입력 기준). [사용법](https://huggingface.co/softandsweet/convaiinnovations-laya-typed-decisions-rngd-fxbx/blob/b0df150ff8ad54a114807a5c1f81f808d5a8dd95/USAGE.md)",
-        "short_description": "42토큰·선택지 3개의 의사결정 모델 · 원본 HF 가중치를 그대로 받아 실행, 병합 실행 8.3 ms",
-        "source_license": "Apache-2.0",
-        "source_repo": "convaiinnovations/laya-typed-decisions",
-        "source_revision": "e929ae5cf69bc34259cd2f95c9e91145b818b1f0"
-      },
-      "release": {
-        "adapter": "execution_plan",
-        "artifact_url": "https://huggingface.co/softandsweet/convaiinnovations-laya-typed-decisions-rngd-fxbx/resolve/b0df150ff8ad54a114807a5c1f81f808d5a8dd95/Laya-Typed-Decisions.fxbx",
-        "author_sha256": "352a52452ee3d144f738e1348905bf268d23139b343178e000cd91571c30150b",
-        "precision": "BF16",
-        "runtime_version": "0.9.4",
-        "sdk_version": "2026.4.0",
-        "target": "Furiosa RNGD",
-        "version": "2026.4.0-choice42-fxbx3",
-        "weights_mode": "external"
-      },
-      "schema_version": 1
-    },
-    {
-      "model": {
-        "category": "Other",
-        "cover_url": "",
         "name": "SupersonicLabs/Julia-1",
         "package_license": "Apache-2.0",
         "readme": "질문 하나, 선택지 세 개, 총 40토큰 이하의 의사결정 프로필입니다. 토큰화와 확률 정규화는 호스트에서 수행합니다. 가중치 사본 없이 원본 체크포인트(SupersonicLabs/Julia-1@9c4e0c58)를 받아 적재할 때 BF16으로 바꿉니다. 이전 FP32 릴리스와 문의 6개에서 같은 선택을 냈고(확률 차이 최대 0.012), 병합 실행으로 NPU 실행 횟수가 2,047번에서 162번, 요청당 시간이 245 ms에서 16.5 ms로 줄었습니다. [사용법](https://huggingface.co/softandsweet/supersoniclabs-julia-1-rngd-fxbex/blob/e22b9c73ae2d94acb89c3d3cc3b8f309096c1282/releases/2026.4.0-choice40-fxbx2/769747c36fbcccb01fbeac2666ae00b351aa9304385200a48555c13a92d8a996/USAGE.md)",
@@ -442,6 +417,31 @@
         "sdk_version": "2026.4.0",
         "target": "Furiosa RNGD",
         "version": "2026.4.0-seg312-fxbx2",
+        "weights_mode": "external"
+      },
+      "schema_version": 1
+    },
+    {
+      "model": {
+        "category": "Other",
+        "cover_url": "",
+        "name": "Laya Typed-Decisions",
+        "package_license": "Apache-2.0",
+        "readme": "42토큰·선택지 3개 고정 입력의 의사결정 모델. 선택지 로짓과 질문 유형 로짓을 내며 FP32와 같은 선택을 냅니다. 가중치 사본 없이 원본 체크포인트(convaiinnovations/laya-typed-decisions@e929ae5c)를 받아 적재할 때 BF16으로 바꿉니다. 병합 실행 파일을 쓰면 요청당 6.9 ms입니다(장치에 올려 둔 입력 기준). [사용법](https://huggingface.co/softandsweet/convaiinnovations-laya-typed-decisions-rngd-fxbx/blob/1ee4940dbc1db8ab0ddc4eb946088cb099ca55dc/USAGE.md)",
+        "short_description": "42토큰·선택지 3개의 의사결정 모델 · 원본 HF 가중치를 그대로 받아 실행, 병합 실행 6.9 ms",
+        "source_license": "Apache-2.0",
+        "source_repo": "convaiinnovations/laya-typed-decisions",
+        "source_revision": "e929ae5cf69bc34259cd2f95c9e91145b818b1f0"
+      },
+      "release": {
+        "adapter": "execution_plan",
+        "artifact_url": "https://huggingface.co/softandsweet/convaiinnovations-laya-typed-decisions-rngd-fxbx/resolve/1ee4940dbc1db8ab0ddc4eb946088cb099ca55dc/Laya-Typed-Decisions.fxbx",
+        "author_sha256": "352a52452ee3d144f738e1348905bf268d23139b343178e000cd91571c30150b",
+        "precision": "BF16",
+        "runtime_version": "0.9.4",
+        "sdk_version": "2026.4.0",
+        "target": "Furiosa RNGD",
+        "version": "2026.4.0-choice42-fxbx4",
         "weights_mode": "external"
       },
       "schema_version": 1

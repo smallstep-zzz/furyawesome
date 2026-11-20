@@ -1,7 +1,7 @@
 # Laya Typed-Decisions RNGD 사용법
 
 FuryAwesome에 `convaiinnovations/laya-typed-decisions`로 등록했습니다. 패키지, 고정 입력 샘플, FP32 CPU 기준값, 병합 실행 파일은
-[softandsweet/convaiinnovations-laya-typed-decisions-rngd-fxbx](https://huggingface.co/softandsweet/convaiinnovations-laya-typed-decisions-rngd-fxbx/tree/b0df150ff8ad54a114807a5c1f81f808d5a8dd95)에 있습니다.
+[softandsweet/convaiinnovations-laya-typed-decisions-rngd-fxbx](https://huggingface.co/softandsweet/convaiinnovations-laya-typed-decisions-rngd-fxbx/tree/1ee4940dbc1db8ab0ddc4eb946088cb099ca55dc)에 있습니다.
 
 furiosa-llm의 `.fxb`처럼 가중치는 패키지에도 이 저장소에도 넣지 않았습니다.
 
@@ -18,13 +18,13 @@ fxbx run convaiinnovations/laya-typed-decisions --sample -o result.safetensors
 저장소를 직접 받아 실행할 수도 있습니다.
 
 ```bash
-hf download softandsweet/convaiinnovations-laya-typed-decisions-rngd-fxbx --revision b0df150ff8ad54a114807a5c1f81f808d5a8dd95 --local-dir .
+hf download softandsweet/convaiinnovations-laya-typed-decisions-rngd-fxbx --revision 1ee4940dbc1db8ab0ddc4eb946088cb099ca55dc --local-dir .
 python -m zipfile -e Laya-Typed-Decisions.fxbx.merged.zip Laya-Typed-Decisions.fxbx.merged
 python run.py
 ```
 
 입력은 `ids`, `attention` `[1,42]`, `positions`, `keep` `[1,3]`, `qtype` `[1]`(모두 int32)입니다. 출력은 선택지 로짓 `[1,3]`과 질문 유형 로짓 `[1,2]`입니다. `run.py`는 FP32 CPU 기준값과 비교합니다(상대 L2 오차 2e-2 이하).
 
-2026-11-19에 5번 RNGD 서버의 새 폴더에서 공개 fxbx 0.9.4와 원본 체크포인트로 검증했습니다. 상대 L2 오차는 0.0049(선택지)와 0.0020(질문 유형)이고 FP32와 같은 선택을 냅니다. 장치에 올려 둔 입력으로 잰 병합 실행 시간은 요청당 8.3 ms입니다.
+2026-11-20에 5번 RNGD 서버의 새 폴더와 빈 Hugging Face 캐시에서 공개 fxbx 0.9.4와 원본 체크포인트로 검증했습니다. 상대 L2 오차는 0.0083(선택지)과 0.0015(질문 유형)이고 FP32와 같은 선택을 냅니다. 병합 묶음 119개(이전 151개)로 장치에 올려 둔 입력 기준 요청당 6.9 ms입니다(이전 8.3 ms).
 
 원본 모델은 Apache-2.0으로 제공됩니다. [convaiinnovations/laya-typed-decisions](https://huggingface.co/convaiinnovations/laya-typed-decisions)
