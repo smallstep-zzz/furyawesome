@@ -114,15 +114,15 @@
       "id": "TripoSR",
       "source": "stabilityai/TripoSR",
       "category": "3d",
-      "version": "2026.4.0-vision-fxbx1-setup1",
-      "precision": "FP32",
+      "version": "2026.4.0-mesh256-fxbx5",
+      "precision": "BF16",
       "sdk": "2026.4.0",
       "license": "MIT",
-      "description": "VisionModel 컴파일러 힌트를 적용한 이미지→3D 실험용 모델입니다.",
-      "published_on": "2026-11-14",
+      "description": "이미지→3D 메시(GLB) · 원본 HF 가중치를 그대로 받아 실행, 256³ 메시와 2048 px 텍스처를 약 80초에 생성",
+      "published_on": "2026-11-20",
       "hf": "https://huggingface.co/softandsweet/stabilityai-triposr-rngd-fxbex",
       "usage": "https://github.com/smallstep-zzz/furyawesome/blob/main/usage/triposr.md",
-      "weights_mode": "standalone"
+      "weights_mode": "external"
     },
     {
       "id": "yolo11-onnx",
