@@ -1,0 +1,25 @@
+{
+  "model": {
+    "category": "Computer Vision",
+    "cover_url": "",
+    "name": "RF-DETR Seg Nano",
+    "package_license": "Apache-2.0",
+    "readme": "312×312 이미지 한 장에서 객체 100개 후보의 클래스·박스·마스크를 내는 인스턴스 분할 모델. 가중치 사본 없이 원본 체크포인트(Roboflow/rf-detr-seg-nano@472badbc)를 받아 적재할 때 BF16으로 바꾸고, 정확도에 민감한 deformable attention·쿼리 후보·기준점 계산은 FP32로 둡니다. FP32 검출 7개가 모두 같은 클래스·박스로 나옵니다. 병합 실행 파일을 쓰면 요청당 약 21 ms로 FP32 릴리스(73 ms)보다 3.4배 빠릅니다. [사용법](https://huggingface.co/softandsweet/roboflow-rf-detr-seg-nano-rngd-fxbx/blob/67172ecbe578f10d14c099933826cddb01a4b326/USAGE.md)",
+    "short_description": "312×312 인스턴스 분할 · 원본 HF 가중치를 그대로 받아 실행, 병합 실행 21 ms(이전 73 ms)",
+    "source_license": "Apache-2.0",
+    "source_repo": "Roboflow/rf-detr-seg-nano",
+    "source_revision": "472badbc863609789ce1f69311244c670bdfd2b9"
+  },
+  "release": {
+    "adapter": "execution_plan",
+    "artifact_url": "https://huggingface.co/softandsweet/roboflow-rf-detr-seg-nano-rngd-fxbx/resolve/67172ecbe578f10d14c099933826cddb01a4b326/rf-detr-seg.fxbx",
+    "author_sha256": "ac4bee4bdd7643affc49e17ec12a64241ebf1e97d1494949fdc30dc8214f0dc2",
+    "precision": "BF16",
+    "runtime_version": "0.9.4",
+    "sdk_version": "2026.4.0",
+    "target": "Furiosa RNGD",
+    "version": "2026.4.0-seg312-fxbx3",
+    "weights_mode": "external"
+  },
+  "schema_version": 1
+}
