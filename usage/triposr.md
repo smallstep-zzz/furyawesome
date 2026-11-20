@@ -1,67 +1,77 @@
 # TripoSR 실행 방법
 
-## 1. 샘플 실행
+이미지 한 장에서 텍스처가 입혀진 3D 메시(GLB)를 만듭니다. Linux의 Furiosa RNGD 서버에서 실행합니다.
 
-Linux의 Furiosa RNGD 서버에서 실행합니다. Furiosa Torch 2026.4.0, PyTorch 2.10.0+cpu와 호환 드라이버가 필요합니다. 검증 환경은 Transformers 4.40.2와 Mesa EGL을 사용했습니다.
+## 1. 설치
 
-Ubuntu 22.04에서 EGL이 없다면 시스템에 설치합니다.
+텍스처 베이킹에 Mesa EGL이 필요합니다. 없다면 시스템에 설치합니다.
 
 ```bash
 sudo apt-get install libegl1-mesa-dev libegl-mesa0 libgl1-mesa-dri
 ```
 
-Python 3.11로 TripoSR 전용 환경을 만듭니다. Conda를 쓰는 경우에도 전용 환경의 Python이 3.11인지 확인하세요. Python 3.14에서는 이전 `tokenizers` wheel을 찾지 못해 소스 빌드가 시작될 수 있습니다.
+Python 3.11로 전용 환경을 만듭니다.
 
 ```bash
 python3.11 -m venv .venv-triposr
 source .venv-triposr/bin/activate
-python --version
 python -m pip install --index-url https://download.pytorch.org/whl/cpu torch==2.10.0+cpu
-python -m pip install --only-binary=tokenizers \
-  'fxbx @ git+https://github.com/smallstep-zzz/fxbX.git@9cfc771' \
-  'furiosa-torch==2026.4.0' 'furiosa-tcc==2026.4.0' \
-  'transformers==4.40.2' 'huggingface-hub==0.36.2' \
-  trimesh scikit-image einops omegaconf xatlas moderngl requests
-python -m pip check
+python -m pip install "fxbx[weights]==0.9.5" furiosa-torch==2026.4.0 furiosa-tcc==2026.4.0 \
+  huggingface-hub trimesh scikit-image xatlas moderngl pillow
+```
+
+## 2. 샘플 실행
+
+```bash
 fxbx run TripoSR --sample -o result.json
 ```
 
-동봉된 로봇 이미지로 텍스처가 포함된 GLB를 만듭니다. GLB와 텍스처 경로는 각각 `result.json`의 `mesh`와 `texture`에 기록됩니다. 다운로드만 하려면 `fxbx fetch TripoSR`을 실행하세요.
+동봉된 로봇 이미지로 `triposr-output/` 아래에 다음 파일을 만듭니다.
 
-## 2. 서빙하고 Python으로 호출
+- `model.glb`: 2048 px UV 텍스처를 입힌 메시
+- `model_vertex.glb`: 꼭짓점 색 메시
+- `texture.png`: 텍스처 이미지
 
-RNGD 서버의 첫 번째 터미널에서 모델을 서빙합니다.
+첫 실행 때 원본 가중치 `stabilityai/TripoSR`의 `model.ckpt`(약 1.6 GB)를 Hugging Face 캐시로 내려받습니다. 내려받은 파일은 SHA-256으로 확인합니다.
+
+## 3. 내 이미지로 실행
+
+이미지 경로를 넘깁니다. 결과는 샘플과 같이 `triposr-output/`에 저장됩니다. RGBA 이미지는 배경을 50% 회색으로 합성합니다. 배경을 미리 지운 물체 이미지가 가장 잘 나옵니다.
 
 ```bash
-fxbx serve TripoSR --port 8000
+fxbx run TripoSR --image my_object.png -o result.json
 ```
 
-같은 서버의 두 번째 터미널에서 Python으로 호출합니다.
+출력 폴더를 직접 정하려면 입력 JSON을 `fxbx predict`에 넘깁니다.
 
-```python
-from pathlib import Path
-from tempfile import mkdtemp
-from zipfile import ZipFile
-
-import requests
-from fxbex.hub import resolve_package
-
-image = Path("robot.png").resolve()
-with ZipFile(resolve_package("TripoSR")) as package:
-    image.write_bytes(package.read("samples/robot.png"))
-
-output = mkdtemp(prefix="triposr-", dir=Path.cwd())
-response = requests.post(
-    "http://127.0.0.1:8000/predict",
-    json={"image": str(image), "output": output},
-    timeout=1800,
-)
-response.raise_for_status()
-result = response.json()
-print(result["mesh"])
-print(result["texture"])
+```bash
+echo '{"image": "my_object.png", "output": "my-output"}' > input.json
+fxbx predict TripoSR --input input.json
 ```
 
-## 검증 범위
+## 동작 방식
 
-`2026.4.0-vision-fxbx1-setup1`에 지원 범위가 포함되어 있습니다. 동일 실행물로 Python 3.10.12와 TCC 2026.4.0, Python 3.11.18과 TCC 2026.4.0 및 2026.4.1에서 256px UV 텍스처 GLB와 NPU 실행을 확인했습니다. 기본 텍스처 해상도는 2048px로 실행 시간이 길어질 수 있습니다. Transformers 5.20.2에서는 체크포인트 로드가 실패했습니다. 이 번들은 실험판이며 일부 중간 텐서에 알려진 수치 편차가 있습니다.
+- `packages/triposr-scene.fxbx`: 이미지 → triplane 장면 코드. 512×512 입력 기준 약 45 ms이며, 병합 실행 묶음 164개를 씁니다.
+- `packages/triposr-query.fxbx`: 3D 좌표 16,384개 → 밀도와 색. 호출당 약 2 ms입니다.
+- 256³ 격자로 밀도를 구하고, marching cubes로 메시를 만든 뒤 꼭짓점과 텍스처 색을 NPU에서 계산합니다.
+- 두 패키지의 가중치는 모두 원본 `model.ckpt`에 연결되어 있습니다. 실행할 때 BF16으로 변환합니다.
+- 장면 패키지에는 원본에서 한 번 계산해 둔 텐서 3개만 들어 있습니다.
+  - 512 px용으로 보간한 위치 임베딩
+  - 2×2 ConvTranspose 가중치와 bias를 Linear 형태로 배치한 것
+- 호스트(CPU)는 이미지 합성·크기 조정, 격자 좌표, marching cubes, UV 아틀라스와 래스터화, PNG/GLB 저장만 합니다.
+
+## 검증 (2026-11-20, 서버 3)
+
+- **조건:** fxbx 0.9.5(PyPI), Furiosa Torch/TCC 2026.4.0, PyTorch 2.10.0+cpu, Python 3.11
+- **설치와 샘플 실행:** 새 가상환경에서 위 설치 명령만으로 샘플 실행에 성공했습니다. 원본 체크포인트 다운로드를 포함해 85초 걸렸습니다.
+- **정확도:** 원본 TripoSR(CPU FP32, 같은 전처리, 256 격자)와 비교했습니다.
+
+  | 항목 | 이 패키지 | 원본 |
+  |---|---|---|
+  | 꼭짓점 | 52,873 | 53,002 |
+  | 면 | 105,730 | 105,996 |
+
+  - chamfer 거리는 대각선의 0.33%입니다.
+  - 바운딩 박스는 0.001 이내로 같습니다.
+  - 장면 코드의 상대 오차는 0.0098입니다.
+- **시간:** 장면 0.3초, 메시 9.2초, 2048 px 텍스처 71초가 걸렸습니다.

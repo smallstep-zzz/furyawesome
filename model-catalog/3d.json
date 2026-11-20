@@ -1,86 +1,30 @@
 [
   {
     "entry": {
-      "schema_version": 1,
       "model": {
         "category": "3D",
         "cover_url": "",
         "name": "stabilityai/TripoSR",
-        "package_license": "MIT model/weights; bundled adapter license undeclared",
-        "readme": "VisionModel 컴파일러 힌트를 적용한 이미지→3D 실험용 모델입니다. 배포 파일에서 텍스처를 포함한 샘플 GLB 생성을 검증했습니다. 실행 환경에는 Transformers 4.35.0, xatlas 0.0.11, moderngl, glcontext 및 EGL이 필요합니다. CPU 기준의 엄격한 중간 텐서 오차 검증에는 알려진 편차가 있습니다.",
-        "short_description": "VisionModel 컴파일러 힌트를 적용한 이미지→3D 실험용 모델입니다.",
+        "package_license": "MIT",
+        "readme": "이미지 한 장에서 2048 px 텍스처를 입힌 3D 메시(GLB)를 만듭니다. 가중치 사본 없이 원본 체크포인트(stabilityai/TripoSR@5b521936의 model.ckpt)를 받아 SHA-256을 확인하고 BF16으로 바꿔 씁니다. 장면(이미지→triplane, 약 45 ms)과 쿼리(좌표→밀도·색, 호출당 약 2 ms)는 NPU에서, marching cubes·UV 아틀라스는 호스트에서 처리합니다. 원본 CPU FP32 결과와 비교해 256³ 메시의 chamfer가 대각선의 0.33%입니다. 이전 릴리스(64³ 메시, 256 px 텍스처, 가중치 1.78 GB 포함)보다 메시가 12배 촘촘하고 번들은 45 MB입니다. Mesa EGL이 필요합니다. [사용법](https://huggingface.co/softandsweet/stabilityai-triposr-rngd-fxbex/blob/8348928032316f69890fa4305468aea74af383f0/releases/2026.4.0-mesh256-fxbx5/USAGE.md)",
+        "short_description": "이미지→3D 메시(GLB) · 원본 HF 가중치를 그대로 받아 실행, 256³ 메시와 2048 px 텍스처를 약 80초에 생성",
         "source_license": "MIT",
         "source_repo": "stabilityai/TripoSR",
         "source_revision": "5b521936b01fbe1890f6f9baed0254ab6351c04a"
       },
       "release": {
-        "adapter": "triposr_replay",
-        "precision": "FP32",
-        "runtime_version": "0.8.3",
+        "adapter": "triposr_fxbx",
+        "artifact_url": "https://huggingface.co/softandsweet/stabilityai-triposr-rngd-fxbex/resolve/8348928032316f69890fa4305468aea74af383f0/releases/2026.4.0-mesh256-fxbx5/85780843b135b10f47bd2c35756e91c078f3f35e8959c044d9c1e8412b0e1e1c/TripoSR.fxbx",
+        "author_sha256": "85780843b135b10f47bd2c35756e91c078f3f35e8959c044d9c1e8412b0e1e1c",
+        "precision": "BF16",
+        "runtime_version": "0.9.5",
         "sdk_version": "2026.4.0",
         "target": "Furiosa RNGD",
-        "version": "2026.4.0-vision-fxbx1-setup1",
-        "weights_mode": "standalone",
-        "author_sha256": "4019baff7302e64e731ddffe63832a674c59fec2db72069d188974a05ef9794e",
-        "artifact_url": "https://huggingface.co/softandsweet/stabilityai-triposr-rngd-fxbex/resolve/5d73e679491b2d8e85b50c0c7da1814af59ba6d2/releases/2026.4.0-vision-fxbx1-setup1/4019baff7302e64e731ddffe63832a674c59fec2db72069d188974a05ef9794e/TripoSR.fxbx"
-      }
-    },
-    "published_on": "2026-11-14"
-  },
-  {
-    "entry": {
-      "schema_version": 1,
-      "model": {
-        "category": "3D",
-        "cover_url": "",
-        "name": "stabilityai/TripoSR",
-        "package_license": "MIT model/weights; bundled adapter license undeclared",
-        "readme": "VisionModel 컴파일러 힌트를 적용한 이미지→3D 실험용 모델입니다. 배포 파일에서 텍스처를 포함한 샘플 GLB 생성을 검증했습니다. 실행 환경에는 Transformers 4.35.0, xatlas 0.0.11, moderngl, glcontext 및 EGL이 필요합니다. CPU 기준의 엄격한 중간 텐서 오차 검증에는 알려진 편차가 있습니다.",
-        "short_description": "VisionModel 컴파일러 힌트를 적용한 이미지→3D 실험용 모델입니다.",
-        "source_license": "MIT",
-        "source_repo": "stabilityai/TripoSR",
-        "source_revision": "5b521936b01fbe1890f6f9baed0254ab6351c04a"
+        "version": "2026.4.0-mesh256-fxbx5",
+        "weights_mode": "external"
       },
-      "release": {
-        "adapter": "triposr_replay",
-        "precision": "FP32",
-        "runtime_version": "0.8.3",
-        "sdk_version": "2026.4.0",
-        "target": "Furiosa RNGD",
-        "version": "2026.4.0-vision-fxbx1-compat1",
-        "weights_mode": "standalone",
-        "author_sha256": "bade8faa34da0bfa8157568c3e37eeeddd63f1ad25726ad91dbb5be3de5bed69",
-        "artifact_url": "https://huggingface.co/softandsweet/stabilityai-triposr-rngd-fxbex/resolve/fb99a57aa27bfba1ad96f3e2dd5e48196582bb61/releases/2026.4.0-vision-fxbx1-compat1/bade8faa34da0bfa8157568c3e37eeeddd63f1ad25726ad91dbb5be3de5bed69/TripoSR.fxbx"
-      }
+      "schema_version": 1
     },
-    "published_on": "2026-11-13"
-  },
-  {
-    "entry": {
-      "schema_version": 1,
-      "model": {
-        "category": "3D",
-        "cover_url": "",
-        "name": "stabilityai/TripoSR",
-        "package_license": "MIT model/weights; bundled adapter license undeclared",
-        "readme": "VisionModel 컴파일러 힌트를 적용한 이미지→3D 실험용 모델입니다. 배포 파일에서 텍스처를 포함한 샘플 GLB 생성을 검증했습니다. 실행 환경에는 Transformers 4.35.0, xatlas 0.0.11, moderngl, glcontext 및 EGL이 필요합니다. CPU 기준의 엄격한 중간 텐서 오차 검증에는 알려진 편차가 있습니다.",
-        "short_description": "VisionModel 컴파일러 힌트를 적용한 이미지→3D 실험용 모델입니다.",
-        "source_license": "MIT",
-        "source_repo": "stabilityai/TripoSR",
-        "source_revision": "5b521936b01fbe1890f6f9baed0254ab6351c04a"
-      },
-      "release": {
-        "adapter": "triposr_replay",
-        "precision": "FP32",
-        "runtime_version": "0.8.3",
-        "sdk_version": "2026.4.0",
-        "target": "Furiosa RNGD",
-        "version": "2026.4.0-vision-fxbx1",
-        "weights_mode": "standalone",
-        "author_sha256": "67aabf1557b7f6c82810bf33a0aa6aeb6753990b99ac74278f5cc7c5a874d8e2",
-        "artifact_url": "https://huggingface.co/softandsweet/stabilityai-triposr-rngd-fxbex/resolve/de9138f6a7d4d40a0ba29ea2f3cd24cd8bab8d24/releases/2026.4.0-vision-fxbx1/67aabf1557b7f6c82810bf33a0aa6aeb6753990b99ac74278f5cc7c5a874d8e2/TripoSR.fxbx"
-      }
-    },
-    "published_on": "2026-11-12"
+    "published_on": "2026-11-20"
   }
 ]

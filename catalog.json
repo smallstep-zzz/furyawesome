@@ -5,20 +5,18 @@
     "black-forest-labs/FLUX.2-klein-4B@2026.4.0-klein4b-fxbx1#9f5377b386f2125ac087b1a858a4ab859e79abb9d2a3a2a500e6221eac1f8724",
     "stabilityai/sdxl-turbo@2026.4.0-sdxl-turbo-fxbx1#2764d996e37745e5c25991a679f3f1bbb2848547079baa4ccb9c06d5d50874f3",
     "giangndm/yolo11-onnx@2026.4.0-opt3-fxbx1#d40ec9f9fc18c8cb5ad247513859ea130938ec09527bb99527d109e0899511b8",
-    "stabilityai/TripoSR@2026.4.0-vision-fxbx1#67aabf1557b7f6c82810bf33a0aa6aeb6753990b99ac74278f5cc7c5a874d8e2",
     "giangndm/yolo11-onnx@2026.4.0-opt3-fxbx1-compat1#504f9df65809be73602475493ebfe0b816e3a256e7c3c876533af3db6fef9e72",
-    "stabilityai/TripoSR@2026.4.0-vision-fxbx1-compat1#bade8faa34da0bfa8157568c3e37eeeddd63f1ad25726ad91dbb5be3de5bed69",
     "stabilityai/sdxl-turbo@2026.4.0-sdxl-turbo-fxbx1-compat1#457b0cce4875248002a3651ff1cce19799b6edf86c76c2fc8639d4177779f7b0",
     "black-forest-labs/FLUX.2-klein-4B@2026.4.0-klein4b-fxbx1-compat1#cce7b067ed2f992fadb4eea4f019efde224cdb490e8342e0a278dd190730afe9",
     "stabilityai/sdxl-turbo@2026.4.0-sdxl-turbo-fxbx1-setup1#ebc7d8facb004a0f23e7c0f7497a77a79a5c8cb9395ae2b37ff9693cc6a278e6",
     "giangndm/yolo11-onnx@2026.4.0-opt3-fxbx1-setup1#f6e279e44345fd9510feddf62aaec448ef9d16aca08d468f6a6f90a4c8f05823",
     "black-forest-labs/FLUX.2-klein-4B@2026.4.0-klein4b-fxbx1-setup1#dfd350553ccb04b112427372faf2fc0819a8ef18a2adb6fad9095f5f864b21fb",
-    "stabilityai/TripoSR@2026.4.0-vision-fxbx1-setup1#4019baff7302e64e731ddffe63832a674c59fec2db72069d188974a05ef9794e",
     "depth-anything/Depth-Anything-V2-Small-hf@2026.4.0-depth518-bf16-fxbx2#0da5236d13d3a9e147d0a9cfd36c3ae953502647f1bac303591b3d4be7a17eed",
     "sentence-transformers/all-MiniLM-L6-v2@2026.4.0-embed16-fxbx2#ce09b0bb89147843658cac218c1c13fdbadc875133d04221b5e240e82270c465",
     "SupersonicLabs/Julia-1@2026.4.0-choice40-fxbx2#769747c36fbcccb01fbeac2666ae00b351aa9304385200a48555c13a92d8a996",
     "convaiinnovations/laya-typed-decisions@2026.4.0-choice42-fxbx4#352a52452ee3d144f738e1348905bf268d23139b343178e000cd91571c30150b",
-    "Roboflow/rf-detr-seg-nano@2026.4.0-seg312-fxbx3#ac4bee4bdd7643affc49e17ec12a64241ebf1e97d1494949fdc30dc8214f0dc2"
+    "Roboflow/rf-detr-seg-nano@2026.4.0-seg312-fxbx3#ac4bee4bdd7643affc49e17ec12a64241ebf1e97d1494949fdc30dc8214f0dc2",
+    "stabilityai/TripoSR@2026.4.0-mesh256-fxbx5#85780843b135b10f47bd2c35756e91c078f3f35e8959c044d9c1e8412b0e1e1c"
   ],
   "models": [
     {
@@ -99,31 +97,6 @@
     {
       "schema_version": 1,
       "model": {
-        "category": "3D",
-        "cover_url": "",
-        "name": "stabilityai/TripoSR",
-        "package_license": "MIT model/weights; bundled adapter license undeclared",
-        "readme": "VisionModel 컴파일러 힌트를 적용한 이미지→3D 실험용 모델입니다. 배포 파일에서 텍스처를 포함한 샘플 GLB 생성을 검증했습니다. 실행 환경에는 Transformers 4.35.0, xatlas 0.0.11, moderngl, glcontext 및 EGL이 필요합니다. CPU 기준의 엄격한 중간 텐서 오차 검증에는 알려진 편차가 있습니다.",
-        "short_description": "VisionModel 컴파일러 힌트를 적용한 이미지→3D 실험용 모델입니다.",
-        "source_license": "MIT",
-        "source_repo": "stabilityai/TripoSR",
-        "source_revision": "5b521936b01fbe1890f6f9baed0254ab6351c04a"
-      },
-      "release": {
-        "adapter": "triposr_replay",
-        "precision": "FP32",
-        "runtime_version": "0.8.3",
-        "sdk_version": "2026.4.0",
-        "target": "Furiosa RNGD",
-        "version": "2026.4.0-vision-fxbx1",
-        "weights_mode": "standalone",
-        "author_sha256": "67aabf1557b7f6c82810bf33a0aa6aeb6753990b99ac74278f5cc7c5a874d8e2",
-        "artifact_url": "https://huggingface.co/softandsweet/stabilityai-triposr-rngd-fxbex/resolve/de9138f6a7d4d40a0ba29ea2f3cd24cd8bab8d24/releases/2026.4.0-vision-fxbx1/67aabf1557b7f6c82810bf33a0aa6aeb6753990b99ac74278f5cc7c5a874d8e2/TripoSR.fxbx"
-      }
-    },
-    {
-      "schema_version": 1,
-      "model": {
         "category": "Computer Vision",
         "cover_url": "",
         "name": "YOLO11n RNGD FXBEX (640, portable)",
@@ -144,31 +117,6 @@
         "weights_mode": "standalone",
         "author_sha256": "504f9df65809be73602475493ebfe0b816e3a256e7c3c876533af3db6fef9e72",
         "artifact_url": "https://huggingface.co/softandsweet/giangndm-yolo11-onnx-rngd-fxbex/resolve/19256433b820f68e3934a49451b64952c9c0ce3f/releases/2026.4.0-opt3-fxbx1-compat1/504f9df65809be73602475493ebfe0b816e3a256e7c3c876533af3db6fef9e72/yolo11-onnx.fxbx"
-      }
-    },
-    {
-      "schema_version": 1,
-      "model": {
-        "category": "3D",
-        "cover_url": "",
-        "name": "stabilityai/TripoSR",
-        "package_license": "MIT model/weights; bundled adapter license undeclared",
-        "readme": "VisionModel 컴파일러 힌트를 적용한 이미지→3D 실험용 모델입니다. 배포 파일에서 텍스처를 포함한 샘플 GLB 생성을 검증했습니다. 실행 환경에는 Transformers 4.35.0, xatlas 0.0.11, moderngl, glcontext 및 EGL이 필요합니다. CPU 기준의 엄격한 중간 텐서 오차 검증에는 알려진 편차가 있습니다.",
-        "short_description": "VisionModel 컴파일러 힌트를 적용한 이미지→3D 실험용 모델입니다.",
-        "source_license": "MIT",
-        "source_repo": "stabilityai/TripoSR",
-        "source_revision": "5b521936b01fbe1890f6f9baed0254ab6351c04a"
-      },
-      "release": {
-        "adapter": "triposr_replay",
-        "precision": "FP32",
-        "runtime_version": "0.8.3",
-        "sdk_version": "2026.4.0",
-        "target": "Furiosa RNGD",
-        "version": "2026.4.0-vision-fxbx1-compat1",
-        "weights_mode": "standalone",
-        "author_sha256": "bade8faa34da0bfa8157568c3e37eeeddd63f1ad25726ad91dbb5be3de5bed69",
-        "artifact_url": "https://huggingface.co/softandsweet/stabilityai-triposr-rngd-fxbex/resolve/fb99a57aa27bfba1ad96f3e2dd5e48196582bb61/releases/2026.4.0-vision-fxbx1-compat1/bade8faa34da0bfa8157568c3e37eeeddd63f1ad25726ad91dbb5be3de5bed69/TripoSR.fxbx"
       }
     },
     {
@@ -297,31 +245,6 @@
       }
     },
     {
-      "schema_version": 1,
-      "model": {
-        "category": "3D",
-        "cover_url": "",
-        "name": "stabilityai/TripoSR",
-        "package_license": "MIT model/weights; bundled adapter license undeclared",
-        "readme": "VisionModel 컴파일러 힌트를 적용한 이미지→3D 실험용 모델입니다. 배포 파일에서 텍스처를 포함한 샘플 GLB 생성을 검증했습니다. 실행 환경에는 Transformers 4.35.0, xatlas 0.0.11, moderngl, glcontext 및 EGL이 필요합니다. CPU 기준의 엄격한 중간 텐서 오차 검증에는 알려진 편차가 있습니다.",
-        "short_description": "VisionModel 컴파일러 힌트를 적용한 이미지→3D 실험용 모델입니다.",
-        "source_license": "MIT",
-        "source_repo": "stabilityai/TripoSR",
-        "source_revision": "5b521936b01fbe1890f6f9baed0254ab6351c04a"
-      },
-      "release": {
-        "adapter": "triposr_replay",
-        "precision": "FP32",
-        "runtime_version": "0.8.3",
-        "sdk_version": "2026.4.0",
-        "target": "Furiosa RNGD",
-        "version": "2026.4.0-vision-fxbx1-setup1",
-        "weights_mode": "standalone",
-        "author_sha256": "4019baff7302e64e731ddffe63832a674c59fec2db72069d188974a05ef9794e",
-        "artifact_url": "https://huggingface.co/softandsweet/stabilityai-triposr-rngd-fxbex/resolve/5d73e679491b2d8e85b50c0c7da1814af59ba6d2/releases/2026.4.0-vision-fxbx1-setup1/4019baff7302e64e731ddffe63832a674c59fec2db72069d188974a05ef9794e/TripoSR.fxbx"
-      }
-    },
-    {
       "model": {
         "category": "Computer Vision",
         "cover_url": "",
@@ -442,6 +365,31 @@
         "sdk_version": "2026.4.0",
         "target": "Furiosa RNGD",
         "version": "2026.4.0-seg312-fxbx3",
+        "weights_mode": "external"
+      },
+      "schema_version": 1
+    },
+    {
+      "model": {
+        "category": "3D",
+        "cover_url": "",
+        "name": "stabilityai/TripoSR",
+        "package_license": "MIT",
+        "readme": "이미지 한 장에서 2048 px 텍스처를 입힌 3D 메시(GLB)를 만듭니다. 가중치 사본 없이 원본 체크포인트(stabilityai/TripoSR@5b521936의 model.ckpt)를 받아 SHA-256을 확인하고 BF16으로 바꿔 씁니다. 장면(이미지→triplane, 약 45 ms)과 쿼리(좌표→밀도·색, 호출당 약 2 ms)는 NPU에서, marching cubes·UV 아틀라스는 호스트에서 처리합니다. 원본 CPU FP32 결과와 비교해 256³ 메시의 chamfer가 대각선의 0.33%입니다. 이전 릴리스(64³ 메시, 256 px 텍스처, 가중치 1.78 GB 포함)보다 메시가 12배 촘촘하고 번들은 45 MB입니다. Mesa EGL이 필요합니다. [사용법](https://huggingface.co/softandsweet/stabilityai-triposr-rngd-fxbex/blob/8348928032316f69890fa4305468aea74af383f0/releases/2026.4.0-mesh256-fxbx5/USAGE.md)",
+        "short_description": "이미지→3D 메시(GLB) · 원본 HF 가중치를 그대로 받아 실행, 256³ 메시와 2048 px 텍스처를 약 80초에 생성",
+        "source_license": "MIT",
+        "source_repo": "stabilityai/TripoSR",
+        "source_revision": "5b521936b01fbe1890f6f9baed0254ab6351c04a"
+      },
+      "release": {
+        "adapter": "triposr_fxbx",
+        "artifact_url": "https://huggingface.co/softandsweet/stabilityai-triposr-rngd-fxbex/resolve/8348928032316f69890fa4305468aea74af383f0/releases/2026.4.0-mesh256-fxbx5/85780843b135b10f47bd2c35756e91c078f3f35e8959c044d9c1e8412b0e1e1c/TripoSR.fxbx",
+        "author_sha256": "85780843b135b10f47bd2c35756e91c078f3f35e8959c044d9c1e8412b0e1e1c",
+        "precision": "BF16",
+        "runtime_version": "0.9.5",
+        "sdk_version": "2026.4.0",
+        "target": "Furiosa RNGD",
+        "version": "2026.4.0-mesh256-fxbx5",
         "weights_mode": "external"
       },
       "schema_version": 1
