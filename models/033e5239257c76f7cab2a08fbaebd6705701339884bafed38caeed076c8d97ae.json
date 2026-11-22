@@ -1,0 +1,25 @@
+{
+  "model": {
+    "category": "3D",
+    "cover_url": "",
+    "name": "stabilityai/TripoSR",
+    "package_license": "MIT",
+    "readme": "이미지 한 장에서 2048 px 텍스처를 입힌 3D 메시(GLB)를 만듭니다. 가중치 사본 없이 원본 체크포인트(stabilityai/TripoSR@5b521936의 model.ckpt)를 받아 SHA-256을 확인하고 BF16으로 바꿔 씁니다. 장면(이미지→triplane, 약 45 ms)과 쿼리(좌표→밀도·색, 호출당 약 2 ms)는 NPU에서, marching cubes·UV 아틀라스는 호스트에서 처리합니다. 원본 CPU FP32 결과와 비교해 256³ 메시의 chamfer가 대각선의 0.33%입니다. 이전 릴리스(64³ 메시, 256 px 텍스처, 가중치 1.78 GB 포함)보다 메시가 12배 촘촘하고 번들은 45 MB입니다. 이전 릴리스(fxbx5)는 병합 실행 묶음 목록이 빠져 장면이 약 290 ms였고, fxbx6에서 약 45 ms로 고쳤습니다. Mesa EGL이 필요합니다. [사용법](https://huggingface.co/softandsweet/stabilityai-triposr-rngd-fxbex/blob/fef58d9b4d38068019571d3dfee589ae1cc26a80/releases/2026.4.0-mesh256-fxbx6/USAGE.md)",
+    "short_description": "이미지→3D 메시(GLB) · 원본 HF 가중치를 그대로 받아 실행, 256³ 메시와 2048 px 텍스처를 약 80초에 생성",
+    "source_license": "MIT",
+    "source_repo": "stabilityai/TripoSR",
+    "source_revision": "5b521936b01fbe1890f6f9baed0254ab6351c04a"
+  },
+  "release": {
+    "adapter": "triposr_fxbx",
+    "artifact_url": "https://huggingface.co/softandsweet/stabilityai-triposr-rngd-fxbex/resolve/fef58d9b4d38068019571d3dfee589ae1cc26a80/releases/2026.4.0-mesh256-fxbx6/71cac8ac8fc3ad92d6395c1f5a906e71f426a9128bf23fcc871a0b427046ba46/TripoSR.fxbx",
+    "author_sha256": "71cac8ac8fc3ad92d6395c1f5a906e71f426a9128bf23fcc871a0b427046ba46",
+    "precision": "BF16",
+    "runtime_version": "0.9.5",
+    "sdk_version": "2026.4.0",
+    "target": "Furiosa RNGD",
+    "version": "2026.4.0-mesh256-fxbx6",
+    "weights_mode": "external"
+  },
+  "schema_version": 1
+}
