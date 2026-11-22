@@ -1,0 +1,25 @@
+{
+  "model": {
+    "category": "image",
+    "cover_url": "",
+    "name": "black-forest-labs/flux-3-image-klein",
+    "package_license": "FLUX Kommunity License v1.0 (원본 가중치 미포함, 원본 저장소 동의 필요)",
+    "readme": "문장으로 512×512 또는 1024×1024 이미지를 만듭니다. 가중치 사본 없이 원본 체크포인트(black-forest-labs/flux-3-image-klein@3b767ff9, 동의 필요)를 받아 SHA-256을 확인하고 씁니다. 텍스트 인코더, 해상도별 트랜스포머 스텝과 VAE를 NPU에서 실행하며 병합 실행 묶음을 함께 씁니다. 16스텝 기준 512는 약 9.7초, 1024는 약 14.4초입니다(단계별 실행 46.7초, 35.7초). CPU 기준 파이프라인과 같은 문장·노이즈로 비교한 PSNR은 512 27.31 dB, 1024 29.88 dB입니다. FLUX Kommunity License를 따르며 비상업적 용도 또는 라이선스가 정한 Qualifying User의 상업적 이용만 가능합니다. [사용법](https://huggingface.co/softandsweet/black-forest-labs-flux-3-image-klein-rngd-fxbex/blob/56ba7b2ce4c2e886498e0f022d65586b6ac9be9a/releases/2026.4.0-flux3-fxbx1/USAGE.md)",
+    "short_description": "문장→이미지(512·1024) · 원본 HF 가중치를 그대로 받아 실행, 1024×1024 약 14초",
+    "source_license": "FLUX Kommunity License v1.0",
+    "source_repo": "black-forest-labs/flux-3-image-klein",
+    "source_revision": "3b767ff9b5261d71645e2ec49d87d298d955238d"
+  },
+  "release": {
+    "adapter": "flux3_fxbx",
+    "artifact_url": "https://huggingface.co/softandsweet/black-forest-labs-flux-3-image-klein-rngd-fxbex/resolve/56ba7b2ce4c2e886498e0f022d65586b6ac9be9a/releases/2026.4.0-flux3-fxbx1/2924f79ead2de03c4aa1a64a62dc5231fd4dd604334e7e6676df3493d9eb8f51/flux3-image-klein.fxbx",
+    "author_sha256": "2924f79ead2de03c4aa1a64a62dc5231fd4dd604334e7e6676df3493d9eb8f51",
+    "precision": "BF16",
+    "runtime_version": "0.9.5",
+    "sdk_version": "2026.4.0",
+    "target": "Furiosa RNGD",
+    "version": "2026.4.0-flux3-fxbx1",
+    "weights_mode": "external"
+  },
+  "schema_version": 1
+}

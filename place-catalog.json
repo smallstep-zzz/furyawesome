@@ -41,6 +41,20 @@
       "weights_mode": "external"
     },
     {
+      "id": "flux-3-image-klein",
+      "source": "black-forest-labs/flux-3-image-klein",
+      "category": "image",
+      "version": "2026.4.0-flux3-fxbx1",
+      "precision": "BF16",
+      "sdk": "2026.4.0",
+      "license": "FLUX Kommunity License v1.0",
+      "description": "문장→이미지(512·1024) · 원본 HF 가중치를 그대로 받아 실행, 1024×1024 약 14초",
+      "published_on": "2026-11-22",
+      "hf": "https://huggingface.co/softandsweet/black-forest-labs-flux-3-image-klein-rngd-fxbex",
+      "usage": "https://github.com/smallstep-zzz/furyawesome/blob/main/usage/flux-3-image-klein.md",
+      "weights_mode": "external"
+    },
+    {
       "id": "FLUX.2-klein-4B",
       "source": "black-forest-labs/FLUX.2-klein-4B",
       "category": "image",
