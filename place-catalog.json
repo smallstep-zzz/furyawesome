@@ -97,6 +97,20 @@
       "weights_mode": "external"
     },
     {
+      "id": "Qwen-Image-2.1",
+      "source": "Qwen/Qwen-Image-2.1",
+      "category": "image",
+      "version": "2026.4.0-qwenimage21-512-fxbx1",
+      "precision": "Mixed",
+      "sdk": "2026.4.0",
+      "license": "Qwen Research License Agreement",
+      "description": "512×512 문장→이미지 · 병합 TCL NPU 실행 · 원본 체크포인트 참조 · 비상업 연구·평가 전용",
+      "published_on": "2026-11-23",
+      "hf": "https://huggingface.co/softandsweet/qwen-qwen-image-2-1-rngd-fxbex",
+      "usage": "https://huggingface.co/softandsweet/qwen-qwen-image-2-1-rngd-fxbex",
+      "weights_mode": "external"
+    },
+    {
       "id": "rf-detr-seg-nano",
       "source": "Roboflow/rf-detr-seg-nano",
       "category": "vision",

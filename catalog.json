@@ -17,7 +17,8 @@
     "convaiinnovations/laya-typed-decisions@2026.4.0-choice42-fxbx4#352a52452ee3d144f738e1348905bf268d23139b343178e000cd91571c30150b",
     "Roboflow/rf-detr-seg-nano@2026.4.0-seg312-fxbx3#ac4bee4bdd7643affc49e17ec12a64241ebf1e97d1494949fdc30dc8214f0dc2",
     "black-forest-labs/flux-3-image-klein@2026.4.0-flux3-fxbx1#2924f79ead2de03c4aa1a64a62dc5231fd4dd604334e7e6676df3493d9eb8f51",
-    "stabilityai/TripoSR@2026.4.0-mesh256-fxbx6#71cac8ac8fc3ad92d6395c1f5a906e71f426a9128bf23fcc871a0b427046ba46"
+    "stabilityai/TripoSR@2026.4.0-mesh256-fxbx6#71cac8ac8fc3ad92d6395c1f5a906e71f426a9128bf23fcc871a0b427046ba46",
+    "Qwen/Qwen-Image-2.1@2026.4.0-qwenimage21-512-fxbx1#b62c95f5498b7da89b1e9774aeb9ac6c36db96b7c8bcdf5e4ebf741e5b024ee5"
   ],
   "models": [
     {
@@ -416,6 +417,31 @@
         "sdk_version": "2026.4.0",
         "target": "Furiosa RNGD",
         "version": "2026.4.0-mesh256-fxbx6",
+        "weights_mode": "external"
+      },
+      "schema_version": 1
+    },
+    {
+      "model": {
+        "category": "Image Generation",
+        "cover_url": "",
+        "name": "Fury Image Replay 2.1 (from Qwen-Image-2.1)",
+        "package_license": "Qwen Research License Agreement (non-commercial research/evaluation)",
+        "readme": "Built with Qwen. **비상업 연구·평가 전용**입니다. 원본 Qwen Research License를 따르며 상업적 이용은 원본 제공자의 별도 라이선스가 필요합니다.\n\nQwen/Qwen-Image-2.1@d26bb612를 FuryNo5로 변환한 Fury Image Replay 2.1입니다. 문장으로 512×512 RGBA PNG를 생성합니다. 고정 40스텝, CFG 없음, 배치 1이며 이미지 편집·1024는 이 릴리스에서 지원하지 않습니다. 텍스트 그래프는 총 128토큰으로 패딩하며 시스템 메시지를 제외한 입력은 최대 64토큰입니다.\n\n원본 가중치는 패키지에 넣지 않았습니다. 첫 실행에 원본 저장소의 텍스트·트랜스포머·VAE 파일을 받아 SHA-256 검증 후 적재하므로 원본 다운로드 공간이 별도로 필요합니다. 패키지 자체는 약 148MB입니다. SDK 2026.4.0, Torch 2.10.0+cpu, Transformers 5.20.2, Diffusers 0.43.0, fxbX 0.9.5에서 확인했습니다.\n\n```bash\npython -m pip install --upgrade fxbx\nfxbx run Qwen-Image-2.1 --sample -o result.png\n```\n\n텍스트 인코더·prefix KV·40회 이미지 계산·VAE를 모두 NPU에서 실행합니다. 토큰화, 위치 테이블, 초기 노이즈, 텐서 전달·패딩과 PNG 변환은 호스트에서 처리합니다. 세 문장을 원본 CPU 파이프라인과 동일한 seed·노이즈로 비교한 RGB PSNR은 40.78 / 49.94 / 29.42dB입니다. 육안으로 구성과 글씨를 비교했고 SDK CPU 폴백과 재컴파일은 0건이었습니다. 이는 작은 수용 테스트이며 범용 이미지 품질 벤치마크는 아닙니다.\n\n3번 서버의 프로파일링 포함 요청 시간은 약 54~59초이며, 그중 40스텝 계산은 약 25초입니다. 텍스트·prefix 단계의 적재 시간이 포함되고 최초 상주 모델 적재는 별도 약 22초였습니다. 5번에서 최종 패키지를 새로 로딩해 CLI 샘플을 실행한 콜드 총시간은 약 105초, 공식 NPU Task 701,982개, CPU 폴백·관찰된 컴파일 호출은 0건이었습니다. 실행 환경과 캐시 상태에 따라 달라집니다.\n\n[검증 요약](https://huggingface.co/softandsweet/qwen-qwen-image-2-1-rngd-fxbex/resolve/main/validation/validation-summary.json)\n\n![CPU 왼쪽 / RNGD 오른쪽](https://huggingface.co/softandsweet/qwen-qwen-image-2-1-rngd-fxbex/resolve/main/validation/fox-comparison.png)",
+        "short_description": "512×512 문장→이미지 · 병합 TCL NPU 실행 · 원본 체크포인트 참조 · 비상업 연구·평가 전용",
+        "source_license": "Qwen Research License Agreement",
+        "source_repo": "Qwen/Qwen-Image-2.1",
+        "source_revision": "d26bb61231c349cf6b7896fa83353113880e1ba3"
+      },
+      "release": {
+        "adapter": "qwen_image21_fxbx",
+        "artifact_url": "https://huggingface.co/softandsweet/qwen-qwen-image-2-1-rngd-fxbex/resolve/c7be42b4c9fa349d4e691ec1c0b0645fe4d7d4ea/releases/2026.4.0-qwenimage21-512-fxbx1/b62c95f5498b7da89b1e9774aeb9ac6c36db96b7c8bcdf5e4ebf741e5b024ee5/Fury-Image-Replay-2.1.fxbx",
+        "author_sha256": "b62c95f5498b7da89b1e9774aeb9ac6c36db96b7c8bcdf5e4ebf741e5b024ee5",
+        "precision": "Mixed",
+        "runtime_version": "0.9.5",
+        "sdk_version": "2026.4.0",
+        "target": "Furiosa RNGD",
+        "version": "2026.4.0-qwenimage21-512-fxbx1",
         "weights_mode": "external"
       },
       "schema_version": 1
