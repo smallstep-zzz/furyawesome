@@ -13,10 +13,10 @@ sudo apt-get install libegl1-mesa-dev libegl-mesa0 libgl1-mesa-dri
 Python 3.11로 전용 환경을 만듭니다.
 
 ```bash
-python3.11 -m venv .venv-triposr
+python -m venv .venv-triposr
 source .venv-triposr/bin/activate
 python -m pip install --index-url https://download.pytorch.org/whl/cpu torch==2.10.0+cpu
-python -m pip install "fxbx[weights]==0.9.5" furiosa-torch==2026.4.0 furiosa-tcc==2026.4.0 \
+python -m pip install --upgrade "fxbx[weights]==0.9.5" furiosa-torch==2026.4.0 furiosa-tcc==2026.4.0 \
   huggingface-hub trimesh scikit-image xatlas moderngl pillow
 ```
 

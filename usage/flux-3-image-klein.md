@@ -18,10 +18,10 @@ hf auth login
 Python 3.11로 전용 환경을 만듭니다.
 
 ```bash
-python3.11 -m venv .venv-flux3
+python -m venv .venv-flux3
 source .venv-flux3/bin/activate
 python -m pip install --index-url https://download.pytorch.org/whl/cpu torch==2.10.0+cpu
-python -m pip install "fxbx[weights]==0.9.5" furiosa-torch==2026.4.0 furiosa-tcc==2026.4.0 \
+python -m pip install --upgrade "fxbx[weights]==0.9.5" furiosa-torch==2026.4.0 furiosa-tcc==2026.4.0 \
   huggingface-hub "transformers>=5.20" pillow
 ```
 

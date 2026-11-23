@@ -1,6 +1,7 @@
 """Reject missing/stale website guides for the current catalog releases."""
 import ast
 import json
+import re
 from pathlib import Path
 import subprocess
 
@@ -20,6 +21,9 @@ def validate(root):
             raise ValueError('Website guide package hash mismatch: '+source)
         if not all(intro.get(k,'').strip() for k in ['title','about','use','performance']):
             raise ValueError('Incomplete model introduction: '+source)
+        for key,command in recipe.items():
+            if isinstance(command,str) and re.search(r'\bpython[23](?:\.\d+)?\s+-m\s+(?:venv|pip)\b',command):
+                raise ValueError('Use python for environment/install commands: '+source+' '+key)
         for key in ['setup','rerun']:
             if not recipe.get(key):raise ValueError('Missing sample command: '+source)
             subprocess.run(['bash','-n'],input=recipe[key],text=True,check=True)

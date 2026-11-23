@@ -51,7 +51,7 @@ Linux RNGD 서버에서 호환 드라이버와 Python 3.11 가상환경을 준�
 
 ```bash
 python -m pip install --index-url https://download.pytorch.org/whl/cpu torch==2.10.0+cpu
-python -m pip install 'fxbx[weights] @ git+https://github.com/smallstep-zzz/fxbX.git@9cfc771' \
+python -m pip install --upgrade 'fxbx[weights] @ git+https://github.com/smallstep-zzz/fxbX.git@9cfc771' \
   furiosa-torch==2026.4.0 furiosa-tcc==2026.4.0 transformers==5.20.2 diffusers==0.41.0 accelerate sentencepiece requests
 python -m pip check
 ```
