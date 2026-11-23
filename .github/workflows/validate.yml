@@ -12,3 +12,4 @@ jobs:
           python-version: '3.11'
       - run: python scripts/validate_catalog.py
       - run: python scripts/catalog_store.py check
+      - run: python scripts/validate_web_usage.py

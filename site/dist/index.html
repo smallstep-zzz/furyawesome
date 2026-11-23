@@ -704,7 +704,15 @@ a,button{transition:color .18s,background-color .18s,border-color .18s,box-shado
 </style>
 
 
-</head>
+<style>
+.model-introduction{min-width:0;width:100%;font-size:1rem;line-height:1.8}
+.model-introduction .intro-title{font-size:1.15rem;line-height:1.6;margin-bottom:.6rem}
+.model-introduction p{margin:0 0 1rem;max-width:75ch;word-break:keep-all;overflow-wrap:anywhere}
+.model-introduction h3{font-size:1rem;margin:1rem 0 .3rem;color:var(--ink)}
+.model-introduction details{margin:.8rem 0;font-size:.95rem}
+.model-introduction summary{cursor:pointer;font-weight:600}
+.model-introduction details p{margin:.5rem 0}
+</style></head>
 <body>
 <a class="skip-link" href="#main">본문으로 건너뛰기</a>
 <header class="site-header">
@@ -1301,7 +1309,11 @@ window.FURY_DATA = {
 };
 
 </script>
+<script src="catalog-snapshot.js"></script>
+<script src="run-recipes.js"></script>
+<script src="web-usage-snapshot.js"></script>
 <script src="catalog.js"></script>
+<script src="model-introductions.js"></script>
 <script>
 /* FuryAwesome Place — static, dependency-free front end.
  * Model commands come from the verified catalog snapshot in data.js.
@@ -1392,7 +1404,15 @@ function renderModels() {
   if(focus) $('model-rows').querySelector('.selected button').focus({preventScroll:true});
  }));
  $('model-detail').innerHTML=model
-  ? `${icon('info')}<div><strong>${esc(model.scope)}</strong>${esc(model.warning)} <a href="${esc(model.hf)}" target="_blank" rel="noopener noreferrer">Hugging Face ↗</a></div>`
+  ? (() => {
+    const intro=model.introduction ?? window.furyIntroductions?.[model.origin];
+    const matching=intro && intro.version===model.version;
+    return `${icon('info')}<div class="model-introduction">${intro
+      ? `<strong class="intro-title">${esc(intro.title)}</strong><p>${esc(intro.about)}</p><h3>이럴 때 써보세요</h3><p>${esc(intro.use)}</p><h3>성능과 사용 범위</h3><p>${esc(matching ? intro.performance : (model.description || model.purpose))}</p>${!matching ? '<p>릴리스가 갱신되었습니다. 세부 측정 조건은 최신 모델 사용법을 확인하세요.</p>' : ''}`
+      : `<strong>${esc(model.purpose)}</strong><p>이 모델의 기능과 입력·출력 예제는 아래 사용법에서 확인할 수 있습니다.</p>`}
+      <p class="release-label">릴리스 ${esc(model.version || model.scope)}</p><details><summary>패키지 사양·설치 참고</summary><p>${esc(model.scope)}</p><p>${esc(model.warning)}</p></details>
+      <a href="${esc(model.hf)}" target="_blank" rel="noopener noreferrer">Hugging Face</a> · <a href="${esc(model.usage)}" target="_blank" rel="noopener noreferrer">모델 사용법</a></div>`;
+   })()
   : '<p>이 카테고리에 등록된 모델이 없습니다.</p>';
  $('category-tag').textContent=category.tag;
  $('model-license').textContent=model?.license ?? '—';
@@ -1421,11 +1441,13 @@ function renderTerminal() {
  const fresh=state.installMode==='setup';
  const switchHtml=`<div class="install-switch" role="group" aria-label="설치 상태 선택"><button type="button" data-install-mode="setup" aria-pressed="${fresh}">처음 설치 · venv</button><button type="button" data-install-mode="rerun" aria-pressed="${!fresh}">다시 실행</button></div>`;
  const info=`<p class="simple-usage-note">Linux RNGD 서버에 Python 3.11과 호환 SDK·드라이버가 준비되어 있어야 합니다. 모델별 추가 설정은 <a href="${esc(m.usage)}" target="_blank" rel="noopener noreferrer">전체 사용법 ↗</a></p>`;
+ const details=m.detailSetup ? `<details class="setup-details"><summary>SDK·추가 의존성·문제 해결</summary><p>Linux RNGD 서버에 호환 드라이버와 SDK가 필요합니다. 위 4줄로 실행 중 설치 오류가 나면 아래 모델별 상세 설치를 사용하세요. FLUX 3는 원본 저장소 동의·HF 로그인이, TripoSR는 Mesa EGL이 필요합니다.</p>${codeBlock('detail-setup','상세 설치 · 필요할 때만',state.runTab==='serve'?m.detailServe:m.detailSetup)}<p>원시 텐서 서버는 {"sample":true} 또는 {"inputs":{텐서이름:배열}}를 받습니다. 토큰화·이미지 전처리는 별도이며 outputs.safetensors는 현재 폴더에서 요청마다 갱신됩니다.</p><a href="${esc(m.usage)}" target="_blank" rel="noopener noreferrer">모델별 전체 사용법</a></details>` : "";
  if(state.runTab==='sample' && m.setup) {
-  $('run-content').innerHTML=switchHtml+codeBlock('sample',fresh?'BASH / FIRST RUN':'BASH / RUN AGAIN',fresh?m.setup:m.rerun,'전체 복사')+info;
- } else if(m.serve && m.python) {
+  $('run-content').innerHTML=switchHtml+codeBlock('sample',fresh?'BASH / FIRST RUN':'BASH / RUN AGAIN',fresh?m.setup:m.rerun,'전체 복사')+info+details;
+ } else if(state.runTab==='serve' && m.serve && m.python) {
   currentCodes.set('activate',m.activate);
-  $('run-content').innerHTML=switchHtml+codeBlock('server',fresh?'01 / SERVER · FIRST RUN':'01 / SERVER · RUN AGAIN',fresh?m.serveSetup:m.serveQuick,'전체 복사')+codeBlock('client','02 / PYTHON · SAME SERVER',m.python)+`<div class="simple-usage-note client-usage-note">Python 코드는 서버의 다른 터미널에서 실행하세요. <button class="copy-button activate-copy" type="button" data-copy="activate" data-copy-label="venv 활성화 복사">${icon('copy')}<span>venv 활성화 복사</span></button> HTTP 클라이언트에는 <code>requests</code>가 필요합니다.</div>`+info;
+  const serveNote=m.serveNote ? `<p class="simple-usage-note">${esc(m.serveNote)}</p>` : ''; 
+  $('run-content').innerHTML=serveNote+switchHtml+codeBlock('server',fresh?'01 / SERVER · FIRST RUN':'01 / SERVER · RUN AGAIN',fresh?m.serveSetup:m.serveQuick,'전체 복사')+codeBlock('client','02 / PYTHON · SAME SERVER',m.python)+`<div class="simple-usage-note client-usage-note">Python 코드는 서버의 다른 터미널에서 실행하세요. <button class="copy-button activate-copy" type="button" data-copy="activate" data-copy-label="venv 활성화 복사">${icon('copy')}<span>venv 활성화 복사</span></button> HTTP 클라이언트에는 <code>requests</code>가 필요합니다.</div>`+info+details;
  } else {
   $('run-content').innerHTML=`<div class="run-empty">${icon('file')}<h3>모델별 사용법을 확인하세요.</h3><p>릴리스에 필요한 환경, 입력 예제와 실행 방법은 사용법에 있습니다.</p><a href="${esc(m.usage)}" target="_blank" rel="noopener noreferrer">모델 사용법 보기 ↗</a></div>`;
  }
@@ -1530,8 +1552,8 @@ function route(){
  if(previous!==state.page)window.scrollTo({top:0,left:0,behavior:'instant'});
  restartAnimation();
 }
-async function refreshCatalog() {
- const catalog = await window.loadFuryCatalog();
+async function refreshCatalog(catalog) {
+ catalog = catalog || await window.loadFuryCatalog();
  if (!catalog) return;
  const current = currentModel()?.origin;
  D.categories = window.furyCategories(D.categories, catalog);
@@ -1546,6 +1568,7 @@ async function refreshCatalog() {
 }
 window.addEventListener('hashchange',route);
 hydrateIcons();renderGarage();renderModels();renderTerminal();route();
+refreshCatalog(window.furyCatalogSnapshot);
 refreshCatalog();
 })();
 
