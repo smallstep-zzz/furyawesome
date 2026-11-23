@@ -4,9 +4,10 @@ import argparse
 import hashlib
 import json
 import re
-from datetime import datetime, timezone
+from datetime import datetime
 from pathlib import Path
 from urllib.parse import urlsplit
+from zoneinfo import ZoneInfo
 
 REPOSITORY = 'smallstep-zzz/furyawesome'
 START = '<!-- furyawesome:models:start -->'
@@ -157,8 +158,8 @@ def render_views(files, groups, paths):
     for source in latest:
         short = source.split('/')[-1].casefold()
         short_counts[short] = short_counts.get(short, 0) + 1
-    table = ['| 모델 | 용도 | 버전 | 정밀도 / SDK | 라이선스 | 사용법 | 다운로드 |',
-             '| --- | --- | --- | --- | --- | --- | --- |']
+    table = ['| 모델 | 용도 | 버전 | 게시일 | 정밀도 / SDK | 라이선스 | 사용법 | 다운로드 |',
+             '| --- | --- | --- | --- | --- | --- | --- | --- |']
     place_models = []
     for source, path in sorted(latest.items(), key=lambda item: item[0].split('/')[-1].casefold()):
         category, row = rows[path]
@@ -170,7 +171,7 @@ def render_views(files, groups, paths):
         guide = 'usage/' + short.lower() + '.md'
         if guide not in paths:
             guide = page
-        table.append(f"| [{md(name)}]({page}) | {CATEGORIES[category]} | {md(r['version'])} | "
+        table.append(f"| [{md(name)}]({page}) | {CATEGORIES[category]} | {md(r['version'])} | {row['published_on'] or '미확인'} | "
                      f"{md(r['precision'])} / {md(r['sdk_version'])} | {md(m['source_license'])} · [상세]({path}) | "
                      f"[예제]({guide}) | [모델 파일]({r['artifact_url']}) |")
         place_models.append({
@@ -181,7 +182,7 @@ def render_views(files, groups, paths):
             'usage': f'https://github.com/{REPOSITORY}/blob/main/{guide}' if guide in paths else guide,
             'weights_mode': r['weights_mode'],
         })
-    block = START + '\n\n' + '\n'.join(table) + '\n\n' + END
+    block = START + '\n\n게시일은 현재 배포 릴리스 기준이며 한국시간(KST)입니다.\n\n' + '\n'.join(table) + '\n\n' + END
     index = {**previous, 'release_order': order, 'models': list(entries.values())}
     outputs = {path: json_text(entry) for path, entry in entries.items()}
     outputs.update({
@@ -193,9 +194,12 @@ def render_views(files, groups, paths):
     return outputs
 
 
-def changes_for(files, paths, *, add=None, remove=None, category=None):
+def changes_for(files, paths, *, add=None, remove=None, category=None, publication_date=None):
     """Return path -> text (None means delete), without modifying the checkout."""
     groups = read_categories(files)
+    if publication_date is not None:
+        if add is None or datetime.strptime(publication_date,'%Y-%m-%d').date().isoformat()!=publication_date:
+            raise CatalogError('Use an ISO publication date with add.')
     if add is not None:
         new_path, entry = record(add)
         existing = next(((key, row) for key, group in groups.items() for row in group
@@ -203,7 +207,7 @@ def changes_for(files, paths, *, add=None, remove=None, category=None):
         category = category or (existing[0] if existing else classify(entry))
         if category not in CATEGORIES:
             raise CatalogError(f'Unknown category: {category}.')
-        published_on = datetime.now(timezone.utc).date().isoformat()
+        published_on = publication_date or datetime.now(ZoneInfo('Asia/Seoul')).date().isoformat()
         if existing:
             old_category, row = existing
             old = row['entry']
@@ -213,9 +217,10 @@ def changes_for(files, paths, *, add=None, remove=None, category=None):
             if (old['model'] != entry['model'] or old_release != new_release
                     or old_url[:4] + old_url[5:] != new_url[:4] + new_url[5:]):
                 raise CatalogError('Release identity is immutable. Use a new version.')
-            published_on = row['published_on']
+            published_on = publication_date or row['published_on']
             if old_category == category:
                 row['entry'] = entry
+                row['published_on'] = published_on
             else:
                 groups[old_category].remove(row)
         if existing is None or existing[0] != category:
@@ -249,6 +254,7 @@ def main():
     add = commands.add_parser('add')
     add.add_argument('metadata', type=Path)
     add.add_argument('--category', choices=CATEGORIES)
+    add.add_argument('--published-on',help='Verified release publication date, YYYY-MM-DD in KST')
     commands.add_parser('remove').add_argument('entry_path')
     commands.add_parser('generate')
     commands.add_parser('check')
@@ -260,7 +266,7 @@ def main():
     files = {p: (root / p).read_text(encoding='utf-8') for p in read if (root / p).is_file()}
     add_entry = json.loads(args.metadata.read_text(encoding='utf-8')) if args.action == 'add' else None
     changes = changes_for(files, paths, add=add_entry, remove=getattr(args, 'entry_path', None),
-                          category=getattr(args, 'category', None))
+                          category=getattr(args, 'category', None),publication_date=getattr(args,'published_on',None))
     if args.action == 'check':
         if changes:
             parser.exit(1, 'Out of sync: ' + ', '.join(sorted(changes)) + '\n')

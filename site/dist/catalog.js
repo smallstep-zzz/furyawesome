@@ -60,6 +60,7 @@ window.furyModels = (design, catalog) => {
         id: example?.id ?? entry.id, origin: entry.source, category: entry.category,
         precision: entry.precision, sdk: entry.sdk, license: entry.license,
         hf: entry.hf, usage: entry.usage, version: entry.version, description: entry.description,
+        publishedOn: entry.published_on ?? null,
         purpose: example?.purpose ?? entry.description,
         scope: example?.scope ?? entry.version,
         warning: example?.warning ?? '모델별 설치 환경과 검증 범위는 사용법에서 확인하세요.',

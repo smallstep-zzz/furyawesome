@@ -105,7 +105,7 @@
       "sdk": "2026.4.0",
       "license": "Qwen Research License Agreement",
       "description": "512×512 문장→이미지 · 병합 TCL NPU 실행 · 원본 체크포인트 참조 · 비상업 연구·평가 전용",
-      "published_on": "2026-11-23",
+      "published_on": "2026-11-24",
       "hf": "https://huggingface.co/softandsweet/qwen-qwen-image-2-1-rngd-fxbex",
       "usage": "https://huggingface.co/softandsweet/qwen-qwen-image-2-1-rngd-fxbex",
       "weights_mode": "external"
