@@ -289,6 +289,30 @@ window.furyWebUsageSnapshot = {
         "use": "사진 분류에 위치 정보가 필요하거나 관심 영역을 자르는 기능을 만들 때 쓸 수 있어요. 서빙 예제의 사진 경로를 바꾸면 내 사진을 분석할 수 있습니다.",
         "performance": "560×560 입력을 단일 RNGD에서 30회 재생한 그래프 지연은 P50 14.45ms, P95 14.53ms입니다. 전·후처리 시간은 별도입니다. CPU 폴백 0건을 확인했고, 실제 사진 두 장에서 CPU FP32 기준과 검출 클래스가 같았습니다. 최소 박스 IoU 0.9908, 최대 점수 차이 0.0028입니다."
       }
+    },
+    "Roboflow/rf-detr-nano": {
+      "version": "2026.4.0-nano384-fxbx1",
+      "author_sha256": "4130f5abf20c0415c9e5e0ded4e080107af48c059b148a2dfa1a3ab7d2782492",
+      "recipe": {
+        "version": "2026.4.0-nano384-fxbx1",
+        "setup": "python -m venv fury\nsource fury/bin/activate\npython -m pip install fxbx\nfxbx run Roboflow/rf-detr-nano --sample -o result.safetensors",
+        "rerun": "source fury/bin/activate\nfxbx run Roboflow/rf-detr-nano --sample -o result.safetensors",
+        "activate": "source fury/bin/activate",
+        "detailSetup": "python -m venv fury\nsource fury/bin/activate\npython -m pip install --index-url https://download.pytorch.org/whl/cpu torch==2.10.0+cpu torchvision==0.25.0+cpu\npython -m pip install 'fxbx[weights]==0.9.9' furiosa-torch==2026.4.0 furiosa-tcc==2026.4.0 transformers==5.20.2\nfxbx run Roboflow/rf-detr-nano --sample -o result.safetensors",
+        "serve": "hf download softandsweet/roboflow-rf-detr-nano-rngd-fxbx rf-detr-nano.fxbx predict.py sample.png --revision f90e8f3785d056672e8ba5e5696a9423d73866ac --local-dir .\npython predict.py rf-detr-nano.fxbx --port 8000",
+        "serveSetup": "python -m venv fury\nsource fury/bin/activate\npython -m pip install fxbx\nhf download softandsweet/roboflow-rf-detr-nano-rngd-fxbx rf-detr-nano.fxbx predict.py sample.png --revision f90e8f3785d056672e8ba5e5696a9423d73866ac --local-dir .\npython predict.py rf-detr-nano.fxbx --port 8000",
+        "serveQuick": "source fury/bin/activate\nhf download softandsweet/roboflow-rf-detr-nano-rngd-fxbx rf-detr-nano.fxbx predict.py sample.png --revision f90e8f3785d056672e8ba5e5696a9423d73866ac --local-dir .\npython predict.py rf-detr-nano.fxbx --port 8000",
+        "detailServe": "python -m venv fury\nsource fury/bin/activate\npython -m pip install --index-url https://download.pytorch.org/whl/cpu torch==2.10.0+cpu torchvision==0.25.0+cpu\npython -m pip install 'fxbx[weights]==0.9.9' furiosa-torch==2026.4.0 furiosa-tcc==2026.4.0 transformers==5.20.2\nhf download softandsweet/roboflow-rf-detr-nano-rngd-fxbx rf-detr-nano.fxbx predict.py sample.png --revision f90e8f3785d056672e8ba5e5696a9423d73866ac --local-dir .\npython predict.py rf-detr-nano.fxbx --port 8000",
+        "python": "import json\nfrom pathlib import Path\nfrom urllib.request import Request, urlopen\n\nrequest = Request(\n    'http://127.0.0.1:8000/predict',\n    json.dumps({'image': str(Path('sample.png').resolve())}).encode(),\n    {'Content-Type': 'application/json'},\n)\nwith urlopen(request, timeout=300) as response:\n    detections = json.load(response)\nresult = Path('result.json')\nresult.write_text(json.dumps(detections, ensure_ascii=False, indent=2) + '\\n', encoding='utf-8')\nprint(result.resolve())\n",
+        "serveNote": "요청에는 서버에 저장된 이미지의 절대 경로를 넣습니다. 검출 목록은 호출하는 쪽의 현재 폴더에 result.json으로 저장됩니다."
+      },
+      "introduction": {
+        "version": "2026.4.0-nano384-fxbx1",
+        "title": "사진 한 장에서 물체의 이름과 위치를 찾아보세요.",
+        "about": "사진을 384×384로 전처리한 뒤 물체 종류와 검출 점수, 원본 사진에서의 위치를 찾아줍니다.",
+        "use": "사진에서 관심 영역을 잘라내거나 여러 물체가 어디 있는지 표시하는 기능을 만들 때 사용할 수 있어요.",
+        "performance": "단일 RNGD에서 384×384 입력을 30회 재생한 그래프 지연은 P50 0.920초, P95 0.927초입니다. 전·후처리는 별도입니다. 이 릴리스는 실행 단계를 개별 호출합니다. 실제 사진 두 장에서 신뢰도 0.5 이상 검출의 클래스와 개수가 CPU와 같았고 CPU 폴백은 0건이었습니다."
+      }
     }
   }
 };
