@@ -181,5 +181,18 @@ window.furyRunRecipes = {
     "detailSetup": "python -m venv fury\nsource fury/bin/activate\npython -m pip install --index-url https://download.pytorch.org/whl/cpu torch==2.10.0+cpu\npython -m pip install \"fxbx[weights]==0.9.9\" furiosa-torch==2026.4.0 furiosa-tcc==2026.4.0\nfxbx run timm/mobilenetv3_small_100.lamb_in1k --sample -o scores.safetensors",
     "detailServe": "python -m venv fury\nsource fury/bin/activate\npython -m pip install --index-url https://download.pytorch.org/whl/cpu torch==2.10.0+cpu\npython -m pip install \"fxbx[weights]==0.9.9\" furiosa-torch==2026.4.0 furiosa-tcc==2026.4.0 pillow\nhf download softandsweet/timm-mobilenetv3-small-100-lamb-in1k-rngd-fxbx mobilenetv3-small-224.fxbx predict.py sample.png --revision 574a26cb2723f9df12afab8dc2ffa7e6598bb17e --local-dir .\npython predict.py mobilenetv3-small-224.fxbx --port 8000",
     "serveNote": "localhost에 실행한 분류 서버에 사진을 보내면 상위 5개 클래스 번호와 점수를 받습니다."
+  },
+  "google/siglip-base-patch16-224": {
+    "version": "2026.4.0-bf16-224-fxbx1",
+    "setup": "python -m venv fury\nsource fury/bin/activate\npython -m pip install fxbx\nfxbx run siglip-base-patch16-224 --sample",
+    "rerun": "source fury/bin/activate\nfxbx run siglip-base-patch16-224 --sample",
+    "activate": "source fury/bin/activate",
+    "serve": "fxbx serve siglip-base-patch16-224 --port 8000",
+    "serveSetup": "python -m venv fury\nsource fury/bin/activate\npython -m pip install fxbx\nfxbx serve siglip-base-patch16-224 --port 8000",
+    "serveQuick": "source fury/bin/activate\nfxbx serve siglip-base-patch16-224 --port 8000",
+    "python": "import json\nfrom urllib.request import Request, urlopen\n\ndata = {\"image\": \"sample\", \"texts\": [\"a photo of a cat\", \"a photo of a golden retriever dog\"]}\nrequest = Request(\"http://127.0.0.1:8000/predict\", json.dumps(data).encode(),\n                  {\"Content-Type\": \"application/json\"})\nwith urlopen(request, timeout=30) as response:\n    print(json.dumps(json.load(response), ensure_ascii=False, indent=2))\n",
+    "serveNote": "샘플 사진과 설명 후보를 보내면 입력 순서의 점수와 점수가 가장 높은 후보를 받습니다.",
+    "detailSetup": "/path/to/sdk/python -m pip install 'fxbx==0.9.9' 'transformers==5.22.1' 'pillow==13.0.0' 'safetensors==0.8.0' 'sentencepiece==0.2.1' 'protobuf==6.33.5'\nFXBEX_WORKER_PYTHON=/path/to/sdk/python fxbx run siglip-base-patch16-224 --sample",
+    "detailServe": "/path/to/sdk/python -m pip install 'fxbx==0.9.9' 'transformers==5.22.1' 'pillow==13.0.0' 'safetensors==0.8.0' 'sentencepiece==0.2.1' 'protobuf==6.33.5'\nFXBEX_WORKER_PYTHON=/path/to/sdk/python fxbx serve siglip-base-patch16-224 --port 8000"
   }
 };

@@ -181,6 +181,20 @@
       "weights_mode": "external"
     },
     {
+      "id": "siglip-base-patch16-224",
+      "source": "google/siglip-base-patch16-224",
+      "category": "embedding",
+      "version": "2026.4.0-bf16-224-fxbx1",
+      "precision": "BF16",
+      "sdk": "2026.4.0",
+      "license": "Apache-2.0",
+      "description": "224×224 사진과 최대 64토큰 설명의 유사도를 계산 · BF16 · 단일 RNGD",
+      "published_on": "2026-11-25",
+      "hf": "https://huggingface.co/softandsweet/google-siglip-base-patch16-224-rngd-fxbx",
+      "usage": "https://github.com/smallstep-zzz/furyawesome/blob/main/usage/siglip-base-patch16-224.md",
+      "weights_mode": "external"
+    },
+    {
       "id": "TripoSR",
       "source": "stabilityai/TripoSR",
       "category": "3d",

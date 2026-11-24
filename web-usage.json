@@ -336,6 +336,30 @@
         "use": "사진 정리나 이미지 검색의 첫 단계에 쓸 수 있어요. 샘플을 내 사진으로 바꿔 분류 결과를 확인해 보세요.",
         "performance": "단일 RNGD에서 224×224 이미지의 그래프 추론은 P50 76.36ms, P95 76.77ms입니다. 이미지 전처리와 결과 변환은 별도입니다. 실제 사진 두 장의 Top-5 순서가 CPU와 같았고 CPU 폴백은 0건이었습니다."
       }
+    },
+    "google/siglip-base-patch16-224": {
+      "version": "2026.4.0-bf16-224-fxbx1",
+      "author_sha256": "6f0c90243bd3698ba7c2d285a1c42688e20aec0787269625762324a0a3aca872",
+      "recipe": {
+        "version": "2026.4.0-bf16-224-fxbx1",
+        "setup": "python -m venv fury\nsource fury/bin/activate\npython -m pip install fxbx\nfxbx run siglip-base-patch16-224 --sample",
+        "rerun": "source fury/bin/activate\nfxbx run siglip-base-patch16-224 --sample",
+        "activate": "source fury/bin/activate",
+        "serve": "fxbx serve siglip-base-patch16-224 --port 8000",
+        "serveSetup": "python -m venv fury\nsource fury/bin/activate\npython -m pip install fxbx\nfxbx serve siglip-base-patch16-224 --port 8000",
+        "serveQuick": "source fury/bin/activate\nfxbx serve siglip-base-patch16-224 --port 8000",
+        "python": "import json\nfrom urllib.request import Request, urlopen\n\ndata = {\"image\": \"sample\", \"texts\": [\"a photo of a cat\", \"a photo of a golden retriever dog\"]}\nrequest = Request(\"http://127.0.0.1:8000/predict\", json.dumps(data).encode(),\n                  {\"Content-Type\": \"application/json\"})\nwith urlopen(request, timeout=30) as response:\n    print(json.dumps(json.load(response), ensure_ascii=False, indent=2))\n",
+        "serveNote": "샘플 사진과 설명 후보를 보내면 입력 순서의 점수와 점수가 가장 높은 후보를 받습니다.",
+        "detailSetup": "/path/to/sdk/python -m pip install 'fxbx==0.9.9' 'transformers==5.22.1' 'pillow==13.0.0' 'safetensors==0.8.0' 'sentencepiece==0.2.1' 'protobuf==6.33.5'\nFXBEX_WORKER_PYTHON=/path/to/sdk/python fxbx run siglip-base-patch16-224 --sample",
+        "detailServe": "/path/to/sdk/python -m pip install 'fxbx==0.9.9' 'transformers==5.22.1' 'pillow==13.0.0' 'safetensors==0.8.0' 'sentencepiece==0.2.1' 'protobuf==6.33.5'\nFXBEX_WORKER_PYTHON=/path/to/sdk/python fxbx serve siglip-base-patch16-224 --port 8000"
+      },
+      "introduction": {
+        "version": "2026.4.0-bf16-224-fxbx1",
+        "title": "이 사진에 어떤 설명이 가장 잘 어울릴까요?",
+        "about": "사진 한 장과 여러 설명의 유사도를 비교해, 가장 어울리는 설명을 골라줘요. 사진과 텍스트를 각각 BF16 인코더로 처리합니다.",
+        "use": "사진 정리, 검색 후보 순서 매기기, 상품 사진에 어울리는 설명 고르기에 쓸 수 있어요. 내 사진이라면 Base64 이미지와 최대 8개 설명 후보를 보내세요.",
+        "performance": "단일 RNGD에서 인코더 후속 호출 중앙값은 이미지 587.5ms, 텍스트 174.0ms였습니다. 사진 두 장에서 CPU와 검색 순위가 같았고 로짓 최대 차이는 0.04768, SDK CPU 폴백은 0건이었습니다."
+      }
     }
   }
 }
