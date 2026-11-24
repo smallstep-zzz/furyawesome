@@ -33,6 +33,21 @@
         "receipt_sha256": "74e500f081cfc1986f524e336b7e72581e21ac8e17069def38bbb6900df3cf04",
         "evidence_url": "https://huggingface.co/softandsweet/black-forest-labs-flux-3-image-klein-rngd-fxbex/blob/debb8fd291e3ca8857f1840de3753245c273faf2/examples/two-rngd/validation.json"
       }
+    },
+    {
+      "id": "bge-m3-pp2",
+      "source_repo": "furiosa-ai/bge-m3",
+      "source_revision": "ee8da99793523403fa2147e1df4d3830b6efb2af",
+      "version": "2026.4.0-pp2-ctx128-o0",
+      "sdk": "2026.4.0",
+      "npu_count": 2,
+      "topology": "same_host_pipeline_parallel",
+      "artifact_url": "https://huggingface.co/softandsweet/bge-m3-rngd-pp2-fxb/resolve/50cd8f2be57dcb9de0ca3005f56b418582e27449/bge-m3-tp8-pp2.fxb",
+      "artifact_sha256": "441eb550fe63edd48e8af6a1014c086a62dec89fa30c51e2a7530a142edcdb2f",
+      "usage_url": "https://huggingface.co/softandsweet/bge-m3-rngd-pp2-fxb/blob/50cd8f2be57dcb9de0ca3005f56b418582e27449/README.md",
+      "verification": {
+        "state": "unverified"
+      }
     }
   ]
 }
