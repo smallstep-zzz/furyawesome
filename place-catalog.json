@@ -142,7 +142,7 @@
       "id": "sdxl-turbo",
       "source": "stabilityai/sdxl-turbo",
       "category": "image",
-      "version": "2026.4.0-sdxl-turbo-merged-fxbx1",
+      "version": "2026.4.0-sdxl-turbo-merged-lora-fxbx1",
       "precision": "Mixed",
       "sdk": "2026.4.0",
       "license": "Stability AI Community License Agreement",
