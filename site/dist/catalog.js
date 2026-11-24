@@ -64,7 +64,6 @@ window.furyModels = (design, catalog) => {
         purpose: example?.purpose ?? entry.description,
         scope: example?.scope ?? entry.version,
         warning: example?.warning ?? '모델별 설치 환경과 검증 범위는 사용법에서 확인하세요.',
-        status: example?.status ?? '공개 릴리스',
       };
     });
 };
