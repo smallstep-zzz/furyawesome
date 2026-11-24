@@ -16,6 +16,7 @@ IDENTIFIER = re.compile(r'[A-Za-z0-9][A-Za-z0-9_.-]*')
 REPOSITORY = re.compile(r'[A-Za-z0-9][A-Za-z0-9_.-]*/[A-Za-z0-9][A-Za-z0-9_.-]*')
 ARTIFACT = re.compile(r'https://huggingface\.co/[\w.-]+/[\w.-]+/resolve/[0-9a-f]{40}/[A-Za-z0-9_./-]+\.(?:fxbx?|zip)')
 TOPOLOGIES = {'same_host_tensor_parallel': '한 서버 · 텐서 병렬',
+              'same_host_pipeline_parallel': '한 서버 · 파이프라인 병렬',
               'cross_host_pipeline': '여러 서버 · 단계 분산'}
 
 
