@@ -1,0 +1,25 @@
+{
+  "model": {
+    "category": "Computer Vision",
+    "cover_url": "",
+    "name": "RF-DETR Base",
+    "package_license": "Apache-2.0",
+    "readme": "사진 속 객체의 이름과 위치를 찾습니다. 실제 사진 2장, 점수 0.5 이상 검출의 박스 IoU 0.9908 이상을 확인했습니다. [사용법](https://huggingface.co/softandsweet/roboflow-rf-detr-base-rngd-fxbx/blob/7310361443ee13c22d2ef235c1953c2c4d980a46/USAGE.md)",
+    "short_description": "560×560 객체 탐지 · 검출 그래프 단일 RNGD P50 14.45ms",
+    "source_license": "Apache-2.0",
+    "source_repo": "Roboflow/rf-detr-base",
+    "source_revision": "7b95b089788e6c7db56d5ea9b0a07ca08ea6ac0a"
+  },
+  "release": {
+    "adapter": "execution_plan",
+    "artifact_url": "https://huggingface.co/softandsweet/roboflow-rf-detr-base-rngd-fxbx/resolve/7310361443ee13c22d2ef235c1953c2c4d980a46/rf-detr-base.fxbx",
+    "author_sha256": "067000ab39e7a469f084ff29aee2158eff8e8227d3fe432d6996f7e9c86a6981",
+    "precision": "Mixed/BF16",
+    "runtime_version": "0.9.9",
+    "sdk_version": "2026.4.0",
+    "target": "Furiosa RNGD",
+    "version": "2026.4.0-base560-fxbx1",
+    "weights_mode": "external"
+  },
+  "schema_version": 1
+}

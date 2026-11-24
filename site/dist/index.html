@@ -702,6 +702,16 @@ a,button{transition:color .18s,background-color .18s,border-color .18s,box-shado
 @media(max-width:600px){.site-header{height:auto;min-height:86px}.header-inner{padding:13px 15px 0;gap:8px;flex-wrap:wrap}.site-header .brand{font-size:21px;letter-spacing:-1px}.site-header .brand img{width:31px;height:27px}.brand-place{font-size:inherit}.site-header nav{height:38px;width:100%;gap:0;justify-content:space-between}.site-header nav a{font-size:12px;padding:0 5px;min-width:42px}.site-header nav a[aria-current="page"]:after{bottom:1px}.site-header .github-nav .icon{width:17px;height:17px}.request-wrap{padding:22px 15px 24px}.request-heading{margin-bottom:18px}.request-heading .eyebrow{font-size:7px;letter-spacing:1.05px;margin-bottom:10px}.request-heading .eyebrow span{padding:0 5px}.request-heading h1{font-size:26px;letter-spacing:-1px;line-height:1.45}.request-limit{font-size:10px;margin-top:9px}.request-workspace{gap:14px}.service-bay{min-height:255px}.service-bay>img{object-position:55% 47%}.service-bay h2{font-size:23px}.service-bay figcaption{left:20px;right:20px;bottom:47px}.service-bay figcaption p{font-size:10px;line-height:1.7}.service-bay-rail{left:20px;right:20px;font-size:6px;letter-spacing:.5px}.request-order.panel{padding:20px 17px}.order-heading{padding-bottom:16px;margin-bottom:20px}.order-heading h2{font-size:20px}.order-tool{width:33px;height:33px}.order-title-group{gap:10px}.order-mark{font-size:7px}.request-field label{font-size:11px;gap:6px}.request-field input{font-size:11px;padding-left:34px}.request-field textarea{font-size:12px;min-height:133px}.request-example{gap:6px}.request-example button{font-size:9px}.reason-foot{font-size:8px}.request-consent{font-size:10px}.request-submit-row{flex-direction:column;align-items:stretch;gap:13px;margin-top:19px}.request-submit{min-height:46px;font-size:13px;flex:none}.request-list-link{text-align:center}.request-submit-note{font-size:9px}.request-process{display:grid;grid-template-columns:1fr 12px 1fr;gap:9px 6px;padding:17px 5px 0}.request-process>i:nth-of-type(2){display:none}.request-process p{grid-column:1/-1;margin:5px 0 0;line-height:1.7}.request-process>span{font-size:9px}.request-process b{font-size:8px;margin-right:5px}}
 @media(prefers-reduced-motion:reduce){.request-submit,.request-field input,.request-field textarea{transition:none!important}}
 
+.multi-npu{margin-top:16px;padding:16px 20px;color:#e4e7ea}
+.multi-npu[hidden]{display:none}
+.multi-npu h2{margin:0 0 10px;font-size:16px}
+.multi-npu ul{margin:0;padding:0;list-style:none}
+.multi-npu li{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px 16px;padding:10px 0;border-top:1px solid #363b40}
+.multi-npu strong,.multi-npu small{display:block;overflow-wrap:anywhere}
+.multi-npu small{margin-top:3px;color:#aeb6be}
+.multi-npu-actions{display:flex;flex-wrap:wrap;gap:6px 16px;font-size:12px}
+.multi-npu-actions a{color:#ffc47e;text-decoration:underline}
+.multi-npu-pending{color:#ffc47e}
 </style>
 
 
@@ -747,6 +757,10 @@ a,button{transition:color .18s,background-color .18s,border-color .18s,box-shado
      <p class="terminal-disclaimer" id="terminal-note">명령은 NPU 서버에서 실행하세요. 이 웹페이지가 모델을 직접 실행하지는 않습니다.</p>
     </section>
    </div>
+   <section class="panel multi-npu" id="multi-npu" aria-labelledby="multi-npu-title" hidden>
+    <h2 id="multi-npu-title">다중 NPU 릴리스</h2>
+    <ul></ul>
+   </section>
    <div class="catalog-foot"><span><span data-icon="check"></span>검증 범위는 모델별 사용법을 확인하세요.</span><span>CATALOG SNAPSHOT <b id="catalog-date">2026.11.14</b><span class="small-divider">/</span><b id="total-models">7</b> models</span></div>
   </div>
  </section>
@@ -1308,6 +1322,7 @@ window.FURY_DATA = {
 <script src="run-recipes.js?v=dcb245cab671"></script>
 <script src="web-usage-snapshot.js?v=9f1a31211f09"></script>
 <script src="catalog.js?v=51f94ac88c14"></script>
+<script src="multi-npu.js" defer></script>
 <script src="model-introductions.js?v=43e4899b9753"></script>
 <script>
 /* FuryAwesome Place — static, dependency-free front end.

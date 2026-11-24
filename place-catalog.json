@@ -111,6 +111,20 @@
       "weights_mode": "external"
     },
     {
+      "id": "rf-detr-base",
+      "source": "Roboflow/rf-detr-base",
+      "category": "vision",
+      "version": "2026.4.0-base560-fxbx1",
+      "precision": "Mixed/BF16",
+      "sdk": "2026.4.0",
+      "license": "Apache-2.0",
+      "description": "560×560 객체 탐지 · 검출 그래프 단일 RNGD P50 14.45ms",
+      "published_on": "2026-11-24",
+      "hf": "https://huggingface.co/softandsweet/roboflow-rf-detr-base-rngd-fxbx",
+      "usage": "https://huggingface.co/softandsweet/roboflow-rf-detr-base-rngd-fxbx",
+      "weights_mode": "external"
+    },
+    {
       "id": "rf-detr-seg-nano",
       "source": "Roboflow/rf-detr-seg-nano",
       "category": "vision",

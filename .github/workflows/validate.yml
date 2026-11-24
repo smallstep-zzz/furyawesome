@@ -13,3 +13,5 @@ jobs:
       - run: python scripts/validate_catalog.py
       - run: python scripts/catalog_store.py check
       - run: python scripts/validate_web_usage.py
+      - run: python scripts/multi_npu.py check
+      - run: python scripts/test_multi_npu.py

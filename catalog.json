@@ -19,7 +19,8 @@
     "black-forest-labs/flux-3-image-klein@2026.4.0-flux3-fxbx1#2924f79ead2de03c4aa1a64a62dc5231fd4dd604334e7e6676df3493d9eb8f51",
     "stabilityai/TripoSR@2026.4.0-mesh256-fxbx6#71cac8ac8fc3ad92d6395c1f5a906e71f426a9128bf23fcc871a0b427046ba46",
     "Qwen/Qwen-Image-2.1@2026.4.0-qwenimage21-512-fxbx1#b62c95f5498b7da89b1e9774aeb9ac6c36db96b7c8bcdf5e4ebf741e5b024ee5",
-    "stabilityai/sdxl-turbo@2026.4.0-sdxl-turbo-merged-fxbx1#a15d4afe1eeb225502d1050f102e0c63039f4e87b875d780cc0b5656132dd084"
+    "stabilityai/sdxl-turbo@2026.4.0-sdxl-turbo-merged-fxbx1#a15d4afe1eeb225502d1050f102e0c63039f4e87b875d780cc0b5656132dd084",
+    "Roboflow/rf-detr-base@2026.4.0-base560-fxbx1#067000ab39e7a469f084ff29aee2158eff8e8227d3fe432d6996f7e9c86a6981"
   ],
   "models": [
     {
@@ -468,6 +469,31 @@
         "sdk_version": "2026.4.0",
         "target": "Furiosa RNGD",
         "version": "2026.4.0-sdxl-turbo-merged-fxbx1",
+        "weights_mode": "external"
+      },
+      "schema_version": 1
+    },
+    {
+      "model": {
+        "category": "Computer Vision",
+        "cover_url": "",
+        "name": "RF-DETR Base",
+        "package_license": "Apache-2.0",
+        "readme": "사진 속 객체의 이름과 위치를 찾습니다. 실제 사진 2장, 점수 0.5 이상 검출의 박스 IoU 0.9908 이상을 확인했습니다. [사용법](https://huggingface.co/softandsweet/roboflow-rf-detr-base-rngd-fxbx/blob/7310361443ee13c22d2ef235c1953c2c4d980a46/USAGE.md)",
+        "short_description": "560×560 객체 탐지 · 검출 그래프 단일 RNGD P50 14.45ms",
+        "source_license": "Apache-2.0",
+        "source_repo": "Roboflow/rf-detr-base",
+        "source_revision": "7b95b089788e6c7db56d5ea9b0a07ca08ea6ac0a"
+      },
+      "release": {
+        "adapter": "execution_plan",
+        "artifact_url": "https://huggingface.co/softandsweet/roboflow-rf-detr-base-rngd-fxbx/resolve/7310361443ee13c22d2ef235c1953c2c4d980a46/rf-detr-base.fxbx",
+        "author_sha256": "067000ab39e7a469f084ff29aee2158eff8e8227d3fe432d6996f7e9c86a6981",
+        "precision": "Mixed/BF16",
+        "runtime_version": "0.9.9",
+        "sdk_version": "2026.4.0",
+        "target": "Furiosa RNGD",
+        "version": "2026.4.0-base560-fxbx1",
         "weights_mode": "external"
       },
       "schema_version": 1
