@@ -22,7 +22,8 @@
     "stabilityai/sdxl-turbo@2026.4.0-sdxl-turbo-merged-fxbx1#a15d4afe1eeb225502d1050f102e0c63039f4e87b875d780cc0b5656132dd084",
     "Roboflow/rf-detr-base@2026.4.0-base560-fxbx1#067000ab39e7a469f084ff29aee2158eff8e8227d3fe432d6996f7e9c86a6981",
     "stabilityai/sdxl-turbo@2026.4.0-sdxl-turbo-merged-lora-fxbx1#0d39ee1ec8e09a2385c48db884e3a6c486cf5d6f2749f8f1c1fabe2a279852f8",
-    "Roboflow/rf-detr-nano@2026.4.0-nano384-fxbx1#4130f5abf20c0415c9e5e0ded4e080107af48c059b148a2dfa1a3ab7d2782492"
+    "Roboflow/rf-detr-nano@2026.4.0-nano384-fxbx1#4130f5abf20c0415c9e5e0ded4e080107af48c059b148a2dfa1a3ab7d2782492",
+    "timm/mobilenetv3_small_100.lamb_in1k@2026.4.0-small224-fxbx1#c9126b9e969f9c2c1ecfdc5ff4a1d4cbba8ead4d18fb79f8ee38e3a132903004"
   ],
   "models": [
     {
@@ -546,6 +547,31 @@
         "sdk_version": "2026.4.0",
         "target": "Furiosa RNGD",
         "version": "2026.4.0-nano384-fxbx1",
+        "weights_mode": "external"
+      },
+      "schema_version": 1
+    },
+    {
+      "model": {
+        "category": "Computer Vision",
+        "cover_url": "",
+        "name": "MobileNetV3 Small",
+        "package_license": "Apache-2.0",
+        "readme": "사진 한 장을 ImageNet-1k의 1,000개 범주로 분류합니다. [사용법](https://huggingface.co/softandsweet/timm-mobilenetv3-small-100-lamb-in1k-rngd-fxbx/blob/574a26cb2723f9df12afab8dc2ffa7e6598bb17e/USAGE.md)",
+        "short_description": "224×224 이미지 분류 · 단일 Furiosa RNGD",
+        "source_license": "Apache-2.0",
+        "source_repo": "timm/mobilenetv3_small_100.lamb_in1k",
+        "source_revision": "76b303ec28c466e9df37f4745dfb7aef20ab87ae"
+      },
+      "release": {
+        "adapter": "execution_plan",
+        "artifact_url": "https://huggingface.co/softandsweet/timm-mobilenetv3-small-100-lamb-in1k-rngd-fxbx/resolve/574a26cb2723f9df12afab8dc2ffa7e6598bb17e/mobilenetv3-small-224.fxbx",
+        "author_sha256": "c9126b9e969f9c2c1ecfdc5ff4a1d4cbba8ead4d18fb79f8ee38e3a132903004",
+        "precision": "FP32",
+        "runtime_version": "0.9.9",
+        "sdk_version": "2026.4.0",
+        "target": "Furiosa RNGD",
+        "version": "2026.4.0-small224-fxbx1",
         "weights_mode": "external"
       },
       "schema_version": 1

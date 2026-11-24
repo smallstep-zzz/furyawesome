@@ -313,6 +313,30 @@ window.furyWebUsageSnapshot = {
         "use": "사진에서 관심 영역을 잘라내거나 여러 물체가 어디 있는지 표시하는 기능을 만들 때 사용할 수 있어요.",
         "performance": "단일 RNGD에서 384×384 입력을 30회 재생한 그래프 지연은 P50 0.920초, P95 0.927초입니다. 전·후처리는 별도입니다. 이 릴리스는 실행 단계를 개별 호출합니다. 실제 사진 두 장에서 신뢰도 0.5 이상 검출의 클래스와 개수가 CPU와 같았고 CPU 폴백은 0건이었습니다."
       }
+    },
+    "timm/mobilenetv3_small_100.lamb_in1k": {
+      "version": "2026.4.0-small224-fxbx1",
+      "author_sha256": "c9126b9e969f9c2c1ecfdc5ff4a1d4cbba8ead4d18fb79f8ee38e3a132903004",
+      "recipe": {
+        "version": "2026.4.0-small224-fxbx1",
+        "setup": "python -m venv fury\nsource fury/bin/activate\npython -m pip install fxbx\nfxbx run timm/mobilenetv3_small_100.lamb_in1k --sample -o scores.safetensors",
+        "rerun": "source fury/bin/activate\nfxbx run timm/mobilenetv3_small_100.lamb_in1k --sample -o scores.safetensors",
+        "activate": "source fury/bin/activate",
+        "serve": "hf download softandsweet/timm-mobilenetv3-small-100-lamb-in1k-rngd-fxbx mobilenetv3-small-224.fxbx predict.py sample.png --revision 574a26cb2723f9df12afab8dc2ffa7e6598bb17e --local-dir .\npython predict.py mobilenetv3-small-224.fxbx --port 8000",
+        "serveSetup": "python -m venv fury\nsource fury/bin/activate\npython -m pip install fxbx pillow\nhf download softandsweet/timm-mobilenetv3-small-100-lamb-in1k-rngd-fxbx mobilenetv3-small-224.fxbx predict.py sample.png --revision 574a26cb2723f9df12afab8dc2ffa7e6598bb17e --local-dir .\npython predict.py mobilenetv3-small-224.fxbx --port 8000",
+        "serveQuick": "source fury/bin/activate\nhf download softandsweet/timm-mobilenetv3-small-100-lamb-in1k-rngd-fxbx mobilenetv3-small-224.fxbx predict.py sample.png --revision 574a26cb2723f9df12afab8dc2ffa7e6598bb17e --local-dir .\npython predict.py mobilenetv3-small-224.fxbx --port 8000",
+        "python": "import base64\nimport json\nfrom pathlib import Path\nfrom urllib.request import Request, urlopen\n\nphoto = base64.b64encode(Path('sample.png').read_bytes()).decode()\nreq = Request('http://127.0.0.1:8000/predict', json.dumps({'image_base64': photo}).encode(),\n              {'Content-Type': 'application/json'})\nwith urlopen(req, timeout=30) as response:\n    print(json.load(response))\n",
+        "detailSetup": "python -m venv fury\nsource fury/bin/activate\npython -m pip install --index-url https://download.pytorch.org/whl/cpu torch==2.10.0+cpu\npython -m pip install \"fxbx[weights]==0.9.9\" furiosa-torch==2026.4.0 furiosa-tcc==2026.4.0\nfxbx run timm/mobilenetv3_small_100.lamb_in1k --sample -o scores.safetensors",
+        "detailServe": "python -m venv fury\nsource fury/bin/activate\npython -m pip install --index-url https://download.pytorch.org/whl/cpu torch==2.10.0+cpu\npython -m pip install \"fxbx[weights]==0.9.9\" furiosa-torch==2026.4.0 furiosa-tcc==2026.4.0 pillow\nhf download softandsweet/timm-mobilenetv3-small-100-lamb-in1k-rngd-fxbx mobilenetv3-small-224.fxbx predict.py sample.png --revision 574a26cb2723f9df12afab8dc2ffa7e6598bb17e --local-dir .\npython predict.py mobilenetv3-small-224.fxbx --port 8000",
+        "serveNote": "localhost에 실행한 분류 서버에 사진을 보내면 상위 5개 클래스 번호와 점수를 받습니다."
+      },
+      "introduction": {
+        "version": "2026.4.0-small224-fxbx1",
+        "title": "사진에 무엇이 담겨 있는지 분류해 보세요.",
+        "about": "사진 한 장을 ImageNet-1k의 1,000개 범주로 분류합니다. 상위 5개 클래스 번호와 점수를 확인할 수 있어요.",
+        "use": "사진 정리나 이미지 검색의 첫 단계에 쓸 수 있어요. 샘플을 내 사진으로 바꿔 분류 결과를 확인해 보세요.",
+        "performance": "단일 RNGD에서 224×224 이미지의 그래프 추론은 P50 76.36ms, P95 76.77ms입니다. 이미지 전처리와 결과 변환은 별도입니다. 실제 사진 두 장의 Top-5 순서가 CPU와 같았고 CPU 폴백은 0건이었습니다."
+      }
     }
   }
 };
