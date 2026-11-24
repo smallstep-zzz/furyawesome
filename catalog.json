@@ -23,7 +23,8 @@
     "Roboflow/rf-detr-base@2026.4.0-base560-fxbx1#067000ab39e7a469f084ff29aee2158eff8e8227d3fe432d6996f7e9c86a6981",
     "stabilityai/sdxl-turbo@2026.4.0-sdxl-turbo-merged-lora-fxbx1#0d39ee1ec8e09a2385c48db884e3a6c486cf5d6f2749f8f1c1fabe2a279852f8",
     "Roboflow/rf-detr-nano@2026.4.0-nano384-fxbx1#4130f5abf20c0415c9e5e0ded4e080107af48c059b148a2dfa1a3ab7d2782492",
-    "timm/mobilenetv3_small_100.lamb_in1k@2026.4.0-small224-fxbx1#c9126b9e969f9c2c1ecfdc5ff4a1d4cbba8ead4d18fb79f8ee38e3a132903004"
+    "timm/mobilenetv3_small_100.lamb_in1k@2026.4.0-small224-fxbx1#c9126b9e969f9c2c1ecfdc5ff4a1d4cbba8ead4d18fb79f8ee38e3a132903004",
+    "google/siglip-base-patch16-224@2026.4.0-bf16-224-fxbx1#6f0c90243bd3698ba7c2d285a1c42688e20aec0787269625762324a0a3aca872"
   ],
   "models": [
     {
@@ -572,6 +573,31 @@
         "sdk_version": "2026.4.0",
         "target": "Furiosa RNGD",
         "version": "2026.4.0-small224-fxbx1",
+        "weights_mode": "external"
+      },
+      "schema_version": 1
+    },
+    {
+      "model": {
+        "category": "Embedding",
+        "cover_url": "",
+        "name": "SigLIP Base Patch16-224",
+        "package_license": "Apache-2.0",
+        "readme": "사진 한 장에 어울리는 설명을 순위로 돌려줍니다. [사용법](https://huggingface.co/softandsweet/google-siglip-base-patch16-224-rngd-fxbx/blob/4648bae37733465cce2794888df68d661ce2679d/USAGE.md)",
+        "short_description": "224×224 사진과 최대 64토큰 설명의 유사도를 계산 · BF16 · 단일 RNGD",
+        "source_license": "Apache-2.0",
+        "source_repo": "google/siglip-base-patch16-224",
+        "source_revision": "7fd15f0689c79d79e38b1c2e2e2370a7bf2761ed"
+      },
+      "release": {
+        "adapter": "siglip_native_retrieval",
+        "artifact_url": "https://huggingface.co/softandsweet/google-siglip-base-patch16-224-rngd-fxbx/resolve/4648bae37733465cce2794888df68d661ce2679d/siglip-base-patch16-224.fxbx",
+        "author_sha256": "6f0c90243bd3698ba7c2d285a1c42688e20aec0787269625762324a0a3aca872",
+        "precision": "BF16",
+        "runtime_version": "0.9.9",
+        "sdk_version": "2026.4.0",
+        "target": "Furiosa RNGD",
+        "version": "2026.4.0-bf16-224-fxbx1",
         "weights_mode": "external"
       },
       "schema_version": 1
