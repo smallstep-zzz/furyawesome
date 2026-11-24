@@ -22,10 +22,21 @@
     return node;
   }
 
+  async function readCatalog(url) {
+    const response = await fetch(url, {cache: 'no-store', signal: AbortSignal.timeout(5000)});
+    if (!response.ok) throw new Error('Catalog unavailable');
+    return response.json();
+  }
+
   async function loadProfiles() {
-    const response = await fetch(source, {cache: 'no-cache'});
-    if (!response.ok) return;
-    const catalog = await response.json();
+    const cacheKey = Math.floor(Date.now() / 60_000);
+    const catalog = await readCatalog(`${source}?v=${cacheKey}`).catch(async () => {
+      const snapshot = await readCatalog('multi-npu-snapshot.json');
+      const note = link('게시 시점 목록 · 최신 상태 보기',
+        'https://github.com/smallstep-zzz/furyawesome/blob/main/MULTI_NPU.md');
+      section.append(note);
+      return snapshot;
+    });
     if (catalog.schema_version !== 1 || !Array.isArray(catalog.profiles)) return;
     for (const profile of catalog.profiles) {
       const placement = topology[profile.topology];

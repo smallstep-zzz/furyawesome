@@ -1,0 +1,53 @@
+{
+  "schema_version": 1,
+  "profiles": [
+    {
+      "id": "qwen3-embedding-0.6b-pp2",
+      "source_repo": "furiosa-ai/Qwen3-Embedding-0.6B",
+      "source_revision": "a3a3b5834c5c9cf797f113782d2ad353e7047b77",
+      "version": "2026.4.0-pp2-ctx128-o0",
+      "sdk": "2026.4.0",
+      "npu_count": 2,
+      "topology": "same_host_pipeline_parallel",
+      "artifact_url": "https://huggingface.co/softandsweet/qwen-qwen3-embedding-0-6b-rngd-pp2-fxb/resolve/00d525f4b963c8c0063db9cd7a76435acce85ff0/qwen3-embedding-0.6b-tp8-pp2.fxb",
+      "artifact_sha256": "0a0b88ec7d9de917698c35b747929710697d8133dff9fd38b73aef105ecc38d9",
+      "usage_url": "https://huggingface.co/softandsweet/qwen-qwen3-embedding-0-6b-rngd-pp2-fxb/blob/a9fb976014e85046ed611b174748b4dc8e50f4af/README.md",
+      "verification": {
+        "state": "unverified"
+      }
+    },
+    {
+      "id": "flux3-klein-cross-host-512",
+      "source_repo": "black-forest-labs/flux-3-image-klein",
+      "source_revision": "3b767ff9b5261d71645e2ec49d87d298d955238d",
+      "version": "2026.4.0-512-cross-host1",
+      "sdk": "2026.4.0",
+      "npu_count": 2,
+      "topology": "cross_host_pipeline",
+      "artifact_url": "https://huggingface.co/softandsweet/black-forest-labs-flux-3-image-klein-rngd-fxbex/resolve/56ba7b2ce4c2e886498e0f022d65586b6ac9be9a/releases/2026.4.0-flux3-fxbx1/2924f79ead2de03c4aa1a64a62dc5231fd4dd604334e7e6676df3493d9eb8f51/flux3-image-klein.fxbx",
+      "artifact_sha256": "2924f79ead2de03c4aa1a64a62dc5231fd4dd604334e7e6676df3493d9eb8f51",
+      "usage_url": "https://huggingface.co/softandsweet/black-forest-labs-flux-3-image-klein-rngd-fxbex/blob/debb8fd291e3ca8857f1840de3753245c273faf2/examples/two-rngd/README.md",
+      "verification": {
+        "state": "verified",
+        "verified_on": "2026-11-24",
+        "receipt_sha256": "74e500f081cfc1986f524e336b7e72581e21ac8e17069def38bbb6900df3cf04",
+        "evidence_url": "https://huggingface.co/softandsweet/black-forest-labs-flux-3-image-klein-rngd-fxbex/blob/debb8fd291e3ca8857f1840de3753245c273faf2/examples/two-rngd/validation.json"
+      }
+    },
+    {
+      "id": "bge-m3-pp2",
+      "source_repo": "furiosa-ai/bge-m3",
+      "source_revision": "ee8da99793523403fa2147e1df4d3830b6efb2af",
+      "version": "2026.4.0-pp2-ctx128-o0",
+      "sdk": "2026.4.0",
+      "npu_count": 2,
+      "topology": "same_host_pipeline_parallel",
+      "artifact_url": "https://huggingface.co/softandsweet/bge-m3-rngd-pp2-fxb/resolve/50cd8f2be57dcb9de0ca3005f56b418582e27449/bge-m3-tp8-pp2.fxb",
+      "artifact_sha256": "441eb550fe63edd48e8af6a1014c086a62dec89fa30c51e2a7530a142edcdb2f",
+      "usage_url": "https://huggingface.co/softandsweet/bge-m3-rngd-pp2-fxb/blob/50cd8f2be57dcb9de0ca3005f56b418582e27449/README.md",
+      "verification": {
+        "state": "unverified"
+      }
+    }
+  ]
+}
