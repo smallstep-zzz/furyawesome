@@ -194,27 +194,27 @@
       }
     },
     "stabilityai/sdxl-turbo": {
-      "version": "2026.4.0-sdxl-turbo-merged-fxbx1",
-      "author_sha256": "a15d4afe1eeb225502d1050f102e0c63039f4e87b875d780cc0b5656132dd084",
+      "version": "2026.4.0-sdxl-turbo-merged-lora-fxbx1",
+      "author_sha256": "0d39ee1ec8e09a2385c48db884e3a6c486cf5d6f2749f8f1c1fabe2a279852f8",
       "recipe": {
-        "version": "2026.4.0-sdxl-turbo-merged-fxbx1",
+        "version": "2026.4.0-sdxl-turbo-merged-lora-fxbx1",
         "setup": "python -m venv fury\nsource fury/bin/activate\npython -m pip install --upgrade fxbx\nfxbx run stabilityai/sdxl-turbo --sample -o result.png",
         "rerun": "source fury/bin/activate\nfxbx run stabilityai/sdxl-turbo --sample -o result.png",
         "activate": "source fury/bin/activate",
-        "detailSetup": "python -m venv fury\nsource fury/bin/activate\npython -m pip install --index-url https://download.pytorch.org/whl/cpu torch==2.10.0+cpu\npython -m pip install --upgrade 'fxbx[weights]>=0.9.6' requests diffusers==0.41.0 furiosa-tcc==2026.4.0 furiosa-torch==2026.4.0 transformers==5.20.2\nfxbx run stabilityai/sdxl-turbo --sample -o result.png",
+        "detailSetup": "python -m venv fury\nsource fury/bin/activate\npython -m pip install --index-url https://download.pytorch.org/whl/cpu torch==2.10.0+cpu\npython -m pip install --upgrade 'fxbx[weights]>=0.10.0' requests diffusers==0.41.0 furiosa-tcc==2026.4.0 furiosa-torch==2026.4.0 transformers==5.20.2\nfxbx run stabilityai/sdxl-turbo --sample -o result.png",
         "serve": "fxbx serve stabilityai/sdxl-turbo --port 8000",
         "serveSetup": "python -m venv fury\nsource fury/bin/activate\npython -m pip install --upgrade fxbx\nfxbx serve stabilityai/sdxl-turbo --port 8000",
         "serveQuick": "source fury/bin/activate\nfxbx serve stabilityai/sdxl-turbo --port 8000",
         "python": "from pathlib import Path\nimport json\nimport requests\nfrom shutil import copyfile\n\npayload = {'output': './result.png',\n 'prompt': 'A red fox sitting beside a mountain lake at sunrise',\n 'seed': 20261102,\n 'size': 512,\n 'steps': 1}\nfrom tempfile import mkdtemp\noutput_root = Path(mkdtemp(prefix=\"model-output-\", dir=Path.cwd()))\npayload[\"output\"] = str(output_root / 'result.png')\n\nresponse = requests.post(\n    \"http://127.0.0.1:8000/predict\", json=payload, timeout=600,\n)\nresponse.raise_for_status()\nresult = response.json()\nsource = Path(result['image_path'])\noutput = Path('result.png')\nif source.resolve() != output.resolve():\n    copyfile(source, output)\nprint(output.resolve())\ntext = json.dumps(result, ensure_ascii=False, indent=2)\nfilename = \"result.json\"\nif len(text) > 2000:\n    Path(filename).write_text(text + \"\\n\", encoding=\"utf-8\")\n    print(Path(filename).resolve())\nelse:\n    print(text)",
-        "detailServe": "python -m venv fury\nsource fury/bin/activate\npython -m pip install --index-url https://download.pytorch.org/whl/cpu torch==2.10.0+cpu\npython -m pip install --upgrade 'fxbx[weights]>=0.9.6' requests diffusers==0.41.0 furiosa-tcc==2026.4.0 furiosa-torch==2026.4.0 transformers==5.20.2\nfxbx serve stabilityai/sdxl-turbo --port 8000",
+        "detailServe": "python -m venv fury\nsource fury/bin/activate\npython -m pip install --index-url https://download.pytorch.org/whl/cpu torch==2.10.0+cpu\npython -m pip install --upgrade 'fxbx[weights]>=0.10.0' requests diffusers==0.41.0 furiosa-tcc==2026.4.0 furiosa-torch==2026.4.0 transformers==5.20.2\nfxbx serve stabilityai/sdxl-turbo --port 8000",
         "serveNote": ""
       },
       "introduction": {
-        "title": "SDXL Turbo · 병합 NPU 실행",
+        "title": "SDXL Turbo · 병합 NPU 실행과 선택형 LoRA",
         "about": "Powered by Stability AI. 문장을 512×512 이미지로 만드는 1스텝 모델입니다. Stability AI Community License 조건을 따릅니다.",
-        "use": "문장 입력, 배치 1, 512×512, 1스텝·guidance 0 프로필입니다. 각 CLIP 토크나이저 기준 특수 토큰 포함 77토큰까지 받습니다. 원본 가중치는 첫 실행에 고정 리비전에서 별도 다운로드합니다.",
-        "performance": "3번 RNGD: 적재 약 17.8초, 첫 요청 0.53초, 반복 5회 중앙값 0.52초. 기존 공개본 약 3.01초 대비 약 5.7배 빨랐습니다. CPU 기준 세 이미지 PSNR 28.29~32.48dB, 네 NPU 단계 확인·SDK CPU 폴백 0건. 작은 수용 테스트 결과이며 환경에 따라 달라집니다.",
-        "version": "2026.4.0-sdxl-turbo-merged-fxbx1"
+        "use": "문장 입력, 배치 1, 512×512, 1스텝·guidance 0 프로필입니다. 각 CLIP 토크나이저 기준 특수 토큰 포함 77토큰까지 받습니다. 원본 가중치는 첫 실행에 고정 리비전에서 별도 다운로드합니다. fxbX 서빙 화면에서 3D 렌더·종이공예·픽셀아트 스타일 LoRA를 선택적으로 가져올 수 있습니다. 기본은 LoRA 없음입니다.",
+        "performance": "3번 RNGD: 적재 약 17.8초, 첫 요청 0.53초, 반복 5회 중앙값 0.52초. 기존 공개본 약 3.01초 대비 약 5.7배 빨랐습니다. CPU 기준 세 이미지 PSNR 28.29~32.48dB, 네 NPU 단계 확인·SDK CPU 폴백 0건. 작은 수용 테스트 결과이며 환경에 따라 달라집니다. 이 릴리스의 실행 프로그램은 동일하며 LoRA 변경에는 별도 가중치 준비 시간이 필요합니다. LoRA별 한 프롬프트만 NPU 시험했으며 한국어 이해 향상을 의미하지 않습니다.",
+        "version": "2026.4.0-sdxl-turbo-merged-lora-fxbx1"
       }
     },
     "stabilityai/TripoSR": {

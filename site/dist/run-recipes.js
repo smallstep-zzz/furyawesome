@@ -105,16 +105,16 @@ window.furyRunRecipes = {
     "detailServe": "python -m venv fury\nsource fury/bin/activate\npython -m pip install --index-url https://download.pytorch.org/whl/cpu torch==2.10.0+cpu\npython -m pip install --upgrade \"fxbx[weights]==0.9.5\" furiosa-torch==2026.4.0 furiosa-tcc==2026.4.0 requests\ncurl -fsSL https://furyawesome.softandsweet5.chatgpt.site/native-serve.py -o native-serve.py\npython native-serve.py Roboflow/rf-detr-seg-nano --port 8000"
   },
   "stabilityai/sdxl-turbo": {
-    "version": "2026.4.0-sdxl-turbo-merged-fxbx1",
+    "version": "2026.4.0-sdxl-turbo-merged-lora-fxbx1",
     "setup": "python -m venv fury\nsource fury/bin/activate\npython -m pip install --upgrade fxbx\nfxbx run stabilityai/sdxl-turbo --sample -o result.png",
     "rerun": "source fury/bin/activate\nfxbx run stabilityai/sdxl-turbo --sample -o result.png",
     "activate": "source fury/bin/activate",
-    "detailSetup": "python -m venv fury\nsource fury/bin/activate\npython -m pip install --index-url https://download.pytorch.org/whl/cpu torch==2.10.0+cpu\npython -m pip install --upgrade 'fxbx[weights]>=0.9.6' requests diffusers==0.41.0 furiosa-tcc==2026.4.0 furiosa-torch==2026.4.0 transformers==5.20.2\nfxbx run stabilityai/sdxl-turbo --sample -o result.png",
+    "detailSetup": "python -m venv fury\nsource fury/bin/activate\npython -m pip install --index-url https://download.pytorch.org/whl/cpu torch==2.10.0+cpu\npython -m pip install --upgrade 'fxbx[weights]>=0.10.0' requests diffusers==0.41.0 furiosa-tcc==2026.4.0 furiosa-torch==2026.4.0 transformers==5.20.2\nfxbx run stabilityai/sdxl-turbo --sample -o result.png",
     "serve": "fxbx serve stabilityai/sdxl-turbo --port 8000",
     "serveSetup": "python -m venv fury\nsource fury/bin/activate\npython -m pip install --upgrade fxbx\nfxbx serve stabilityai/sdxl-turbo --port 8000",
     "serveQuick": "source fury/bin/activate\nfxbx serve stabilityai/sdxl-turbo --port 8000",
     "python": "from pathlib import Path\nimport json\nimport requests\nfrom shutil import copyfile\n\npayload = {'output': './result.png',\n 'prompt': 'A red fox sitting beside a mountain lake at sunrise',\n 'seed': 20261102,\n 'size': 512,\n 'steps': 1}\nfrom tempfile import mkdtemp\noutput_root = Path(mkdtemp(prefix=\"model-output-\", dir=Path.cwd()))\npayload[\"output\"] = str(output_root / 'result.png')\n\nresponse = requests.post(\n    \"http://127.0.0.1:8000/predict\", json=payload, timeout=600,\n)\nresponse.raise_for_status()\nresult = response.json()\nsource = Path(result['image_path'])\noutput = Path('result.png')\nif source.resolve() != output.resolve():\n    copyfile(source, output)\nprint(output.resolve())\ntext = json.dumps(result, ensure_ascii=False, indent=2)\nfilename = \"result.json\"\nif len(text) > 2000:\n    Path(filename).write_text(text + \"\\n\", encoding=\"utf-8\")\n    print(Path(filename).resolve())\nelse:\n    print(text)",
-    "detailServe": "python -m venv fury\nsource fury/bin/activate\npython -m pip install --index-url https://download.pytorch.org/whl/cpu torch==2.10.0+cpu\npython -m pip install --upgrade 'fxbx[weights]>=0.9.6' requests diffusers==0.41.0 furiosa-tcc==2026.4.0 furiosa-torch==2026.4.0 transformers==5.20.2\nfxbx serve stabilityai/sdxl-turbo --port 8000",
+    "detailServe": "python -m venv fury\nsource fury/bin/activate\npython -m pip install --index-url https://download.pytorch.org/whl/cpu torch==2.10.0+cpu\npython -m pip install --upgrade 'fxbx[weights]>=0.10.0' requests diffusers==0.41.0 furiosa-tcc==2026.4.0 furiosa-torch==2026.4.0 transformers==5.20.2\nfxbx serve stabilityai/sdxl-turbo --port 8000",
     "serveNote": ""
   },
   "stabilityai/TripoSR": {
@@ -142,5 +142,18 @@ window.furyRunRecipes = {
     "serveNote": "",
     "detailSetup": "python -m venv fury\nsource fury/bin/activate\npython -m pip install --index-url https://download.pytorch.org/whl/cpu torch==2.10.0+cpu\npython -m pip install --upgrade \"fxbx[weights]==0.9.5\" furiosa-torch==2026.4.0 furiosa-tcc==2026.4.0 requests transformers==5.20.2\nfxbx run giangndm/yolo11-onnx --sample",
     "detailServe": "python -m venv fury\nsource fury/bin/activate\npython -m pip install --index-url https://download.pytorch.org/whl/cpu torch==2.10.0+cpu\npython -m pip install --upgrade \"fxbx[weights]==0.9.5\" furiosa-torch==2026.4.0 furiosa-tcc==2026.4.0 requests transformers==5.20.2\nfxbx serve giangndm/yolo11-onnx --port 8000"
+  },
+  "Roboflow/rf-detr-base": {
+    "version": "2026.4.0-base560-fxbx1",
+    "setup": "python -m venv fury\nsource fury/bin/activate\npython -m pip install fxbx\nfxbx run Roboflow/rf-detr-base --sample -o result.safetensors",
+    "rerun": "source fury/bin/activate\nfxbx run Roboflow/rf-detr-base --sample -o result.safetensors",
+    "activate": "source fury/bin/activate",
+    "serve": "hf download softandsweet/roboflow-rf-detr-base-rngd-fxbx rf-detr-base.fxbx predict.py sample.png --revision 7310361443ee13c22d2ef235c1953c2c4d980a46 --local-dir .\npython predict.py rf-detr-base.fxbx --port 8000",
+    "serveSetup": "python -m venv fury\nsource fury/bin/activate\npython -m pip install fxbx\nhf download softandsweet/roboflow-rf-detr-base-rngd-fxbx rf-detr-base.fxbx predict.py sample.png --revision 7310361443ee13c22d2ef235c1953c2c4d980a46 --local-dir .\npython predict.py rf-detr-base.fxbx --port 8000",
+    "serveQuick": "source fury/bin/activate\nhf download softandsweet/roboflow-rf-detr-base-rngd-fxbx rf-detr-base.fxbx predict.py sample.png --revision 7310361443ee13c22d2ef235c1953c2c4d980a46 --local-dir .\npython predict.py rf-detr-base.fxbx --port 8000",
+    "python": "import json\nfrom pathlib import Path\nfrom urllib.request import Request, urlopen\n\nrequest = Request(\n    'http://127.0.0.1:8000/predict',\n    json.dumps({'image': str(Path('sample.png').resolve())}).encode(),\n    {'Content-Type': 'application/json'},\n)\nwith urlopen(request, timeout=30) as response:\n    result = json.load(response)\npath = Path('result.json')\npath.write_text(json.dumps(result, indent=2, ensure_ascii=False) + '\\n')\nprint(path.resolve())\n",
+    "serveNote": "공개 검증한 샘플 서버를 사용합니다. Python에서 넘길 사진 경로는 서버가 읽을 수 있어야 하며, 결과 JSON은 호출한 현재 폴더에 저장됩니다.",
+    "detailSetup": "python -m venv fury\nsource fury/bin/activate\npython -m pip install --index-url https://download.pytorch.org/whl/cpu torch==2.10.0+cpu torchvision==0.25.0+cpu\npython -m pip install --upgrade \"fxbx[weights]==0.9.9\" furiosa-torch==2026.4.0 furiosa-tcc==2026.4.0 transformers==5.20.2\nfxbx run Roboflow/rf-detr-base --sample -o result.safetensors",
+    "detailServe": "python -m venv fury\nsource fury/bin/activate\npython -m pip install --index-url https://download.pytorch.org/whl/cpu torch==2.10.0+cpu torchvision==0.25.0+cpu\npython -m pip install --upgrade \"fxbx[weights]==0.9.9\" furiosa-torch==2026.4.0 furiosa-tcc==2026.4.0 transformers==5.20.2\nhf download softandsweet/roboflow-rf-detr-base-rngd-fxbx rf-detr-base.fxbx predict.py sample.png --revision 7310361443ee13c22d2ef235c1953c2c4d980a46 --local-dir .\npython predict.py rf-detr-base.fxbx --port 8000"
   }
 };
