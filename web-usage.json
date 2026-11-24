@@ -194,27 +194,27 @@
       }
     },
     "stabilityai/sdxl-turbo": {
-      "version": "2026.4.0-sdxl-turbo-fxbx1-setup1",
-      "author_sha256": "ebc7d8facb004a0f23e7c0f7497a77a79a5c8cb9395ae2b37ff9693cc6a278e6",
+      "version": "2026.4.0-sdxl-turbo-merged-fxbx1",
+      "author_sha256": "a15d4afe1eeb225502d1050f102e0c63039f4e87b875d780cc0b5656132dd084",
       "recipe": {
-        "version": "2026.4.0-sdxl-turbo-fxbx1-setup1",
+        "version": "2026.4.0-sdxl-turbo-merged-fxbx1",
         "setup": "python -m venv fury\nsource fury/bin/activate\npython -m pip install --upgrade fxbx\nfxbx run stabilityai/sdxl-turbo --sample -o result.png",
         "rerun": "source fury/bin/activate\nfxbx run stabilityai/sdxl-turbo --sample -o result.png",
         "activate": "source fury/bin/activate",
+        "detailSetup": "python -m venv fury\nsource fury/bin/activate\npython -m pip install --index-url https://download.pytorch.org/whl/cpu torch==2.10.0+cpu\npython -m pip install --upgrade 'fxbx[weights]>=0.9.6' requests diffusers==0.41.0 furiosa-tcc==2026.4.0 furiosa-torch==2026.4.0 transformers==5.20.2\nfxbx run stabilityai/sdxl-turbo --sample -o result.png",
         "serve": "fxbx serve stabilityai/sdxl-turbo --port 8000",
         "serveSetup": "python -m venv fury\nsource fury/bin/activate\npython -m pip install --upgrade fxbx\nfxbx serve stabilityai/sdxl-turbo --port 8000",
         "serveQuick": "source fury/bin/activate\nfxbx serve stabilityai/sdxl-turbo --port 8000",
-        "python": "from pathlib import Path\nfrom shutil import copyfile\nimport json\nimport requests\n\nbase = \"http://127.0.0.1:8000\"\npayload = {'prompt': 'A small penguin on a sunny island'}\nresponse = requests.post(base + '/predict', json=payload, timeout=600)\nresponse.raise_for_status()\nresult = response.json()\n\n# Python도 같은 NPU 서버에서 실행합니다. 파일은 현재 폴더에 저장합니다.\nimage = Path(result[\"image_path\"])\nif image.resolve() != Path(\"result.png\").resolve():\n    copyfile(image, \"result.png\")\nprint(Path(\"result.png\").resolve())\ntext = json.dumps(result, ensure_ascii=False, indent=2)\nif len(text) > 2000:\n    Path(\"result.json\").write_text(text + \"\\n\", encoding=\"utf-8\")\n    print(Path(\"result.json\").resolve())\nelse:\n    print(text)\n",
-        "serveNote": "",
-        "detailSetup": "python -m venv fury\nsource fury/bin/activate\npython -m pip install --index-url https://download.pytorch.org/whl/cpu torch==2.10.0+cpu\npython -m pip install --upgrade \"fxbx[weights]==0.9.5\" furiosa-torch==2026.4.0 furiosa-tcc==2026.4.0 requests transformers==5.20.2 pillow diffusers==0.41.0 accelerate sentencepiece\nfxbx run stabilityai/sdxl-turbo --sample -o result.png",
-        "detailServe": "python -m venv fury\nsource fury/bin/activate\npython -m pip install --index-url https://download.pytorch.org/whl/cpu torch==2.10.0+cpu\npython -m pip install --upgrade \"fxbx[weights]==0.9.5\" furiosa-torch==2026.4.0 furiosa-tcc==2026.4.0 requests transformers==5.20.2 pillow diffusers==0.41.0 accelerate sentencepiece\nfxbx serve stabilityai/sdxl-turbo --port 8000"
+        "python": "from pathlib import Path\nimport json\nimport requests\nfrom shutil import copyfile\n\npayload = {'output': './result.png',\n 'prompt': 'A red fox sitting beside a mountain lake at sunrise',\n 'seed': 20261102,\n 'size': 512,\n 'steps': 1}\nfrom tempfile import mkdtemp\noutput_root = Path(mkdtemp(prefix=\"model-output-\", dir=Path.cwd()))\npayload[\"output\"] = str(output_root / 'result.png')\n\nresponse = requests.post(\n    \"http://127.0.0.1:8000/predict\", json=payload, timeout=600,\n)\nresponse.raise_for_status()\nresult = response.json()\nsource = Path(result['image_path'])\noutput = Path('result.png')\nif source.resolve() != output.resolve():\n    copyfile(source, output)\nprint(output.resolve())\ntext = json.dumps(result, ensure_ascii=False, indent=2)\nfilename = \"result.json\"\nif len(text) > 2000:\n    Path(filename).write_text(text + \"\\n\", encoding=\"utf-8\")\n    print(Path(filename).resolve())\nelse:\n    print(text)",
+        "detailServe": "python -m venv fury\nsource fury/bin/activate\npython -m pip install --index-url https://download.pytorch.org/whl/cpu torch==2.10.0+cpu\npython -m pip install --upgrade 'fxbx[weights]>=0.9.6' requests diffusers==0.41.0 furiosa-tcc==2026.4.0 furiosa-torch==2026.4.0 transformers==5.20.2\nfxbx serve stabilityai/sdxl-turbo --port 8000",
+        "serveNote": ""
       },
       "introduction": {
-        "title": "아이디어가 떠올랐을 때, 가볍게 한 장부터.",
-        "about": "짧은 설명을 이미지로 바꿔 주는 모델입니다. 적은 생성 단계로 결과를 만드는 데 초점을 맞춰, 완성작을 다듬기 전에 구도와 분위기를 탐색하기 좋아요.",
-        "use": "광고나 콘텐츠의 초안, 배경 이미지 구상, 프롬프트를 바꿔 가며 여러 방향을 비교할 때 사용해 보세요.",
-        "performance": "RNGD에서 패키지의 샘플 이미지 생성을 검증했습니다. 실제 속도는 해상도·생성 단계·모델 적재 여부에 따라 달라집니다. 현재 소개에는 같은 조건에서 비교할 수 있는 생성 시간 측정값이 없습니다.",
-        "version": "2026.4.0-sdxl-turbo-fxbx1-setup1"
+        "title": "SDXL Turbo · 병합 NPU 실행",
+        "about": "Powered by Stability AI. 문장을 512×512 이미지로 만드는 1스텝 모델입니다. Stability AI Community License 조건을 따릅니다.",
+        "use": "문장 입력, 배치 1, 512×512, 1스텝·guidance 0 프로필입니다. 각 CLIP 토크나이저 기준 특수 토큰 포함 77토큰까지 받습니다. 원본 가중치는 첫 실행에 고정 리비전에서 별도 다운로드합니다.",
+        "performance": "3번 RNGD: 적재 약 17.8초, 첫 요청 0.53초, 반복 5회 중앙값 0.52초. 기존 공개본 약 3.01초 대비 약 5.7배 빨랐습니다. CPU 기준 세 이미지 PSNR 28.29~32.48dB, 네 NPU 단계 확인·SDK CPU 폴백 0건. 작은 수용 테스트 결과이며 환경에 따라 달라집니다.",
+        "version": "2026.4.0-sdxl-turbo-merged-fxbx1"
       }
     },
     "stabilityai/TripoSR": {

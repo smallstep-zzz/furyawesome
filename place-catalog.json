@@ -128,15 +128,15 @@
       "id": "sdxl-turbo",
       "source": "stabilityai/sdxl-turbo",
       "category": "image",
-      "version": "2026.4.0-sdxl-turbo-fxbx1-setup1",
-      "precision": "BF16",
+      "version": "2026.4.0-sdxl-turbo-merged-fxbx1",
+      "precision": "Mixed",
       "sdk": "2026.4.0",
-      "license": "Stability AI Community License",
-      "description": "Furiosa RNGD에서 검증한 SDXL Turbo 이미지 생성 패키지입니다.",
-      "published_on": "2026-11-14",
+      "license": "Stability AI Community License Agreement",
+      "description": "Powered by Stability AI · 512×512·1스텝 병합 NPU 실행 · 반복 요청 약 0.52초",
+      "published_on": "2026-11-24",
       "hf": "https://huggingface.co/softandsweet/stabilityai-sdxl-turbo-rngd-fxbex",
       "usage": "https://github.com/smallstep-zzz/furyawesome/blob/main/usage/sdxl-turbo.md",
-      "weights_mode": "standalone"
+      "weights_mode": "external"
     },
     {
       "id": "TripoSR",

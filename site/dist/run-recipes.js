@@ -105,17 +105,17 @@ window.furyRunRecipes = {
     "detailServe": "python -m venv fury\nsource fury/bin/activate\npython -m pip install --index-url https://download.pytorch.org/whl/cpu torch==2.10.0+cpu\npython -m pip install --upgrade \"fxbx[weights]==0.9.5\" furiosa-torch==2026.4.0 furiosa-tcc==2026.4.0 requests\ncurl -fsSL https://furyawesome.softandsweet5.chatgpt.site/native-serve.py -o native-serve.py\npython native-serve.py Roboflow/rf-detr-seg-nano --port 8000"
   },
   "stabilityai/sdxl-turbo": {
-    "version": "2026.4.0-sdxl-turbo-fxbx1-setup1",
+    "version": "2026.4.0-sdxl-turbo-merged-fxbx1",
     "setup": "python -m venv fury\nsource fury/bin/activate\npython -m pip install --upgrade fxbx\nfxbx run stabilityai/sdxl-turbo --sample -o result.png",
     "rerun": "source fury/bin/activate\nfxbx run stabilityai/sdxl-turbo --sample -o result.png",
     "activate": "source fury/bin/activate",
+    "detailSetup": "python -m venv fury\nsource fury/bin/activate\npython -m pip install --index-url https://download.pytorch.org/whl/cpu torch==2.10.0+cpu\npython -m pip install --upgrade 'fxbx[weights]>=0.9.6' requests diffusers==0.41.0 furiosa-tcc==2026.4.0 furiosa-torch==2026.4.0 transformers==5.20.2\nfxbx run stabilityai/sdxl-turbo --sample -o result.png",
     "serve": "fxbx serve stabilityai/sdxl-turbo --port 8000",
     "serveSetup": "python -m venv fury\nsource fury/bin/activate\npython -m pip install --upgrade fxbx\nfxbx serve stabilityai/sdxl-turbo --port 8000",
     "serveQuick": "source fury/bin/activate\nfxbx serve stabilityai/sdxl-turbo --port 8000",
-    "python": "from pathlib import Path\nfrom shutil import copyfile\nimport json\nimport requests\n\nbase = \"http://127.0.0.1:8000\"\npayload = {'prompt': 'A small penguin on a sunny island'}\nresponse = requests.post(base + '/predict', json=payload, timeout=600)\nresponse.raise_for_status()\nresult = response.json()\n\n# Python도 같은 NPU 서버에서 실행합니다. 파일은 현재 폴더에 저장합니다.\nimage = Path(result[\"image_path\"])\nif image.resolve() != Path(\"result.png\").resolve():\n    copyfile(image, \"result.png\")\nprint(Path(\"result.png\").resolve())\ntext = json.dumps(result, ensure_ascii=False, indent=2)\nif len(text) > 2000:\n    Path(\"result.json\").write_text(text + \"\\n\", encoding=\"utf-8\")\n    print(Path(\"result.json\").resolve())\nelse:\n    print(text)\n",
-    "serveNote": "",
-    "detailSetup": "python -m venv fury\nsource fury/bin/activate\npython -m pip install --index-url https://download.pytorch.org/whl/cpu torch==2.10.0+cpu\npython -m pip install --upgrade \"fxbx[weights]==0.9.5\" furiosa-torch==2026.4.0 furiosa-tcc==2026.4.0 requests transformers==5.20.2 pillow diffusers==0.41.0 accelerate sentencepiece\nfxbx run stabilityai/sdxl-turbo --sample -o result.png",
-    "detailServe": "python -m venv fury\nsource fury/bin/activate\npython -m pip install --index-url https://download.pytorch.org/whl/cpu torch==2.10.0+cpu\npython -m pip install --upgrade \"fxbx[weights]==0.9.5\" furiosa-torch==2026.4.0 furiosa-tcc==2026.4.0 requests transformers==5.20.2 pillow diffusers==0.41.0 accelerate sentencepiece\nfxbx serve stabilityai/sdxl-turbo --port 8000"
+    "python": "from pathlib import Path\nimport json\nimport requests\nfrom shutil import copyfile\n\npayload = {'output': './result.png',\n 'prompt': 'A red fox sitting beside a mountain lake at sunrise',\n 'seed': 20261102,\n 'size': 512,\n 'steps': 1}\nfrom tempfile import mkdtemp\noutput_root = Path(mkdtemp(prefix=\"model-output-\", dir=Path.cwd()))\npayload[\"output\"] = str(output_root / 'result.png')\n\nresponse = requests.post(\n    \"http://127.0.0.1:8000/predict\", json=payload, timeout=600,\n)\nresponse.raise_for_status()\nresult = response.json()\nsource = Path(result['image_path'])\noutput = Path('result.png')\nif source.resolve() != output.resolve():\n    copyfile(source, output)\nprint(output.resolve())\ntext = json.dumps(result, ensure_ascii=False, indent=2)\nfilename = \"result.json\"\nif len(text) > 2000:\n    Path(filename).write_text(text + \"\\n\", encoding=\"utf-8\")\n    print(Path(filename).resolve())\nelse:\n    print(text)",
+    "detailServe": "python -m venv fury\nsource fury/bin/activate\npython -m pip install --index-url https://download.pytorch.org/whl/cpu torch==2.10.0+cpu\npython -m pip install --upgrade 'fxbx[weights]>=0.9.6' requests diffusers==0.41.0 furiosa-tcc==2026.4.0 furiosa-torch==2026.4.0 transformers==5.20.2\nfxbx serve stabilityai/sdxl-turbo --port 8000",
+    "serveNote": ""
   },
   "stabilityai/TripoSR": {
     "version": "2026.4.0-mesh256-fxbx6",
