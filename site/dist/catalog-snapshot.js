@@ -111,6 +111,34 @@ window.furyCatalogSnapshot = {
       "weights_mode": "external"
     },
     {
+      "id": "rf-detr-base",
+      "source": "Roboflow/rf-detr-base",
+      "category": "vision",
+      "version": "2026.4.0-base560-fxbx1",
+      "precision": "Mixed/BF16",
+      "sdk": "2026.4.0",
+      "license": "Apache-2.0",
+      "description": "560×560 객체 탐지 · 검출 그래프 단일 RNGD P50 14.45ms",
+      "published_on": "2026-11-24",
+      "hf": "https://huggingface.co/softandsweet/roboflow-rf-detr-base-rngd-fxbx",
+      "usage": "https://huggingface.co/softandsweet/roboflow-rf-detr-base-rngd-fxbx",
+      "weights_mode": "external"
+    },
+    {
+      "id": "rf-detr-nano",
+      "source": "Roboflow/rf-detr-nano",
+      "category": "vision",
+      "version": "2026.4.0-nano384-fxbx1",
+      "precision": "FP32",
+      "sdk": "2026.4.0",
+      "license": "Apache-2.0",
+      "description": "384×384 객체 탐지 · 단일 Furiosa RNGD",
+      "published_on": "2026-11-25",
+      "hf": "https://huggingface.co/softandsweet/roboflow-rf-detr-nano-rngd-fxbx",
+      "usage": "https://huggingface.co/softandsweet/roboflow-rf-detr-nano-rngd-fxbx",
+      "weights_mode": "external"
+    },
+    {
       "id": "rf-detr-seg-nano",
       "source": "Roboflow/rf-detr-seg-nano",
       "category": "vision",
@@ -128,15 +156,15 @@ window.furyCatalogSnapshot = {
       "id": "sdxl-turbo",
       "source": "stabilityai/sdxl-turbo",
       "category": "image",
-      "version": "2026.4.0-sdxl-turbo-fxbx1-setup1",
-      "precision": "BF16",
+      "version": "2026.4.0-sdxl-turbo-merged-lora-fxbx1",
+      "precision": "Mixed",
       "sdk": "2026.4.0",
-      "license": "Stability AI Community License",
-      "description": "Furiosa RNGD에서 검증한 SDXL Turbo 이미지 생성 패키지입니다.",
-      "published_on": "2026-11-14",
+      "license": "Stability AI Community License Agreement",
+      "description": "Powered by Stability AI · 512×512·1스텝 병합 NPU 실행 · 반복 요청 약 0.52초",
+      "published_on": "2026-11-24",
       "hf": "https://huggingface.co/softandsweet/stabilityai-sdxl-turbo-rngd-fxbex",
       "usage": "https://github.com/smallstep-zzz/furyawesome/blob/main/usage/sdxl-turbo.md",
-      "weights_mode": "standalone"
+      "weights_mode": "external"
     },
     {
       "id": "TripoSR",

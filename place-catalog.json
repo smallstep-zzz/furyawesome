@@ -125,6 +125,20 @@
       "weights_mode": "external"
     },
     {
+      "id": "rf-detr-nano",
+      "source": "Roboflow/rf-detr-nano",
+      "category": "vision",
+      "version": "2026.4.0-nano384-fxbx1",
+      "precision": "FP32",
+      "sdk": "2026.4.0",
+      "license": "Apache-2.0",
+      "description": "384×384 객체 탐지 · 단일 Furiosa RNGD",
+      "published_on": "2026-11-25",
+      "hf": "https://huggingface.co/softandsweet/roboflow-rf-detr-nano-rngd-fxbx",
+      "usage": "https://huggingface.co/softandsweet/roboflow-rf-detr-nano-rngd-fxbx",
+      "weights_mode": "external"
+    },
+    {
       "id": "rf-detr-seg-nano",
       "source": "Roboflow/rf-detr-seg-nano",
       "category": "vision",
