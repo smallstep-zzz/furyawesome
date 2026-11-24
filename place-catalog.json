@@ -97,6 +97,20 @@
       "weights_mode": "external"
     },
     {
+      "id": "mobilenetv3_small_100.lamb_in1k",
+      "source": "timm/mobilenetv3_small_100.lamb_in1k",
+      "category": "vision",
+      "version": "2026.4.0-small224-fxbx1",
+      "precision": "FP32",
+      "sdk": "2026.4.0",
+      "license": "Apache-2.0",
+      "description": "224×224 이미지 분류 · 단일 Furiosa RNGD",
+      "published_on": "2026-11-25",
+      "hf": "https://huggingface.co/softandsweet/timm-mobilenetv3-small-100-lamb-in1k-rngd-fxbx",
+      "usage": "https://github.com/smallstep-zzz/furyawesome/blob/main/usage/mobilenetv3_small_100.lamb_in1k.md",
+      "weights_mode": "external"
+    },
+    {
       "id": "Qwen-Image-2.1",
       "source": "Qwen/Qwen-Image-2.1",
       "category": "image",

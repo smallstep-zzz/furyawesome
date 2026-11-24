@@ -194,5 +194,33 @@
       "schema_version": 1
     },
     "published_on": "2026-11-25"
+  },
+  {
+    "entry": {
+      "model": {
+        "category": "Computer Vision",
+        "cover_url": "",
+        "name": "MobileNetV3 Small",
+        "package_license": "Apache-2.0",
+        "readme": "사진 한 장을 ImageNet-1k의 1,000개 범주로 분류합니다. [사용법](https://huggingface.co/softandsweet/timm-mobilenetv3-small-100-lamb-in1k-rngd-fxbx/blob/574a26cb2723f9df12afab8dc2ffa7e6598bb17e/USAGE.md)",
+        "short_description": "224×224 이미지 분류 · 단일 Furiosa RNGD",
+        "source_license": "Apache-2.0",
+        "source_repo": "timm/mobilenetv3_small_100.lamb_in1k",
+        "source_revision": "76b303ec28c466e9df37f4745dfb7aef20ab87ae"
+      },
+      "release": {
+        "adapter": "execution_plan",
+        "artifact_url": "https://huggingface.co/softandsweet/timm-mobilenetv3-small-100-lamb-in1k-rngd-fxbx/resolve/574a26cb2723f9df12afab8dc2ffa7e6598bb17e/mobilenetv3-small-224.fxbx",
+        "author_sha256": "c9126b9e969f9c2c1ecfdc5ff4a1d4cbba8ead4d18fb79f8ee38e3a132903004",
+        "precision": "FP32",
+        "runtime_version": "0.9.9",
+        "sdk_version": "2026.4.0",
+        "target": "Furiosa RNGD",
+        "version": "2026.4.0-small224-fxbx1",
+        "weights_mode": "external"
+      },
+      "schema_version": 1
+    },
+    "published_on": "2026-11-25"
   }
 ]
