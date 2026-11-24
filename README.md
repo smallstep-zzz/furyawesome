@@ -153,3 +153,7 @@ with as_torch(package, output_device="cpu") as model:
 - 호환되는 Furiosa RNGD 하드웨어·드라이버·SDK가 필요합니다. 모델별 환경과 추가 의존성은 HF 안내를 따르세요.
 - 원본·패키지 라이선스와 검증 범위는 각 모델의 상세 정보에서 확인하세요.
 - [fxbX](https://github.com/smallstep-zzz/fxbX) · [OpenFury Hub](https://openfury-hub.softandsweet5.chatgpt.site/) · [기여 안내](CONTRIBUTING.md)
+
+## 선택형 LoRA
+
+모델별 효용·호환 조건·라이선스는 [LoRA 안내](usage/loras.md)와 [공통 LoRA 카탈로그](lora-catalog.json)에서 확인하세요. 후보와 실제 NPU 검증 상태를 구분합니다.
