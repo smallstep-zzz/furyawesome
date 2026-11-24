@@ -135,7 +135,7 @@ window.furyCatalogSnapshot = {
       "description": "384×384 객체 탐지 · 단일 Furiosa RNGD",
       "published_on": "2026-11-25",
       "hf": "https://huggingface.co/softandsweet/roboflow-rf-detr-nano-rngd-fxbx",
-      "usage": "https://huggingface.co/softandsweet/roboflow-rf-detr-nano-rngd-fxbx",
+      "usage": "https://github.com/smallstep-zzz/furyawesome/blob/main/usage/rf-detr-nano.md",
       "weights_mode": "external"
     },
     {
