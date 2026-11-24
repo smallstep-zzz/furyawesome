@@ -4,6 +4,7 @@
   const source = 'https://raw.githubusercontent.com/smallstep-zzz/furyawesome/main/multi-npu.json';
   const topology = {
     same_host_tensor_parallel: '한 서버 · 텐서 병렬',
+    same_host_pipeline_parallel: '한 서버 · 파이프라인 병렬',
     cross_host_pipeline: '여러 서버 · 단계 분산',
   };
   const publicUrl = /^https:\/\/(huggingface\.co|github\.com)\/[a-z0-9_./#-]+$/i;
@@ -22,7 +23,7 @@
   }
 
   async function loadProfiles() {
-    const response = await fetch(source);
+    const response = await fetch(source, {cache: 'no-cache'});
     if (!response.ok) return;
     const catalog = await response.json();
     if (catalog.schema_version !== 1 || !Array.isArray(catalog.profiles)) return;
