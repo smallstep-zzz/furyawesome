@@ -53,17 +53,17 @@ window.furyRunRecipes = {
     "detailServe": "python -m venv fury\nsource fury/bin/activate\npython -m pip install --index-url https://download.pytorch.org/whl/cpu torch==2.10.0+cpu\npython -m pip install --upgrade \"fxbx[weights]==0.9.5\" furiosa-torch==2026.4.0 furiosa-tcc==2026.4.0 requests transformers==5.20.2 pillow\nhf auth login\nfxbx serve black-forest-labs/flux-3-image-klein --port 8000"
   },
   "black-forest-labs/FLUX.2-klein-4B": {
-    "version": "2026.4.0-klein4b-fxbx1-setup1",
+    "version": "2026.4.0-klein4b-fxbx1-ctx2048",
     "setup": "python -m venv fury\nsource fury/bin/activate\npython -m pip install --upgrade fxbx\nfxbx run black-forest-labs/FLUX.2-klein-4B --sample -o result.png",
     "rerun": "source fury/bin/activate\nfxbx run black-forest-labs/FLUX.2-klein-4B --sample -o result.png",
     "activate": "source fury/bin/activate",
+    "detailSetup": "python -m venv fury\nsource fury/bin/activate\npython -m pip install --index-url https://download.pytorch.org/whl/cpu torch==2.10.0+cpu\npython -m pip install --upgrade 'fxbx[weights]>=0.10.2' requests diffusers==0.41.0 furiosa-tcc==2026.4.0 furiosa-torch==2026.4.0 pillow==13.0.0 safetensors==0.8.0 transformers==5.20.2\nfxbx run black-forest-labs/FLUX.2-klein-4B --sample -o result.png",
     "serve": "fxbx serve black-forest-labs/FLUX.2-klein-4B --port 8000",
     "serveSetup": "python -m venv fury\nsource fury/bin/activate\npython -m pip install --upgrade fxbx\nfxbx serve black-forest-labs/FLUX.2-klein-4B --port 8000",
     "serveQuick": "source fury/bin/activate\nfxbx serve black-forest-labs/FLUX.2-klein-4B --port 8000",
-    "python": "from pathlib import Path\nfrom shutil import copyfile\nimport json\nimport requests\n\nbase = \"http://127.0.0.1:8000\"\npayload = {'prompt': 'A small penguin on a sunny island'}\nresponse = requests.post(base + '/predict', json=payload, timeout=600)\nresponse.raise_for_status()\nresult = response.json()\n\n# Python도 같은 NPU 서버에서 실행합니다. 파일은 현재 폴더에 저장합니다.\nimage = Path(result[\"image_path\"])\nif image.resolve() != Path(\"result.png\").resolve():\n    copyfile(image, \"result.png\")\nprint(Path(\"result.png\").resolve())\ntext = json.dumps(result, ensure_ascii=False, indent=2)\nif len(text) > 2000:\n    Path(\"result.json\").write_text(text + \"\\n\", encoding=\"utf-8\")\n    print(Path(\"result.json\").resolve())\nelse:\n    print(text)\n",
-    "serveNote": "",
-    "detailSetup": "python -m venv fury\nsource fury/bin/activate\npython -m pip install --index-url https://download.pytorch.org/whl/cpu torch==2.10.0+cpu\npython -m pip install --upgrade \"fxbx[weights]==0.9.5\" furiosa-torch==2026.4.0 furiosa-tcc==2026.4.0 requests transformers==5.20.2 pillow diffusers==0.41.0 accelerate sentencepiece\nfxbx run black-forest-labs/FLUX.2-klein-4B --sample -o result.png",
-    "detailServe": "python -m venv fury\nsource fury/bin/activate\npython -m pip install --index-url https://download.pytorch.org/whl/cpu torch==2.10.0+cpu\npython -m pip install --upgrade \"fxbx[weights]==0.9.5\" furiosa-torch==2026.4.0 furiosa-tcc==2026.4.0 requests transformers==5.20.2 pillow diffusers==0.41.0 accelerate sentencepiece\nfxbx serve black-forest-labs/FLUX.2-klein-4B --port 8000"
+    "python": "from pathlib import Path\nimport json\nimport requests\nfrom shutil import copyfile\n\npayload = {'height': 512,\n 'prompt': 'A small red fox beside a mountain lake at sunrise, golden autumn trees',\n 'seed': 20261102,\n 'steps': 4,\n 'width': 512}\n\nresponse = requests.post(\n    \"http://127.0.0.1:8000/predict\", json=payload, timeout=600,\n)\nresponse.raise_for_status()\nresult = response.json()\nsource = Path(result['image_path'])\noutput = Path('result.png')\nif source.resolve() != output.resolve():\n    copyfile(source, output)\nprint(output.resolve())\ntext = json.dumps(result, ensure_ascii=False, indent=2)\nfilename = \"result.json\"\nif len(text) > 2000:\n    Path(filename).write_text(text + \"\\n\", encoding=\"utf-8\")\n    print(Path(filename).resolve())\nelse:\n    print(text)",
+    "detailServe": "python -m venv fury\nsource fury/bin/activate\npython -m pip install --index-url https://download.pytorch.org/whl/cpu torch==2.10.0+cpu\npython -m pip install --upgrade 'fxbx[weights]>=0.10.2' requests diffusers==0.41.0 furiosa-tcc==2026.4.0 furiosa-torch==2026.4.0 pillow==13.0.0 safetensors==0.8.0 transformers==5.20.2\nfxbx serve black-forest-labs/FLUX.2-klein-4B --port 8000",
+    "serveNote": ""
   },
   "SupersonicLabs/Julia-1": {
     "version": "2026.4.0-choice40-fxbx2",

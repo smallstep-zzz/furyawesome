@@ -25,7 +25,8 @@
     "Roboflow/rf-detr-nano@2026.4.0-nano384-fxbx1#4130f5abf20c0415c9e5e0ded4e080107af48c059b148a2dfa1a3ab7d2782492",
     "timm/mobilenetv3_small_100.lamb_in1k@2026.4.0-small224-fxbx1#c9126b9e969f9c2c1ecfdc5ff4a1d4cbba8ead4d18fb79f8ee38e3a132903004",
     "google/siglip-base-patch16-224@2026.4.0-bf16-224-fxbx1#6f0c90243bd3698ba7c2d285a1c42688e20aec0787269625762324a0a3aca872",
-    "PaddlePaddle/PP-OCRv5_mobile_det_onnx@2026.4.0-ocrv5-mobile-fxbx1#09ed8174020eeff71dea1bcd1b69cbf8e51bee42c857c4dbfa68cd3be40e510c"
+    "PaddlePaddle/PP-OCRv5_mobile_det_onnx@2026.4.0-ocrv5-mobile-fxbx1#09ed8174020eeff71dea1bcd1b69cbf8e51bee42c857c4dbfa68cd3be40e510c",
+    "black-forest-labs/FLUX.2-klein-4B@2026.4.0-klein4b-fxbx1-ctx2048#e07d750065f2ec16e8a83db36fe9e6564e1b948100966b8ee2a3e12c288a552f"
   ],
   "models": [
     {
@@ -624,6 +625,31 @@
         "sdk_version": "2026.4.0",
         "target": "Furiosa RNGD",
         "version": "2026.4.0-ocrv5-mobile-fxbx1",
+        "weights_mode": "standalone"
+      },
+      "schema_version": 1
+    },
+    {
+      "model": {
+        "category": "Image Generation",
+        "cover_url": "",
+        "name": "FLUX.2 Klein 4B",
+        "package_license": "Apache-2.0 upstream weights; bundled adapter has no separate license notice.",
+        "readme": "문장으로 512×512 이미지를 생성합니다. 채팅 템플릿을 포함해 최대 2,048토큰을 받으며 각 요청은 들어갈 수 있는 가장 작은 검증 프로필을 사용합니다.\n\nfxbX 0.10.2, Furiosa SDK 2026.4.0의 RNGD fusion 8에서 검증했습니다. 2,049토큰 요청은 실행 전에 거부되며, 같은 작업자로 다음 요청을 처리합니다.\n\n```bash\npython -m pip install --upgrade fxbx\nfxbx run black-forest-labs/FLUX.2-klein-4B@2026.4.0-klein4b-fxbx1-ctx2048 --sample -o result.png\nfxbx serve black-forest-labs/FLUX.2-klein-4B@2026.4.0-klein4b-fxbx1-ctx2048 --port 8000\n```\n\n5번 RNGD의 한 웹 작업자에서 짧은 요청 74.4초, 2,048토큰 요청 24.3초를 관찰했습니다. 최초 모델 적재 시간은 제외했습니다. 두 시간은 개별 관측값입니다. 원본 Diffusers도 비교 시 같은 프롬프트 길이로 실행했고 RGB PSNR은 26.03dB였습니다. 공식 NPU Task는 text 2,022, denoise 1,264, decode 2,656개를 기록했습니다. SDK CPU 폴백과 재실행 중 컴파일 호출은 0건이었습니다.",
+        "short_description": "512×512 이미지 생성 · 최대 2,048토큰 · 짧은 요청은 512토큰 프로필",
+        "source_license": "Apache-2.0",
+        "source_repo": "black-forest-labs/FLUX.2-klein-4B",
+        "source_revision": "e7b7dc27f91deacad38e78976d1f2b499d76a294"
+      },
+      "release": {
+        "adapter": "flux2_klein_replay",
+        "artifact_url": "https://huggingface.co/softandsweet/black-forest-labs-flux-2-klein-4b-rngd-fxbex/resolve/f56496ff2f7e62f0746010584a3b326a0290e19d/releases/2026.4.0-klein4b-fxbx1-ctx2048/e07d750065f2ec16e8a83db36fe9e6564e1b948100966b8ee2a3e12c288a552f/FLUX.2-klein-4B-ctx512-2048.fxbx",
+        "author_sha256": "e07d750065f2ec16e8a83db36fe9e6564e1b948100966b8ee2a3e12c288a552f",
+        "precision": "BF16",
+        "runtime_version": "0.10.2",
+        "sdk_version": "2026.4.0",
+        "target": "Furiosa RNGD",
+        "version": "2026.4.0-klein4b-fxbx1-ctx2048",
         "weights_mode": "standalone"
       },
       "schema_version": 1
