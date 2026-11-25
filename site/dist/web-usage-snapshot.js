@@ -79,14 +79,14 @@ window.furyWebUsageSnapshot = {
       "author_sha256": "2924f79ead2de03c4aa1a64a62dc5231fd4dd604334e7e6676df3493d9eb8f51",
       "recipe": {
         "version": "2026.4.0-flux3-fxbx1",
-        "setup": "python -m venv fury\nsource fury/bin/activate\npython -m pip install --upgrade fxbx\nfxbx run black-forest-labs/flux-3-image-klein --sample -o result.json",
+        "setup": "python -m venv fury\nsource fury/bin/activate\npython -m pip install --upgrade fxbx\nhf auth login\nfxbx run black-forest-labs/flux-3-image-klein --sample -o result.json",
         "rerun": "source fury/bin/activate\nfxbx run black-forest-labs/flux-3-image-klein --sample -o result.json",
         "activate": "source fury/bin/activate",
         "serve": "fxbx serve black-forest-labs/flux-3-image-klein --port 8000",
-        "serveSetup": "python -m venv fury\nsource fury/bin/activate\npython -m pip install --upgrade fxbx\nfxbx serve black-forest-labs/flux-3-image-klein --port 8000",
+        "serveSetup": "python -m venv fury\nsource fury/bin/activate\npython -m pip install --upgrade fxbx\nhf auth login\nfxbx serve black-forest-labs/flux-3-image-klein --port 8000",
         "serveQuick": "source fury/bin/activate\nfxbx serve black-forest-labs/flux-3-image-klein --port 8000",
         "python": "from pathlib import Path\nfrom shutil import copyfile\nimport json\nimport requests\n\nbase = \"http://127.0.0.1:8000\"\npayload = {'prompt': 'A small penguin on a sunny island', 'size': 1024, 'seed': 7, 'output': 'result.png'}\nresponse = requests.post(base + '/predict', json=payload, timeout=600)\nresponse.raise_for_status()\nresult = response.json()\n\n# Python도 같은 NPU 서버에서 실행합니다. 파일은 현재 폴더에 저장합니다.\ndef save_media(value):\n    if isinstance(value, dict):\n        for item in value.values():\n            save_media(item)\n    elif isinstance(value, list):\n        for item in value:\n            save_media(item)\n    elif isinstance(value, str) and len(value) < 4096 and \"\\n\" not in value:\n        source = Path(value)\n        if source.suffix.lower() in {\".png\", \".jpg\", \".glb\", \".obj\", \".ply\", \".safetensors\"} and source.is_file():\n            target = Path.cwd() / source.name\n            if source.resolve() != target.resolve():\n                copyfile(source, target)\n            print(target.resolve())\n\nsave_media(result)\ntext = json.dumps(result, ensure_ascii=False, indent=2)\nif len(text) > 2000:\n    Path(\"result.json\").write_text(text + \"\\n\", encoding=\"utf-8\")\n    print(Path(\"result.json\").resolve())\nelse:\n    print(text)\n",
-        "serveNote": "",
+        "serveNote": "먼저 원본 Hugging Face 모델의 라이선스에 동의하고, fxbX를 실행하는 NPU 서버에서 같은 계정으로 hf auth login을 한 번 실행하세요. 기존 로그인은 다시 입력할 필요가 없습니다.",
         "detailSetup": "python -m venv fury\nsource fury/bin/activate\npython -m pip install --index-url https://download.pytorch.org/whl/cpu torch==2.10.0+cpu\npython -m pip install --upgrade \"fxbx[weights]==0.9.5\" furiosa-torch==2026.4.0 furiosa-tcc==2026.4.0 requests transformers==5.20.2 pillow\nhf auth login\nfxbx run black-forest-labs/flux-3-image-klein --sample -o result.json",
         "detailServe": "python -m venv fury\nsource fury/bin/activate\npython -m pip install --index-url https://download.pytorch.org/whl/cpu torch==2.10.0+cpu\npython -m pip install --upgrade \"fxbx[weights]==0.9.5\" furiosa-torch==2026.4.0 furiosa-tcc==2026.4.0 requests transformers==5.20.2 pillow\nhf auth login\nfxbx serve black-forest-labs/flux-3-image-klein --port 8000"
       },
