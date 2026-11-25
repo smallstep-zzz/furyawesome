@@ -27,20 +27,6 @@ window.furyCatalogSnapshot = {
       "weights_mode": "external"
     },
     {
-      "id": "assets",
-      "source": "ultralytics/assets",
-      "category": "vision",
-      "version": "2026.4.0-yolo26n-640-fxbx1",
-      "precision": "FP32",
-      "sdk": "2026.4.0",
-      "license": "AGPL-3.0",
-      "description": "YOLO26n · COCO 80종 객체 탐지 · 640×640 고정 · 단일 RNGD · 약 1초/장",
-      "published_on": "2026-11-25",
-      "hf": "https://huggingface.co/softandsweet/ultralytics-assets-rngd-fxbex",
-      "usage": "https://github.com/smallstep-zzz/furyawesome/blob/main/usage/assets.md",
-      "weights_mode": "standalone"
-    },
-    {
       "id": "Depth-Anything-V2-Small-hf",
       "source": "depth-anything/Depth-Anything-V2-Small-hf",
       "category": "vision",
