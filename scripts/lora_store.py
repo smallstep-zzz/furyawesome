@@ -20,6 +20,13 @@ def validate(row):
     if isinstance(row['bytes'],bool) or not isinstance(row['bytes'],int) or row['bytes']<=0:raise ValueError('Record weight bytes')
     if row['status'] not in ('candidate','verified_npu','hold'):raise ValueError('Unknown verification state')
     if row['kind'] not in ('style','acceleration','image_translation','domain'):raise ValueError('Unknown LoRA purpose')
+    prompt = row['example_prompt']
+    if not isinstance(prompt, str) or not 24 <= len(prompt.strip()) <= 4000:
+        raise ValueError('Write a complete example prompt with a concrete subject and scene')
+    prompt_key = re.sub(r'[\W_]+', '', prompt.casefold())
+    if prompt_key in {re.sub(r'[\W_]+', '', value.casefold()) for value in
+                      (row['id'], row['repo'], row['repo'].split('/')[-1], row['title'], row['trigger'])}:
+        raise ValueError('Example prompt must include more than the LoRA name or trigger')
     if not isinstance(row['constraints_ko'],list) or not all(isinstance(s,str) for s in row['constraints_ko']):raise ValueError('Explain restrictions')
     if not row['references'] or any(not s.startswith('https://huggingface.co/') for s in row['references']):raise ValueError('Use original HF evidence links')
     if row['status']=='verified_npu' and not row['evidence']:raise ValueError('NPU verification requires a published evidence link')
@@ -27,12 +34,18 @@ def validate(row):
     return row
 
 
-def read(root=ROOT):
+def _load(root):
     path=Path(root)/'lora-catalog.json'
     doc=json.loads(path.read_text()) if path.exists() else {'schema_version':1,'adapters':[]}
     if doc.get('schema_version')!=1 or not isinstance(doc.get('adapters'),list):raise ValueError('Invalid catalog')
-    for row in doc['adapters']:validate(row)
     if len({r['id'] for r in doc['adapters']})!=len(doc['adapters']):raise ValueError('Duplicate ID')
+    return doc
+
+
+def read(root=ROOT):
+    doc = _load(root)
+    for row in doc['adapters']:
+        validate(row)
     return doc
 
 
@@ -46,11 +59,22 @@ def write(doc,root):
 
 
 def upsert(row,root=ROOT):
-    validate(row);doc=read(root)
+    upsert_many([row],root)
+
+
+def upsert_many(rows, root=ROOT):
+    for row in rows:
+        validate(row)
+    doc=_load(root)
     published={m['source'] for m in json.loads((Path(root)/'place-catalog.json').read_text())['models']}
-    if not set(row['models'])<=published:raise ValueError('Unknown published model')
-    doc['adapters']=[r for r in doc['adapters'] if r['id']!=row['id']]+[row]
-    doc['adapters'].sort(key=lambda r:r['id']);write(doc,root)
+    records={row['id']:row for row in doc['adapters']}
+    for row in rows:
+        if not set(row['models'])<=published:raise ValueError('Unknown published model')
+        records[row['id']]=row
+    doc['adapters']=sorted(records.values(),key=lambda r:r['id'])
+    for row in doc['adapters']:
+        validate(row)
+    write(doc,root)
 
 
 def remove(identifier,root=ROOT):
@@ -61,9 +85,9 @@ def remove(identifier,root=ROOT):
 
 if __name__=='__main__':
     p=argparse.ArgumentParser(description=__doc__);sub=p.add_subparsers(dest='action',required=True)
-    sub.add_parser('add').add_argument('metadata',type=Path)
+    sub.add_parser('add').add_argument('metadata',type=Path,nargs='+')
     sub.add_parser('remove').add_argument('id')
     sub.add_parser('check');args=p.parse_args()
-    if args.action=='add':upsert(json.loads(args.metadata.read_text()))
+    if args.action=='add':upsert_many([json.loads(path.read_text()) for path in args.metadata])
     elif args.action=='remove':remove(args.id)
     else:print(f"{len(read()['adapters'])} LoRA records validated")
