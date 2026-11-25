@@ -385,6 +385,30 @@ window.furyWebUsageSnapshot = {
         "performance": "검증 서버의 따뜻한 전체 요청 중앙값은 샘플 0.880초, 원본 문서 1.067초, 빈 페이지 0.316초였습니다. 이미지 전처리와 박스·문자열 후처리를 포함한 시간입니다. 전체 추적에 NPU Task 49,184건이 기록됐고 모델 CPU 폴백·실행 중 컴파일·미추적 단계는 0건이었습니다.",
         "version": "2026.4.0-ocrv5-mobile-fxbx1"
       }
+    },
+    "ultralytics/assets": {
+      "version": "2026.4.0-yolo26n-640-fxbx1",
+      "author_sha256": "49dc093345bbfe051ebf5f45ce33104c76e5da0c3a05e2b07a29f0431ec1bb0d",
+      "recipe": {
+        "version": "2026.4.0-yolo26n-640-fxbx1",
+        "setup": "python -m venv fury\nsource fury/bin/activate\npython -m pip install fxbx\nfxbx run ultralytics/assets --sample -o result.json",
+        "rerun": "source fury/bin/activate\nfxbx run ultralytics/assets --sample -o result.json",
+        "activate": "source fury/bin/activate",
+        "detailSetup": "python -m venv fury\nsource fury/bin/activate\npython -m pip install --index-url https://download.pytorch.org/whl/cpu torch==2.10.0\npython -m pip install --upgrade 'fxbx[weights]>=0.9.9' requests furiosa-tcc==2026.4.0 furiosa-torch==2026.4.0 numpy==2.4.6 pillow==13.0.0 safetensors==0.8.0\nfxbx run ultralytics/assets --sample",
+        "serve": "fxbx serve ultralytics/assets --port 8000",
+        "serveSetup": "python -m venv fury\nsource fury/bin/activate\npython -m pip install fxbx\nfxbx serve ultralytics/assets --port 8000",
+        "serveQuick": "source fury/bin/activate\nfxbx serve ultralytics/assets --port 8000",
+        "python": "import json\nfrom pathlib import Path\nfrom urllib.request import Request, urlopen\n\nrequest = Request(\"http://127.0.0.1:8000/predict\",\n                  data=json.dumps({\"image\": \"sample\"}).encode(),\n                  headers={\"Content-Type\": \"application/json\"})\nwith urlopen(request, timeout=120) as response:\n    text = json.dumps(json.load(response), ensure_ascii=False, indent=2)\nif len(text) > 2000:\n    Path(\"result.json\").write_text(text, encoding=\"utf-8\")\n    print(Path(\"result.json\").resolve())\nelse:\n    print(text)",
+        "detailServe": "python -m venv fury\nsource fury/bin/activate\npython -m pip install --index-url https://download.pytorch.org/whl/cpu torch==2.10.0\npython -m pip install --upgrade 'fxbx[weights]>=0.9.9' requests furiosa-tcc==2026.4.0 furiosa-torch==2026.4.0 numpy==2.4.6 pillow==13.0.0 safetensors==0.8.0\nfxbx serve ultralytics/assets --port 8000",
+        "serveNote": "SDK 2026.4.0이 준비된 Python 환경에서 실행하세요. 고정 640px 탐지 결과를 JSON으로 돌려줍니다. 환경·제약은 상세 안내를 확인하세요."
+      },
+      "introduction": {
+        "title": "사진 속 사람과 차량이 어디 있는지 찾아요",
+        "about": "YOLO26n은 사진에서 사람·버스·자동차 같은 일상 물체를 찾아 위치와 점수를 알려주는 작은 탐지 모델입니다. COCO80개 범주를 다루며 한 장의 RNGD에서 백본부터 NMS-free 순위head까지 실행합니다.",
+        "use": "사진 분류보다 물체의 위치가 필요할 때, 이미지 분석 프로토타입이나 NPU 컴파일 회귀를 점검할 때 활용하세요. 이 릴리스는 640×640 중앙크롭의 탐지 전용이며 분할·포즈·깊이는 포함하지 않습니다. 위치는 중앙크롭된 이미지 기준입니다.",
+        "performance": "원본·반전 사진에서 따뜻한 전체 실행은0.979–0.981초, 실제 HTTP 요청은1.020–1.032초였습니다. 8557개 계산단계를 공식 NPU Task로 확인했고 모델 CPU폴백·미추적·재컴파일은0건입니다. 보관된 CPU 기준 약0.079초보다 느려 현재는 가속보다 기능 호환성에 초점을 맞춘 포트입니다. AGPL-3.0입니다.",
+        "version": "2026.4.0-yolo26n-640-fxbx1"
+      }
     }
   }
 };
