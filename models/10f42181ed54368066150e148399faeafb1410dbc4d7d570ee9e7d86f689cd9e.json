@@ -1,0 +1,25 @@
+{
+  "model": {
+    "category": "Computer Vision",
+    "cover_url": "",
+    "name": "RF-DETR Nano",
+    "package_license": "Apache-2.0",
+    "readme": "사진 속 사람과 물체의 이름, 검출 점수와 위치를 찾습니다. [사용법](https://huggingface.co/softandsweet/roboflow-rf-detr-nano-rngd-fxbx/blob/55afc6938902e883826014b8aec73839d9e089e5/USAGE.md)",
+    "short_description": "384×384 FP32 객체 탐지 · 레이어 구간 병합 · 반복 추론 약 0.21초",
+    "source_license": "Apache-2.0",
+    "source_repo": "Roboflow/rf-detr-nano",
+    "source_revision": "9f201577d9415f0378084748d27e68586e6b3600"
+  },
+  "release": {
+    "adapter": "execution_plan",
+    "artifact_url": "https://huggingface.co/softandsweet/roboflow-rf-detr-nano-rngd-fxbx/resolve/55afc6938902e883826014b8aec73839d9e089e5/rf-detr-nano.fxbx",
+    "author_sha256": "1fa7af7d321871bef82751ed64b10e58c70a7f6c384f1d8332ebd2226da8247a",
+    "precision": "FP32",
+    "runtime_version": "0.10.2",
+    "sdk_version": "2026.4.0",
+    "target": "Furiosa RNGD",
+    "version": "2026.4.0-nano384-fxbx2-grouped",
+    "weights_mode": "external"
+  },
+  "schema_version": 1
+}

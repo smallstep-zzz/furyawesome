@@ -26,7 +26,8 @@
     "timm/mobilenetv3_small_100.lamb_in1k@2026.4.0-small224-fxbx1#c9126b9e969f9c2c1ecfdc5ff4a1d4cbba8ead4d18fb79f8ee38e3a132903004",
     "google/siglip-base-patch16-224@2026.4.0-bf16-224-fxbx1#6f0c90243bd3698ba7c2d285a1c42688e20aec0787269625762324a0a3aca872",
     "PaddlePaddle/PP-OCRv5_mobile_det_onnx@2026.4.0-ocrv5-mobile-fxbx1#09ed8174020eeff71dea1bcd1b69cbf8e51bee42c857c4dbfa68cd3be40e510c",
-    "black-forest-labs/FLUX.2-klein-4B@2026.4.0-klein4b-fxbx1-ctx2048#e07d750065f2ec16e8a83db36fe9e6564e1b948100966b8ee2a3e12c288a552f"
+    "black-forest-labs/FLUX.2-klein-4B@2026.4.0-klein4b-fxbx1-ctx2048#e07d750065f2ec16e8a83db36fe9e6564e1b948100966b8ee2a3e12c288a552f",
+    "Roboflow/rf-detr-nano@2026.4.0-nano384-fxbx2-grouped#1fa7af7d321871bef82751ed64b10e58c70a7f6c384f1d8332ebd2226da8247a"
   ],
   "models": [
     {
@@ -651,6 +652,31 @@
         "target": "Furiosa RNGD",
         "version": "2026.4.0-klein4b-fxbx1-ctx2048",
         "weights_mode": "standalone"
+      },
+      "schema_version": 1
+    },
+    {
+      "model": {
+        "category": "Computer Vision",
+        "cover_url": "",
+        "name": "RF-DETR Nano",
+        "package_license": "Apache-2.0",
+        "readme": "사진 속 사람과 물체의 이름, 검출 점수와 위치를 찾습니다. [사용법](https://huggingface.co/softandsweet/roboflow-rf-detr-nano-rngd-fxbx/blob/55afc6938902e883826014b8aec73839d9e089e5/USAGE.md)",
+        "short_description": "384×384 FP32 객체 탐지 · 레이어 구간 병합 · 반복 추론 약 0.21초",
+        "source_license": "Apache-2.0",
+        "source_repo": "Roboflow/rf-detr-nano",
+        "source_revision": "9f201577d9415f0378084748d27e68586e6b3600"
+      },
+      "release": {
+        "adapter": "execution_plan",
+        "artifact_url": "https://huggingface.co/softandsweet/roboflow-rf-detr-nano-rngd-fxbx/resolve/55afc6938902e883826014b8aec73839d9e089e5/rf-detr-nano.fxbx",
+        "author_sha256": "1fa7af7d321871bef82751ed64b10e58c70a7f6c384f1d8332ebd2226da8247a",
+        "precision": "FP32",
+        "runtime_version": "0.10.2",
+        "sdk_version": "2026.4.0",
+        "target": "Furiosa RNGD",
+        "version": "2026.4.0-nano384-fxbx2-grouped",
+        "weights_mode": "external"
       },
       "schema_version": 1
     }
