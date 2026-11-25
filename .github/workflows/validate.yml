@@ -15,3 +15,5 @@ jobs:
       - run: python scripts/validate_web_usage.py
       - run: python scripts/multi_npu.py check
       - run: python scripts/test_multi_npu.py
+      - run: python scripts/lora_store.py check
+      - run: python scripts/test_lora_store.py

@@ -26,5 +26,12 @@ class StoreTests(unittest.TestCase):
         row=copy.deepcopy(read()['adapters'][0]);row['models']=['unknown/base']
         with self.assertRaises(ValueError):upsert(row)
 
+    def test_prompt_cannot_be_only_the_trigger_or_repository(self):
+        row=copy.deepcopy(read()['adapters'][0])
+        for text in ('3d', 'a long activation phrase with no scene', row['repo']):
+            with self.subTest(text=text):
+                with self.assertRaises(ValueError):
+                    validate({**row, 'trigger':'a long activation phrase with no scene', 'example_prompt':text})
+
 
 if __name__=='__main__':unittest.main()
