@@ -24,7 +24,8 @@
     "stabilityai/sdxl-turbo@2026.4.0-sdxl-turbo-merged-lora-fxbx1#0d39ee1ec8e09a2385c48db884e3a6c486cf5d6f2749f8f1c1fabe2a279852f8",
     "Roboflow/rf-detr-nano@2026.4.0-nano384-fxbx1#4130f5abf20c0415c9e5e0ded4e080107af48c059b148a2dfa1a3ab7d2782492",
     "timm/mobilenetv3_small_100.lamb_in1k@2026.4.0-small224-fxbx1#c9126b9e969f9c2c1ecfdc5ff4a1d4cbba8ead4d18fb79f8ee38e3a132903004",
-    "google/siglip-base-patch16-224@2026.4.0-bf16-224-fxbx1#6f0c90243bd3698ba7c2d285a1c42688e20aec0787269625762324a0a3aca872"
+    "google/siglip-base-patch16-224@2026.4.0-bf16-224-fxbx1#6f0c90243bd3698ba7c2d285a1c42688e20aec0787269625762324a0a3aca872",
+    "PaddlePaddle/PP-OCRv5_mobile_det_onnx@2026.4.0-ocrv5-mobile-fxbx1#09ed8174020eeff71dea1bcd1b69cbf8e51bee42c857c4dbfa68cd3be40e510c"
   ],
   "models": [
     {
@@ -599,6 +600,31 @@
         "target": "Furiosa RNGD",
         "version": "2026.4.0-bf16-224-fxbx1",
         "weights_mode": "external"
+      },
+      "schema_version": 1
+    },
+    {
+      "model": {
+        "category": "Computer Vision",
+        "cover_url": "",
+        "name": "PP-OCRv5 Mobile 페이지 OCR",
+        "package_license": "Apache-2.0",
+        "readme": "문서 사진을 넣으면 글자 영역과 줄별 텍스트·신뢰도·좌표를 돌려줍니다. 탐지기와 인식기를 함께 담은 단일 NPU 패키지입니다. 영어 샘플·원본 중국어 페이지·빈 페이지에서 원본 ORT와 문자열·좌표가 일치했습니다. NPU Task 49,184건, 모델 CPU 폴백·실행 중 컴파일·미추적 단계 0건입니다. 따뜻한 요청 중앙값은 샘플 0.880초, 원본 페이지 1.067초입니다. 320×320 탐지와 48×320 인식의 고정 프로필로, 작은 글자는 잘릴 수 있습니다. 이미지·DB·CTC 처리는 명시적인 CPU 작업입니다. [샘플 실행·서빙·Python 호출](https://huggingface.co/softandsweet/paddlepaddle-pp-ocrv5-mobile-rngd-fxbx/blob/596555df2444600f20a9146fc88582ad4139a188/USAGE.md)",
+        "short_description": "문서의 글자 영역·텍스트·좌표를 함께 반환 · FP32 · 단일 RNGD",
+        "source_license": "Apache-2.0",
+        "source_repo": "PaddlePaddle/PP-OCRv5_mobile_det_onnx",
+        "source_revision": "e6f4fa85f00e168c862bc462aebca69eef9b3d3d"
+      },
+      "release": {
+        "adapter": "ppocrv5_mobile_det_rec",
+        "artifact_url": "https://huggingface.co/softandsweet/paddlepaddle-pp-ocrv5-mobile-rngd-fxbx/resolve/596555df2444600f20a9146fc88582ad4139a188/pp-ocrv5-mobile.fxbx",
+        "author_sha256": "09ed8174020eeff71dea1bcd1b69cbf8e51bee42c857c4dbfa68cd3be40e510c",
+        "precision": "FP32",
+        "runtime_version": "0.9.9",
+        "sdk_version": "2026.4.0",
+        "target": "Furiosa RNGD",
+        "version": "2026.4.0-ocrv5-mobile-fxbx1",
+        "weights_mode": "standalone"
       },
       "schema_version": 1
     }

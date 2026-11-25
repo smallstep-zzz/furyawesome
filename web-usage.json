@@ -360,6 +360,30 @@
         "use": "사진 정리, 검색 후보 순서 매기기, 상품 사진에 어울리는 설명 고르기에 쓸 수 있어요. 내 사진이라면 Base64 이미지와 최대 8개 설명 후보를 보내세요.",
         "performance": "단일 RNGD에서 인코더 후속 호출 중앙값은 이미지 587.5ms, 텍스트 174.0ms였습니다. 사진 두 장에서 CPU와 검색 순위가 같았고 로짓 최대 차이는 0.04768, SDK CPU 폴백은 0건이었습니다."
       }
+    },
+    "PaddlePaddle/PP-OCRv5_mobile_det_onnx": {
+      "version": "2026.4.0-ocrv5-mobile-fxbx1",
+      "author_sha256": "09ed8174020eeff71dea1bcd1b69cbf8e51bee42c857c4dbfa68cd3be40e510c",
+      "recipe": {
+        "version": "2026.4.0-ocrv5-mobile-fxbx1",
+        "setup": "python -m venv --system-site-packages fury\nsource fury/bin/activate\npython -m pip install fxbx==0.9.9 paddlex==3.7.2 opencv-contrib-python==4.10.0.84 pyclipper==1.4.0 shapely==2.2.0\nfxbx run PaddlePaddle/PP-OCRv5_mobile_det_onnx --sample",
+        "rerun": "source fury/bin/activate\nfxbx run PaddlePaddle/PP-OCRv5_mobile_det_onnx --sample",
+        "activate": "source fury/bin/activate",
+        "detailSetup": "python -m venv fury\nsource fury/bin/activate\npython -m pip install --index-url https://download.pytorch.org/whl/cpu torch==2.10.0+cpu\npython -m pip install --upgrade 'fxbx[weights]>=0.9.9' requests furiosa-tcc==2026.4.0 furiosa-torch==2026.4.0 fxbx==0.9.9 numpy==2.3.5 opencv-contrib-python==4.10.0.84 paddlex==3.7.2 pillow==13.0.0 pyclipper==1.4.0 pyyaml==6.0.2 safetensors==0.8.0 shapely==2.2.0\nfxbx run PaddlePaddle/PP-OCRv5_mobile_det_onnx --sample",
+        "serve": "fxbx serve PaddlePaddle/PP-OCRv5_mobile_det_onnx --port 8000",
+        "serveSetup": "python -m venv --system-site-packages fury\nsource fury/bin/activate\npython -m pip install fxbx==0.9.9 paddlex==3.7.2 opencv-contrib-python==4.10.0.84 pyclipper==1.4.0 shapely==2.2.0\nfxbx serve PaddlePaddle/PP-OCRv5_mobile_det_onnx --port 8000",
+        "serveQuick": "source fury/bin/activate\nfxbx serve PaddlePaddle/PP-OCRv5_mobile_det_onnx --port 8000",
+        "python": "from pathlib import Path\nimport requests\n\nresponse = requests.post(\"http://127.0.0.1:8000/predict\", json={\"image\": \"sample\"}, timeout=120)\nresponse.raise_for_status()\ntext = response.json()[\"text\"]\nif len(text) > 2000:\n    Path(\"result.txt\").write_text(text, encoding=\"utf-8\")\n    print(Path(\"result.txt\").resolve())\nelse:\n    print(text)",
+        "detailServe": "python -m venv fury\nsource fury/bin/activate\npython -m pip install --index-url https://download.pytorch.org/whl/cpu torch==2.10.0+cpu\npython -m pip install --upgrade 'fxbx[weights]>=0.9.9' requests furiosa-tcc==2026.4.0 furiosa-torch==2026.4.0 fxbx==0.9.9 numpy==2.3.5 opencv-contrib-python==4.10.0.84 paddlex==3.7.2 pillow==13.0.0 pyclipper==1.4.0 pyyaml==6.0.2 safetensors==0.8.0 shapely==2.2.0\nfxbx serve PaddlePaddle/PP-OCRv5_mobile_det_onnx --port 8000",
+        "serveNote": "SDK 2026.4.0이 동작하는 Python에서 시작하세요. 추가 라이브러리는 이미지와 글자 영역·문자열 후처리에 필요합니다."
+      },
+      "introduction": {
+        "title": "문서 사진에서 글자와 위치를 함께 찾아요",
+        "about": "사진 속 글자를 옮겨 적거나, 문서에서 글자가 있는 위치를 함께 얻고 싶을 때 쓰는 OCR 모델입니다. 글자 영역을 찾는 모델과 줄별로 읽는 모델을 한 파일에 담아 한 장의 RNGD에서 실행합니다.",
+        "use": "영수증·문서 처리의 작은 프로토타입이나 OCR 파이프라인 비교에 활용하세요. 영어 샘플과 원본 중국어 페이지, 빈 페이지를 확인했습니다. 320×320 탐지와 48×320 인식의 고정 프로필이므로 큰 문서의 작은 글자는 잘릴 수 있고, 모든 언어의 정확도를 보장하는 평가 결과는 아닙니다.",
+        "performance": "검증 서버의 따뜻한 전체 요청 중앙값은 샘플 0.880초, 원본 문서 1.067초, 빈 페이지 0.316초였습니다. 이미지 전처리와 박스·문자열 후처리를 포함한 시간입니다. 전체 추적에 NPU Task 49,184건이 기록됐고 모델 CPU 폴백·실행 중 컴파일·미추적 단계는 0건이었습니다.",
+        "version": "2026.4.0-ocrv5-mobile-fxbx1"
+      }
     }
   }
 }
