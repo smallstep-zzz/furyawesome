@@ -25,7 +25,8 @@
     "Roboflow/rf-detr-nano@2026.4.0-nano384-fxbx1#4130f5abf20c0415c9e5e0ded4e080107af48c059b148a2dfa1a3ab7d2782492",
     "timm/mobilenetv3_small_100.lamb_in1k@2026.4.0-small224-fxbx1#c9126b9e969f9c2c1ecfdc5ff4a1d4cbba8ead4d18fb79f8ee38e3a132903004",
     "google/siglip-base-patch16-224@2026.4.0-bf16-224-fxbx1#6f0c90243bd3698ba7c2d285a1c42688e20aec0787269625762324a0a3aca872",
-    "PaddlePaddle/PP-OCRv5_mobile_det_onnx@2026.4.0-ocrv5-mobile-fxbx1#09ed8174020eeff71dea1bcd1b69cbf8e51bee42c857c4dbfa68cd3be40e510c"
+    "PaddlePaddle/PP-OCRv5_mobile_det_onnx@2026.4.0-ocrv5-mobile-fxbx1#09ed8174020eeff71dea1bcd1b69cbf8e51bee42c857c4dbfa68cd3be40e510c",
+    "ultralytics/assets@2026.4.0-yolo26n-640-fxbx1#49dc093345bbfe051ebf5f45ce33104c76e5da0c3a05e2b07a29f0431ec1bb0d"
   ],
   "models": [
     {
@@ -624,6 +625,31 @@
         "sdk_version": "2026.4.0",
         "target": "Furiosa RNGD",
         "version": "2026.4.0-ocrv5-mobile-fxbx1",
+        "weights_mode": "standalone"
+      },
+      "schema_version": 1
+    },
+    {
+      "model": {
+        "category": "Computer Vision",
+        "cover_url": "",
+        "name": "YOLO26n",
+        "package_license": "AGPL-3.0",
+        "readme": "사진에서 사람·차량 등 COCO80종의 물체 위치와 점수를 찾습니다. 공식 GitHub ultralytics/assets v8.4.0의 yolo26n.onnx(SHA2e947b787d9e787b93a16772a5f55b1d4d8c4d86f53146149c5d6a642442d6f7)를 사용했으며, source_revision은 그 GitHub tag commit입니다. HF의 다른 체크포인트에서 만들었다고 주장하지 않습니다. 고정640px 중앙크롭, 신경망과NMS-free 순위head는NPU, 이미지전처리와점수필터링은CPU입니다. 원본/반전이미지에서CPU수치와NPU단계8557개를확인했고CPU폴백/재컴파일0건입니다. warm0.979–0.981초,HTTP약1.02초이며보관된CPU기준약0.079초보다느립니다. 가속목적보다NPU호환성·컴파일회귀를점검하는기능포트입니다. 원본: https://github.com/ultralytics/assets/releases/tag/v8.4.0 . 라이선스AGPL-3.0;원본ONNX·재빌드소스·가중치·샘플을포함합니다.",
+        "short_description": "YOLO26n · COCO 80종 객체 탐지 · 640×640 고정 · 단일 RNGD · 약 1초/장",
+        "source_license": "AGPL-3.0",
+        "source_repo": "ultralytics/assets",
+        "source_revision": "dcececebff9fe00420c144baa5cd25a641d10aa6"
+      },
+      "release": {
+        "adapter": "yolo26n_static_pair",
+        "artifact_url": "https://huggingface.co/softandsweet/ultralytics-assets-rngd-fxbex/resolve/3a7fabe9b011bbe4bdc681cf0b043c87d9712afe/releases/2026.4.0-yolo26n-640-fxbx1/49dc093345bbfe051ebf5f45ce33104c76e5da0c3a05e2b07a29f0431ec1bb0d/yolo26n-640-20261125.fxbx",
+        "author_sha256": "49dc093345bbfe051ebf5f45ce33104c76e5da0c3a05e2b07a29f0431ec1bb0d",
+        "precision": "FP32",
+        "runtime_version": "0.9.9",
+        "sdk_version": "2026.4.0",
+        "target": "Furiosa RNGD",
+        "version": "2026.4.0-yolo26n-640-fxbx1",
         "weights_mode": "standalone"
       },
       "schema_version": 1
