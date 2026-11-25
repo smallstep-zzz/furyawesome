@@ -207,18 +207,5 @@ window.furyRunRecipes = {
     "python": "from pathlib import Path\nimport requests\n\nresponse = requests.post(\"http://127.0.0.1:8000/predict\", json={\"image\": \"sample\"}, timeout=120)\nresponse.raise_for_status()\ntext = response.json()[\"text\"]\nif len(text) > 2000:\n    Path(\"result.txt\").write_text(text, encoding=\"utf-8\")\n    print(Path(\"result.txt\").resolve())\nelse:\n    print(text)",
     "detailServe": "python -m venv fury\nsource fury/bin/activate\npython -m pip install --index-url https://download.pytorch.org/whl/cpu torch==2.10.0+cpu\npython -m pip install --upgrade 'fxbx[weights]>=0.9.9' requests furiosa-tcc==2026.4.0 furiosa-torch==2026.4.0 fxbx==0.9.9 numpy==2.3.5 opencv-contrib-python==4.10.0.84 paddlex==3.7.2 pillow==13.0.0 pyclipper==1.4.0 pyyaml==6.0.2 safetensors==0.8.0 shapely==2.2.0\nfxbx serve PaddlePaddle/PP-OCRv5_mobile_det_onnx --port 8000",
     "serveNote": "처음 설치할 때는 접힌 환경 안내의 SDK와 OCR 후처리 의존성을 먼저 준비하세요."
-  },
-  "ultralytics/assets": {
-    "version": "2026.4.0-yolo26n-640-fxbx1",
-    "setup": "python -m venv fury\nsource fury/bin/activate\npython -m pip install fxbx\nfxbx run ultralytics/assets --sample -o result.json",
-    "rerun": "source fury/bin/activate\nfxbx run ultralytics/assets --sample -o result.json",
-    "activate": "source fury/bin/activate",
-    "detailSetup": "python -m venv fury\nsource fury/bin/activate\npython -m pip install --index-url https://download.pytorch.org/whl/cpu torch==2.10.0\npython -m pip install --upgrade 'fxbx[weights]>=0.9.9' requests furiosa-tcc==2026.4.0 furiosa-torch==2026.4.0 numpy==2.4.6 pillow==13.0.0 safetensors==0.8.0\nfxbx run ultralytics/assets --sample",
-    "serve": "fxbx serve ultralytics/assets --port 8000",
-    "serveSetup": "python -m venv fury\nsource fury/bin/activate\npython -m pip install fxbx\nfxbx serve ultralytics/assets --port 8000",
-    "serveQuick": "source fury/bin/activate\nfxbx serve ultralytics/assets --port 8000",
-    "python": "import json\nfrom pathlib import Path\nfrom urllib.request import Request, urlopen\n\nrequest = Request(\"http://127.0.0.1:8000/predict\",\n                  data=json.dumps({\"image\": \"sample\"}).encode(),\n                  headers={\"Content-Type\": \"application/json\"})\nwith urlopen(request, timeout=120) as response:\n    text = json.dumps(json.load(response), ensure_ascii=False, indent=2)\nif len(text) > 2000:\n    Path(\"result.json\").write_text(text, encoding=\"utf-8\")\n    print(Path(\"result.json\").resolve())\nelse:\n    print(text)",
-    "detailServe": "python -m venv fury\nsource fury/bin/activate\npython -m pip install --index-url https://download.pytorch.org/whl/cpu torch==2.10.0\npython -m pip install --upgrade 'fxbx[weights]>=0.9.9' requests furiosa-tcc==2026.4.0 furiosa-torch==2026.4.0 numpy==2.4.6 pillow==13.0.0 safetensors==0.8.0\nfxbx serve ultralytics/assets --port 8000",
-    "serveNote": "SDK 2026.4.0이 준비된 Python 환경에서 실행하세요. 고정 640px 탐지 결과를 JSON으로 돌려줍니다. 환경·제약은 상세 안내를 확인하세요."
   }
 };
