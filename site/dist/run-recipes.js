@@ -197,15 +197,15 @@ window.furyRunRecipes = {
   },
   "PaddlePaddle/PP-OCRv5_mobile_det_onnx": {
     "version": "2026.4.0-ocrv5-mobile-fxbx1",
-    "setup": "python -m venv --system-site-packages fury\nsource fury/bin/activate\npython -m pip install fxbx==0.9.9 paddlex==3.7.2 opencv-contrib-python==4.10.0.84 pyclipper==1.4.0 shapely==2.2.0\nfxbx run PaddlePaddle/PP-OCRv5_mobile_det_onnx --sample",
+    "setup": "python -m venv fury\nsource fury/bin/activate\npython -m pip install fxbx\nfxbx run PaddlePaddle/PP-OCRv5_mobile_det_onnx --sample",
     "rerun": "source fury/bin/activate\nfxbx run PaddlePaddle/PP-OCRv5_mobile_det_onnx --sample",
     "activate": "source fury/bin/activate",
     "detailSetup": "python -m venv fury\nsource fury/bin/activate\npython -m pip install --index-url https://download.pytorch.org/whl/cpu torch==2.10.0+cpu\npython -m pip install --upgrade 'fxbx[weights]>=0.9.9' requests furiosa-tcc==2026.4.0 furiosa-torch==2026.4.0 fxbx==0.9.9 numpy==2.3.5 opencv-contrib-python==4.10.0.84 paddlex==3.7.2 pillow==13.0.0 pyclipper==1.4.0 pyyaml==6.0.2 safetensors==0.8.0 shapely==2.2.0\nfxbx run PaddlePaddle/PP-OCRv5_mobile_det_onnx --sample",
     "serve": "fxbx serve PaddlePaddle/PP-OCRv5_mobile_det_onnx --port 8000",
-    "serveSetup": "python -m venv --system-site-packages fury\nsource fury/bin/activate\npython -m pip install fxbx==0.9.9 paddlex==3.7.2 opencv-contrib-python==4.10.0.84 pyclipper==1.4.0 shapely==2.2.0\nfxbx serve PaddlePaddle/PP-OCRv5_mobile_det_onnx --port 8000",
+    "serveSetup": "python -m venv fury\nsource fury/bin/activate\npython -m pip install fxbx\nfxbx serve PaddlePaddle/PP-OCRv5_mobile_det_onnx --port 8000",
     "serveQuick": "source fury/bin/activate\nfxbx serve PaddlePaddle/PP-OCRv5_mobile_det_onnx --port 8000",
     "python": "from pathlib import Path\nimport requests\n\nresponse = requests.post(\"http://127.0.0.1:8000/predict\", json={\"image\": \"sample\"}, timeout=120)\nresponse.raise_for_status()\ntext = response.json()[\"text\"]\nif len(text) > 2000:\n    Path(\"result.txt\").write_text(text, encoding=\"utf-8\")\n    print(Path(\"result.txt\").resolve())\nelse:\n    print(text)",
     "detailServe": "python -m venv fury\nsource fury/bin/activate\npython -m pip install --index-url https://download.pytorch.org/whl/cpu torch==2.10.0+cpu\npython -m pip install --upgrade 'fxbx[weights]>=0.9.9' requests furiosa-tcc==2026.4.0 furiosa-torch==2026.4.0 fxbx==0.9.9 numpy==2.3.5 opencv-contrib-python==4.10.0.84 paddlex==3.7.2 pillow==13.0.0 pyclipper==1.4.0 pyyaml==6.0.2 safetensors==0.8.0 shapely==2.2.0\nfxbx serve PaddlePaddle/PP-OCRv5_mobile_det_onnx --port 8000",
-    "serveNote": "SDK 2026.4.0이 동작하는 Python에서 시작하세요. 추가 라이브러리는 이미지와 글자 영역·문자열 후처리에 필요합니다."
+    "serveNote": "처음 설치할 때는 접힌 환경 안내의 SDK와 OCR 후처리 의존성을 먼저 준비하세요."
   }
 };

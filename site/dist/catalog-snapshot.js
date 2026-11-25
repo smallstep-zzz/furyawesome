@@ -111,6 +111,20 @@ window.furyCatalogSnapshot = {
       "weights_mode": "external"
     },
     {
+      "id": "PP-OCRv5_mobile_det_onnx",
+      "source": "PaddlePaddle/PP-OCRv5_mobile_det_onnx",
+      "category": "vision",
+      "version": "2026.4.0-ocrv5-mobile-fxbx1",
+      "precision": "FP32",
+      "sdk": "2026.4.0",
+      "license": "Apache-2.0",
+      "description": "문서의 글자 영역·텍스트·좌표를 함께 반환 · FP32 · 단일 RNGD",
+      "published_on": "2026-11-25",
+      "hf": "https://huggingface.co/softandsweet/paddlepaddle-pp-ocrv5-mobile-rngd-fxbx",
+      "usage": "https://github.com/smallstep-zzz/furyawesome/blob/main/usage/pp-ocrv5_mobile_det_onnx.md",
+      "weights_mode": "standalone"
+    },
+    {
       "id": "Qwen-Image-2.1",
       "source": "Qwen/Qwen-Image-2.1",
       "category": "image",
@@ -178,6 +192,20 @@ window.furyCatalogSnapshot = {
       "published_on": "2026-11-24",
       "hf": "https://huggingface.co/softandsweet/stabilityai-sdxl-turbo-rngd-fxbex",
       "usage": "https://github.com/smallstep-zzz/furyawesome/blob/main/usage/sdxl-turbo.md",
+      "weights_mode": "external"
+    },
+    {
+      "id": "siglip-base-patch16-224",
+      "source": "google/siglip-base-patch16-224",
+      "category": "embedding",
+      "version": "2026.4.0-bf16-224-fxbx1",
+      "precision": "BF16",
+      "sdk": "2026.4.0",
+      "license": "Apache-2.0",
+      "description": "224×224 사진과 최대 64토큰 설명의 유사도를 계산 · BF16 · 단일 RNGD",
+      "published_on": "2026-11-25",
+      "hf": "https://huggingface.co/softandsweet/google-siglip-base-patch16-224-rngd-fxbx",
+      "usage": "https://github.com/smallstep-zzz/furyawesome/blob/main/usage/siglip-base-patch16-224.md",
       "weights_mode": "external"
     },
     {

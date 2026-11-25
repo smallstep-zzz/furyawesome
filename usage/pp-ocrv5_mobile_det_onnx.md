@@ -1,13 +1,13 @@
 # PP-OCRv5 Mobile 사용법
 
-SDK 2026.4.0이 동작하는 RNGD 서버에서 실행합니다. 전체 페이지의 글자 영역을 찾고 줄별 텍스트와 좌표를 돌려줍니다.
+아래는 하단의 검증 환경을 준비한 RNGD 서버에서 쓰는 빠른 명령입니다. 전체 페이지의 글자 영역을 찾고 줄별 텍스트와 좌표를 돌려줍니다.
 
 ## 샘플 실행
 
 ```bash
-python -m venv --system-site-packages fury
+python -m venv fury
 source fury/bin/activate
-python -m pip install fxbx==0.9.9 paddlex==3.7.2 opencv-contrib-python==4.10.0.84 pyclipper==1.4.0 shapely==2.2.0
+python -m pip install fxbx
 fxbx run PaddlePaddle/PP-OCRv5_mobile_det_onnx --sample
 ```
 
@@ -41,6 +41,15 @@ else:
 ssh -L 8000:127.0.0.1:8000 YOUR_SERVER
 ```
 
+<details>
+<summary>처음 설치할 때: SDK·추가 의존성·검증 범위</summary>
+
+SDK Python 환경에서 아래 의존성을 준비한 뒤 빠른 명령을 사용하세요. 이미지·글자 영역·문자열 처리를 위한 라이브러리입니다.
+
+```bash
+python -m pip install fxbx==0.9.9 paddlex==3.7.2 opencv-contrib-python==4.10.0.84 pyclipper==1.4.0 shapely==2.2.0
+```
+
 ## 환경과 검증 범위
 
 - NPU 1장, fusion 8 / Single, Furiosa Torch SDK·TCC 2026.4.0, Torch 2.10.0+cpu, fxbX 0.9.9에서 검증했습니다.
@@ -52,3 +61,5 @@ ssh -L 8000:127.0.0.1:8000 YOUR_SERVER
 SDK가 없는 PC에는 `pip install fxbx`만으로 NPU 실행 환경이 생기지 않습니다. Furiosa 드라이버와 2026.4.0 SDK가 설치된 Linux RNGD 서버의 SDK Python을 사용하세요. `fxbx doctor`로 확인하고, 다른 Python에서 CLI를 실행한다면 `FXBEX_WORKER_PYTHON`에 검증한 SDK Python의 절대 경로를 지정합니다. SDK를 새로 설치해야 하면 [fxbX 환경 안내](https://github.com/smallstep-zzz/fxbX#readme)를 먼저 확인하세요.
 
 정확한 비 SDK 의존성은 이 저장소의 `requirements.txt`, 전체 수치·NPU 추적·CLI·HTTP 검증은 `VALIDATION.json`에 기록했습니다.
+
+</details>
