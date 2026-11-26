@@ -207,5 +207,18 @@ window.furyRunRecipes = {
     "python": "from pathlib import Path\nimport requests\n\nresponse = requests.post(\"http://127.0.0.1:8000/predict\", json={\"image\": \"sample\"}, timeout=120)\nresponse.raise_for_status()\ntext = response.json()[\"text\"]\nif len(text) > 2000:\n    Path(\"result.txt\").write_text(text, encoding=\"utf-8\")\n    print(Path(\"result.txt\").resolve())\nelse:\n    print(text)",
     "detailServe": "python -m venv fury\nsource fury/bin/activate\npython -m pip install --index-url https://download.pytorch.org/whl/cpu torch==2.10.0+cpu\npython -m pip install --upgrade 'fxbx[weights]>=0.9.9' requests furiosa-tcc==2026.4.0 furiosa-torch==2026.4.0 fxbx==0.9.9 numpy==2.3.5 opencv-contrib-python==4.10.0.84 paddlex==3.7.2 pillow==13.0.0 pyclipper==1.4.0 pyyaml==6.0.2 safetensors==0.8.0 shapely==2.2.0\nfxbx serve PaddlePaddle/PP-OCRv5_mobile_det_onnx --port 8000",
     "serveNote": "처음 설치할 때는 접힌 환경 안내의 SDK와 OCR 후처리 의존성을 먼저 준비하세요."
+  },
+  "ultralytics/assets": {
+    "version": "2026.4.0-yolo26n-coarse10-fxbx2",
+    "setup": "python -m venv --system-site-packages fury\nsource fury/bin/activate\npython -m pip install --upgrade fxbx requests\nfxbx run YOLO26n --sample",
+    "rerun": "source fury/bin/activate\nfxbx run YOLO26n --sample",
+    "activate": "source fury/bin/activate",
+    "detailSetup": "python -m venv fury\nsource fury/bin/activate\npython -m pip install --index-url https://download.pytorch.org/whl/cpu torch==2.10.0+cpu\npython -m pip install --upgrade 'fxbx[weights]>=0.10.2' requests furiosa-tcc==2026.4.0 furiosa-torch==2026.4.0 numpy==2.4.6 pillow==13.0.0 safetensors==0.8.0\nfxbx run YOLO26n --sample",
+    "serve": "fxbx serve YOLO26n --port 8000",
+    "serveSetup": "python -m venv --system-site-packages fury\nsource fury/bin/activate\npython -m pip install --upgrade fxbx requests\nfxbx serve YOLO26n --port 8000",
+    "serveQuick": "source fury/bin/activate\nfxbx serve YOLO26n --port 8000",
+    "python": "from pathlib import Path\nimport json\nimport requests\n\npayload = {'image': 'sample'}\n\nresponse = requests.post(\n    \"http://127.0.0.1:8000/predict\", json=payload, timeout=600,\n)\nresponse.raise_for_status()\nresult = response.json()\ntext = json.dumps(result, ensure_ascii=False, indent=2)\nfilename = \"result.json\"\nif len(text) > 2000:\n    Path(filename).write_text(text + \"\\n\", encoding=\"utf-8\")\n    print(Path(filename).resolve())\nelse:\n    print(text)",
+    "detailServe": "python -m venv fury\nsource fury/bin/activate\npython -m pip install --index-url https://download.pytorch.org/whl/cpu torch==2.10.0+cpu\npython -m pip install --upgrade 'fxbx[weights]>=0.10.2' requests furiosa-tcc==2026.4.0 furiosa-torch==2026.4.0 numpy==2.4.6 pillow==13.0.0 safetensors==0.8.0\nfxbx serve YOLO26n --port 8000",
+    "serveNote": ""
   }
 };
