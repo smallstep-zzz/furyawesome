@@ -384,6 +384,30 @@
         "performance": "검증 서버의 따뜻한 전체 요청 중앙값은 샘플 0.880초, 원본 문서 1.067초, 빈 페이지 0.316초였습니다. 이미지 전처리와 박스·문자열 후처리를 포함한 시간입니다. 전체 추적에 NPU Task 49,184건이 기록됐고 모델 CPU 폴백·실행 중 컴파일·미추적 단계는 0건이었습니다.",
         "version": "2026.4.0-ocrv5-mobile-fxbx1"
       }
+    },
+    "ultralytics/assets": {
+      "version": "2026.4.0-yolo26n-coarse10-fxbx2",
+      "author_sha256": "45125818ff0c85452f0af7617b1ef88c8be04be48c3bbede9f710c1aaca7b138",
+      "recipe": {
+        "version": "2026.4.0-yolo26n-coarse10-fxbx2",
+        "setup": "python -m venv --system-site-packages fury\nsource fury/bin/activate\npython -m pip install --upgrade fxbx requests\nfxbx run YOLO26n --sample",
+        "rerun": "source fury/bin/activate\nfxbx run YOLO26n --sample",
+        "activate": "source fury/bin/activate",
+        "detailSetup": "python -m venv fury\nsource fury/bin/activate\npython -m pip install --index-url https://download.pytorch.org/whl/cpu torch==2.10.0+cpu\npython -m pip install --upgrade 'fxbx[weights]>=0.10.2' requests furiosa-tcc==2026.4.0 furiosa-torch==2026.4.0 numpy==2.4.6 pillow==13.0.0 safetensors==0.8.0\nfxbx run YOLO26n --sample",
+        "serve": "fxbx serve YOLO26n --port 8000",
+        "serveSetup": "python -m venv --system-site-packages fury\nsource fury/bin/activate\npython -m pip install --upgrade fxbx requests\nfxbx serve YOLO26n --port 8000",
+        "serveQuick": "source fury/bin/activate\nfxbx serve YOLO26n --port 8000",
+        "python": "from pathlib import Path\nimport json\nimport requests\n\npayload = {'image': 'sample'}\n\nresponse = requests.post(\n    \"http://127.0.0.1:8000/predict\", json=payload, timeout=600,\n)\nresponse.raise_for_status()\nresult = response.json()\ntext = json.dumps(result, ensure_ascii=False, indent=2)\nfilename = \"result.json\"\nif len(text) > 2000:\n    Path(filename).write_text(text + \"\\n\", encoding=\"utf-8\")\n    print(Path(filename).resolve())\nelse:\n    print(text)",
+        "detailServe": "python -m venv fury\nsource fury/bin/activate\npython -m pip install --index-url https://download.pytorch.org/whl/cpu torch==2.10.0+cpu\npython -m pip install --upgrade 'fxbx[weights]>=0.10.2' requests furiosa-tcc==2026.4.0 furiosa-torch==2026.4.0 numpy==2.4.6 pillow==13.0.0 safetensors==0.8.0\nfxbx serve YOLO26n --port 8000",
+        "serveNote": ""
+      },
+      "introduction": {
+        "title": "YOLO26n · 사진 속 물체의 위치를 빠르게 찾기",
+        "about": "사람, 버스, 자동차, 동물 등 80종 물체를 찾아 위치와 신뢰도를 알려주는 작은 탐지 모델입니다. 입력 사진을 분석합니다.",
+        "use": "카메라 화면의 물체 수를 세거나 사람·차량 탐지 기능을 시제품에 붙일 때 활용하세요. 입력은 중앙을 잘라 640×640으로 맞추며 결과 좌표도 이 크롭 기준입니다.",
+        "performance": "단일 RNGD, NPU 배치 1. 각 640프레임의 연속 처리에서 56.4–58.2 FPS(전처리·전송·CPU 후처리 포함). 한 장씩 HTTP 호출하면 60–77ms였습니다. 신경망 본체 10단위는 NPU, TopK·인덱스 순위 처리는 CPU입니다. 두 샘플 수치 일치와 실제 NPU 실행을 확인했으며 전체 COCO mAP 평가는 하지 않았습니다.",
+        "version": "2026.4.0-yolo26n-coarse10-fxbx2"
+      }
     }
   }
 }

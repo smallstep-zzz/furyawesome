@@ -2,7 +2,7 @@
 
 사용자가 요청한 기본 형식을 유지한다. 모델별 자세한 설치 요구사항이 있다는 이유로 기본 예제를 길게 바꾸지 않는다.
 
-- 샘플 실행: 1줄 가상환경 생성, 2줄 활성화, 3줄 `python -m pip install fxbx`, 4줄 `fxbx run MODEL --sample`(이미지는 `-o result.png`).
+- 샘플 실행: 1줄 가상환경 생성, 2줄 활성화, 3줄 `python -m pip install --upgrade fxbx`, 4줄 `fxbx run MODEL --sample`(이미지는 `-o result.png`).
 - 일반 서빙도 같은 앞 3줄 뒤 4줄 `fxbx serve MODEL --port 8000`으로 표시한다.
 - Python 호출 예제는 서버 명령 아래에 표시한다. 출력 파일은 호출한 현재 폴더에 저장하고 긴 텍스트는 파일로 저장한다.
 - Torch·SDK·추가 의존성·HF 로그인·Mesa EGL·고정 버전·오류 대응은 기본 예제 아래 접힌 상세 안내에 둔다.
@@ -10,3 +10,5 @@
 - 카탈로그 릴리스나 설명문 버전이 바뀌어도 실행 코드 자체를 숨기지 않는다.
 - 새 안내는 FHA의 `forge_fxbex.web_usage`로 실제 패키지 계약에서 생성해 FuryAwesome `web-usage.json`에 등록한다. 소개·예제의 version과 artifact SHA256은 현재 릴리스와 일치해야 한다. 서빙 코드는 실제 HTTP 확인 이후 제공한다.
 - 회귀 검사: 현재 카탈로그의 모든 모델에 샘플·소개가 있고 검증된 서빙은 Python 호출이 있는지 검사한다. 미래 릴리스에 과거의 서빙 코드를 재사용하지 않는다.
+
+- SDK가 설치된 Python에서 SDK 패키지를 이어받아야 하는 모델은 첫 줄에 `--system-site-packages`를 쓰며, 검증한 HTTP 예제에 필요한 `requests`는 세 번째 줄에 함께 설치할 수 있다. 기본 명령은 여전히 네 줄이다.

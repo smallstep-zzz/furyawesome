@@ -79,6 +79,21 @@ def release_key(entry):
     return f"{model['source_repo']}@{release['version']}#{release['author_sha256']}"
 
 
+def runnable_name(entry, entries):
+    model=entry['model']; candidate=model['name']; source=model['source_repo']
+    if re.fullmatch(r'[A-Za-z0-9][A-Za-z0-9_.-]*',candidate):
+        matches={item['model']['source_repo'] for item in entries
+                 if candidate in (item['model']['name'],item['model']['source_repo'],
+                                  item['model']['source_repo'].split('/')[-1])}
+        if matches=={source}:
+            return candidate
+    short=source.split('/')[-1]
+    matches={item['model']['source_repo'] for item in entries
+             if short in (item['model']['name'],item['model']['source_repo'],
+                          item['model']['source_repo'].split('/')[-1])}
+    return short if matches=={source} else source
+
+
 def classify(entry):
     model, release = entry['model'], entry['release']
     category = model['category'].strip().lower()
@@ -154,10 +169,6 @@ def render_views(files, groups, paths):
     readme = files['README.md']
     if readme.count(START) != 1 or readme.count(END) != 1 or readme.index(START) > readme.index(END):
         raise CatalogError('Expected one managed README block.')
-    short_counts = {}
-    for source in latest:
-        short = source.split('/')[-1].casefold()
-        short_counts[short] = short_counts.get(short, 0) + 1
     table = ['| 모델 | 용도 | 버전 | 게시일 | 정밀도 / SDK | 라이선스 | 사용법 | 다운로드 |',
              '| --- | --- | --- | --- | --- | --- | --- | --- |']
     place_models = []
@@ -166,7 +177,7 @@ def render_views(files, groups, paths):
         entry = row['entry']
         m, r = entry['model'], entry['release']
         short = source.split('/')[-1]
-        name = short if short_counts[short.casefold()] == 1 else source
+        name = runnable_name(entry,entries.values())
         page = artifact_page(entry)
         guide = 'usage/' + short.lower() + '.md'
         if guide not in paths:

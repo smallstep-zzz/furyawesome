@@ -278,5 +278,33 @@
       "schema_version": 1
     },
     "published_on": "2026-11-25"
+  },
+  {
+    "entry": {
+      "model": {
+        "category": "Computer Vision",
+        "cover_url": "",
+        "name": "YOLO26n",
+        "package_license": "AGPL-3.0",
+        "readme": "사진 속 사람·차량·동물 등 COCO 80종 물체의 위치와 점수를 찾습니다. 카메라 화면의 물체 수를 세거나 탐지 기능을 시제품에 붙일 때 사용할 수 있습니다. 고정 640×640 중앙 크롭 입력이며 좌표는 이 크롭 이미지 기준입니다. 단일 RNGD에서 신경망 본체를 10개 큰 단위로 실행합니다. 이미지 처리와 원본 TopK·정수 인덱스 순위 처리는 CPU에서 수행합니다. 연속 입력은 전처리·전송·후처리를 포함해 9번 58.18 FPS, 19번 56.44 FPS였습니다(각 640프레임, 1프레임 미리 준비, NPU 배치 1). 단일 HTTP 요청은 60–77ms로 연속 처리 FPS의 역수와 다릅니다. 원본/반전 샘플 2개의 수치 일치와 NPU 추적을 확인했으며, 전체 COCO 정확도나 임의 입력의 정확도를 새로 평가한 결과는 아닙니다. CPU 폴백·실행 중 컴파일은 0건이었습니다. 원본은 Hugging Face 체크포인트가 아니라 GitHub ultralytics/assets v8.4.0의 고정 SHA256 ONNX입니다. 모델·샘플은 AGPL-3.0, 어댑터·FuryNo5 소스는 각 Apache-2.0 고지를 유지합니다. SDK 바이너리는 포함하지 않습니다.",
+        "short_description": "사진에서 사람·차량 등 80종 물체 탐지 · 단일 RNGD · 640px 연속 입력 56–58 FPS",
+        "source_license": "AGPL-3.0",
+        "source_repo": "ultralytics/assets",
+        "source_revision": "dcececebff9fe00420c144baa5cd25a641d10aa6"
+      },
+      "release": {
+        "adapter": "yolo26n_coarse_replay",
+        "artifact_url": "https://huggingface.co/softandsweet/ultralytics-yolo26n-rngd-fxbx/resolve/4483810272d3732106365d7d27cec660c91ae9c4/releases/2026.4.0-yolo26n-coarse10-fxbx2/45125818ff0c85452f0af7617b1ef88c8be04be48c3bbede9f710c1aaca7b138/YOLO26n.fxbx",
+        "author_sha256": "45125818ff0c85452f0af7617b1ef88c8be04be48c3bbede9f710c1aaca7b138",
+        "precision": "FP32",
+        "runtime_version": "0.10.2",
+        "sdk_version": "2026.4.0",
+        "target": "Furiosa RNGD",
+        "version": "2026.4.0-yolo26n-coarse10-fxbx2",
+        "weights_mode": "standalone"
+      },
+      "schema_version": 1
+    },
+    "published_on": "2026-11-26"
   }
 ]

@@ -27,6 +27,20 @@
       "weights_mode": "external"
     },
     {
+      "id": "YOLO26n",
+      "source": "ultralytics/assets",
+      "category": "vision",
+      "version": "2026.4.0-yolo26n-coarse10-fxbx2",
+      "precision": "FP32",
+      "sdk": "2026.4.0",
+      "license": "AGPL-3.0",
+      "description": "사진에서 사람·차량 등 80종 물체 탐지 · 단일 RNGD · 640px 연속 입력 56–58 FPS",
+      "published_on": "2026-11-26",
+      "hf": "https://huggingface.co/softandsweet/ultralytics-yolo26n-rngd-fxbx",
+      "usage": "https://github.com/smallstep-zzz/furyawesome/blob/main/usage/assets.md",
+      "weights_mode": "standalone"
+    },
+    {
       "id": "Depth-Anything-V2-Small-hf",
       "source": "depth-anything/Depth-Anything-V2-Small-hf",
       "category": "vision",
