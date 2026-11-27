@@ -71,7 +71,7 @@ threshold는0..1, top_k는1..300입니다. 결과는 detections(class_id,label,s
 ## FP32를 유지하려면
 
 ```bash
-fxbx run Roboflow/rf-detr-nano --version 2026.4.0-nano384-fxbx2-grouped --sample -o result.safetensors
+fxbx run Roboflow/rf-detr-nano@2026.4.0-nano384-fxbx2-grouped --sample -o result.safetensors
 ```
 
 [기존 FP32 모델 및 사진 처리 예제](https://huggingface.co/softandsweet/roboflow-rf-detr-nano-rngd-fxbx/tree/55afc6938902e883826014b8aec73839d9e089e5). FP32 패키지는 원시 logits와 boxes를 반환하는 기존 계약을 유지하며 BF16의 JSON 응답 계약과 다릅니다.
