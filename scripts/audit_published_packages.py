@@ -90,15 +90,25 @@ def inspect_archive(source, prefix='', depth=0):
                'tensor_members':sum(n.endswith('.safetensors') for n in names),
                'source_graph_members':sum(n.endswith('.pt2') for n in names),
                'binary_history_members':[n for n in names if 'lineage' in n.lower() or 'adaptive' in n.lower()][:8]}
-        manifest = document(archive,'manifest.json')
+        def bounded(name):
+            size=archive.getinfo(name).file_size
+            if size>4*1024**2:
+                row.setdefault('metadata_skipped',[]).append({'member':name,'bytes':size})
+                return {}
+            return document(archive,name)
+        manifest = bounded('manifest.json')
         row['manifest_fields'] = sorted(manifest)
         row['compatibility'] = manifest.get('compatibility')
         if 'execution_plan.json' in names:
-            row.update(plan_counts(document(archive,'execution_plan.json')))
+            row.update(plan_counts(bounded('execution_plan.json')))
         if 'fxbex.provenance.json' in names:
-            provenance = document(archive,'fxbex.provenance.json')
+            provenance = bounded('fxbex.provenance.json')
             if isinstance(provenance.get('execution_plan'),dict):row.update(plan_counts(provenance['execution_plan']))
             if provenance.get('graph_plan'):row['declared_graph_roots']=1
+        if 'runtime_config.json' in names:
+            coarse=bounded('runtime_config.json').get('coarse_bundle',{})
+            if type(coarse.get('outer_model_calls')) is int:
+                row['declared_outer_model_calls']=coarse['outer_model_calls']
         result = [row]
         for info in archive.infolist():
             if info.filename.endswith(('.fxbx','.fxbex')):
@@ -116,7 +126,9 @@ def audit(record):
               'minimum_partitions':None,'numerical_acceptance':'not_run','npu_execution':'not_run'}
     try:
         if not result['artifact_url'].startswith('https://'):raise ValueError('HTTPS artifact required')
-        result.update(status='metadata_inspected',components=inspect_archive(RangeFile(result['artifact_url'])))
+        components=inspect_archive(RangeFile(result['artifact_url']))
+        partial=any(row.get('metadata_skipped') or row.get('status') for row in components)
+        result.update(status='metadata_partial' if partial else 'metadata_inspected',components=components)
     except Exception as error:
         result.update(status='inspection_pending',reason=type(error).__name__+': '+str(error))
     return result
