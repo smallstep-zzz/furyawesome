@@ -1,0 +1,12 @@
+.car-fragment {
+  border:0;
+  background-color:#171a20;
+  background-repeat:no-repeat;
+}
+.car-i { --paint:#5cf3cf; }
+.car-o { --paint:#ffd16f; }
+.car-t { --paint:#bc9df9; }
+.car-s { --paint:#b1e06e; }
+.car-z { --paint:#f77779; }
+.car-j { --paint:#75b7fa; }
+.car-l { --paint:#f69859; }

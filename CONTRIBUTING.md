@@ -24,6 +24,18 @@ Only commit public metadata, source and package licenses, and immutable
 Hugging Face artifact URLs. Publish a new version for different model bytes.
 The Site source and hosting manifest live in `site/`.
 
+For a Site source change, build the Worker and check the catalog and arcade routes from
+the repository root:
+
+```bash
+node site/scripts/build-arcade-worker.mjs
+node --test site/tests/arcade-worker.mjs
+```
+
+Use Node.js 22.13 or later for the SQLite-backed checks. Preserve the `DB` binding
+and the `site/drizzle/` migrations when syncing Site source to the hosting repository.
+The game keeps its shared leaderboard in that binding.
+
 For compiled profiles requiring two or more physical RNGDs, add a separate release.
 FuryAwesome keeps topology-specific profiles out of the default single-card download.
 
