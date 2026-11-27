@@ -1,0 +1,16 @@
+{
+  "name": "furyawesome-arcade",
+  "main": "worker/cloudflare.mjs",
+  "compatibility_date": "2026-11-27",
+  "workers_dev": true,
+  "vars": {
+    "ALLOWED_ORIGINS": "https://smallstep-zzz.github.io,https://furyawesome.softandsweet5.chatgpt.site"
+  },
+  "d1_databases": [
+    {
+      "binding": "DB",
+      "database_name": "furyawesome-arcade",
+      "migrations_dir": "drizzle"
+    }
+  ]
+}

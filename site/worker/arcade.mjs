@@ -90,14 +90,15 @@ async function saveScore(db, request, now, engine) {
   return json({ qualified, scores: publicScores(rows) }, 201);
 }
 
-async function arcadeApi(request, url, db, engine) {
+async function arcadeApi(request, url, db, engine, allowedOrigins) {
   if (!db) return json({ error: 'Leaderboard unavailable' }, 503);
   if (url.pathname === API_PREFIX + 'scores' && request.method === 'GET') {
     return json({ scores: publicScores(await topScores(db)) });
   }
   if (request.method !== 'POST') return json({ error: 'Not found' }, 404);
   const origin = request.headers.get('Origin');
-  if ((origin && origin !== url.origin) || request.headers.get('Sec-Fetch-Site') === 'cross-site' ||
+  if ((origin && origin !== url.origin && !allowedOrigins.includes(origin)) ||
+      (request.headers.get('Sec-Fetch-Site') === 'cross-site' && !allowedOrigins.includes(origin)) ||
       request.headers.get('Content-Type')?.split(';')[0] !== 'application/json') {
     return json({ error: 'Unsupported request' }, 403);
   }
@@ -113,12 +114,33 @@ export function createWorker(assets, engine) {
     async fetch(request, env) {
       const url = new URL(request.url);
       if (url.pathname.startsWith(API_PREFIX)) {
+        const allowedOrigins = (env.ALLOWED_ORIGINS ?? '').split(',').map(value => value.trim()).filter(Boolean);
+        const origin = request.headers.get('Origin');
+        if (origin && origin !== url.origin && !allowedOrigins.includes(origin)) {
+          return json({ error: 'Unsupported origin' }, 403);
+        }
+        const cors = response => {
+          if (!origin) return response;
+          const headers = new Headers(response.headers);
+          headers.set('Access-Control-Allow-Origin', origin);
+          headers.set('Vary', 'Origin');
+          return new Response(response.body, { status: response.status, headers });
+        };
+        if (request.method === 'OPTIONS') {
+          const method = request.headers.get('Access-Control-Request-Method');
+          if (!origin || !['GET', 'POST'].includes(method)) return json({ error: 'Unsupported preflight' }, 403);
+          return cors(new Response(null, { status: 204, headers: {
+            'Access-Control-Allow-Methods': 'GET, POST',
+            'Access-Control-Allow-Headers': 'Content-Type',
+            'Access-Control-Max-Age': '86400',
+          } }));
+        }
         try {
-          return await arcadeApi(request, url, env.DB, engine);
+          return cors(await arcadeApi(request, url, env.DB, engine, allowedOrigins));
         } catch (error) {
-          if (error instanceof BadScoreRequest) return json({ error: 'Invalid score submission' }, 400);
+          if (error instanceof BadScoreRequest) return cors(json({ error: 'Invalid score submission' }, 400));
           console.error('Arcade request failed', url.pathname, error);
-          return json({ error: 'Leaderboard unavailable' }, 503);
+          return cors(json({ error: 'Leaderboard unavailable' }, 503));
         }
       }
       if (request.method !== 'GET' && request.method !== 'HEAD') {

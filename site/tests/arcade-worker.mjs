@@ -3,6 +3,7 @@ import { readFileSync } from 'node:fs';
 import { DatabaseSync } from 'node:sqlite';
 import { test } from 'node:test';
 import site from '../dist/server/index.js';
+import cloudflare from '../worker/cloudflare.mjs';
 import { MOVE, TICK_MS, createGame, replay, speedMs, step } from '../dist/arcade/engine.mjs';
 
 export function testDb() {
@@ -123,4 +124,35 @@ test('completed row reports its original blast position and preserves remaining 
   assert.deepEqual(game.board[19][5], { type: 'o', turn: 0, dx: 1, dy: 0 });
   step(game);
   assert.equal(game.clearedRows, null);
+});
+
+test('Cloudflare API allows Pages preflight and preserves CORS on validation errors', async () => {
+  const { db, database } = testDb();
+  const origin = 'https://smallstep-zzz.github.io';
+  const env = { DB: db, ALLOWED_ORIGINS: origin };
+  const url = 'https://arcade.example.workers.dev/api/arcade/';
+  const preflight = await cloudflare.fetch(new Request(url + 'scores', { method: 'OPTIONS', headers: {
+    Origin: origin, 'Access-Control-Request-Method': 'POST', 'Access-Control-Request-Headers': 'content-type',
+  } }), env);
+  assert.equal(preflight.status, 204);
+  assert.equal(preflight.headers.get('Access-Control-Allow-Origin'), origin);
+  const start = await cloudflare.fetch(new Request(url + 'start', { method: 'POST', headers: {
+    Origin: origin, 'Sec-Fetch-Site': 'cross-site', 'Content-Type': 'application/json',
+  }, body: '{}' }), env);
+  assert.equal(start.status, 201);
+  assert.equal(start.headers.get('Access-Control-Allow-Origin'), origin);
+  const invalid = await cloudflare.fetch(new Request(url + 'scores', { method: 'POST', headers: {
+    Origin: origin, 'Content-Type': 'application/json',
+  }, body: '{}' }), env);
+  assert.equal(invalid.status, 400);
+  assert.equal(invalid.headers.get('Access-Control-Allow-Origin'), origin);
+  for (const method of ['GET', 'POST', 'OPTIONS']) {
+    const blocked = await cloudflare.fetch(new Request(url + 'scores', { method, headers: { Origin: 'https://evil.test' } }), env);
+    assert.equal(blocked.status, 403);
+    assert.equal(blocked.headers.get('Access-Control-Allow-Origin'), null);
+  }
+  const scores = await cloudflare.fetch(new Request(url + 'scores', { headers: { Origin: origin } }), env);
+  assert.deepEqual(await scores.json(), { scores: [] });
+  assert.equal((await cloudflare.fetch(new Request('https://arcade.example.workers.dev/'), env)).status, 404);
+  database.close();
 });

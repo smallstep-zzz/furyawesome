@@ -2,8 +2,8 @@ import { COLS, ROWS, TICK_MS, MOVE, SHAPES, cells, createGame, landingY, step } 
 import { paintCarFragment } from './cars.mjs?v=3';
 
 const byId = id => document.getElementById(id);
-// GitHub Pages serves the same game without the score API.
-const leaderboardEnabled = !/(^|\.)github\.io$/i.test(location.hostname);
+const apiBase = window.FURY_ARCADE_API_URL || '/api/arcade/';
+const leaderboardEnabled = Boolean(window.FURY_ARCADE_API_URL) || !/(^|\.)github\.io$/i.test(location.hostname);
 byId('leaderboard').hidden = !leaderboardEnabled;
 const board = byId('board');
 const slots = Array.from({ length: COLS * ROWS }, () => {
@@ -46,7 +46,7 @@ async function api(path, payload) {
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(payload),
   });
-  const response = await fetch('/api/arcade/' + path, options);
+  const response = await fetch(apiBase + path, options);
   if (!response.ok) throw new Error('Arcade API ' + response.status);
   return response.json();
 }

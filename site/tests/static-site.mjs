@@ -47,6 +47,8 @@ document.createElement = () => new Element();
 document.querySelectorAll = () => [];
 let frameCallback;
 const sites = process.argv.includes('--sites');
+const cloudflare = process.argv.includes('--cloudflare');
+const backend = sites || cloudflare;
 const requests = [];
 Object.assign(globalThis, {
   Path2D: class { moveTo() {} lineTo() {} quadraticCurveTo() {} arcTo() {} closePath() {} },
@@ -54,15 +56,17 @@ Object.assign(globalThis, {
   matchMedia: () => ({ matches: false }),
   requestAnimationFrame: callback => { frameCallback = callback; },
   fetch: async url => {
-    assert.ok(sites, 'GitHub Pages game must never access the network');
+    assert.ok(backend, 'Unconfigured GitHub Pages game must never access the network');
+    assert.ok(url.startsWith(cloudflare ? 'https://arcade.example.workers.dev/api/arcade/' : '/api/arcade/'));
     requests.push(url);
     return { ok: true, json: async () => url.endsWith('/start') ? { id: 'test-run', seed: 15 } : { scores: [{ initials: 'ABC', score: 100, max_frames: 0 }] } };
   },
 });
+if (cloudflare) window.FURY_ARCADE_API_URL = 'https://arcade.example.workers.dev/api/arcade/';
 await import(new URL('arcade/game.mjs', root));
 const get = id => document.getElementById(id);
 assert.equal(get('exit').href, '../#request');
-assert.equal(get('leaderboard').hidden, !sites);
+assert.equal(get('leaderboard').hidden, !backend);
 assert.equal(get('board').children.length, 200);
 await get('start').events.click();
 assert.equal(get('overlay').hidden, true);
@@ -77,12 +81,12 @@ for (let i = 0; i < 1000 && get('overlay').hidden; i++) {
   frameCallback(now += 100);
 }
 assert.match(get('game-state').textContent, /^주행 종료/);
-assert.equal(get('score-form').hidden, !sites);
+assert.equal(get('score-form').hidden, !backend);
 assert.equal(get('message').hidden, true);
 assert.equal(get('pause').disabled, true);
 await get('start').events.click();
 assert.equal(get('overlay').hidden, true);
 assert.equal(get('score').textContent, '0');
 assert.equal(get('pause').disabled, false);
-assert.equal(requests.length, sites ? 3 : 0);
-console.log(`${sites ? 'Sites leaderboard' : 'GitHub Pages without API'}: paths, issue handoff, game start/pause/game-over/restart passed.`);
+assert.equal(requests.length, backend ? 3 : 0);
+console.log(`${cloudflare ? 'GitHub Pages + Cloudflare' : sites ? 'Sites leaderboard' : 'GitHub Pages without API'}: paths, issue handoff, game start/pause/game-over/restart passed.`);

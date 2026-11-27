@@ -19,6 +19,7 @@ jobs:
       - run: |
           node site/tests/static-site.mjs
           node site/tests/static-site.mjs --sites
+          node site/tests/static-site.mjs --cloudflare
       - uses: actions/configure-pages@v5
       - uses: actions/upload-pages-artifact@v3
         with:
