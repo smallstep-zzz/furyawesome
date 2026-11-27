@@ -4,6 +4,7 @@ Counts describe retained declarations, not measured Runnable calls, minimum
 partitions, EDF-internal tiles, NPU execution or correctness acceptance.
 """
 import argparse
+from datetime import datetime,timezone
 import importlib.metadata
 import io
 import json
@@ -149,7 +150,10 @@ def main():
     for record in records:
         result=audit(record);results.append(result)
         path=args.output/'result.json';tmp=path.with_suffix('.tmp')
+        stamp=datetime.now(timezone.utc).isoformat()
         tmp.write_text(json.dumps({'schema':'furyawesome.package-audit.v1','host_packages':versions,
+            'phase':f'package_metadata {len(results)}/{len(records)}','updated_at':stamp,
+            'finished_at':stamp if len(results)==len(records) else None,
             'completed':len(results),'total':len(records),'results':results},ensure_ascii=False,indent=2)+'\n');tmp.replace(path)
         print(json.dumps({k:result[k] for k in ['source_repo','version','status']}) ,flush=True)
 
