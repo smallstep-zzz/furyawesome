@@ -2,7 +2,8 @@
 
 Furiosa RNGD에서 사용할 수 있는 fxbX 모델을 모아 놓은 카탈로그입니다.
 모델명을 누르면 Hugging Face에서 다운로드, 입력·출력 예제와 상세 사용법을 확인할 수 있습니다.
-[FuryAwesome 플레이스](https://furyawesome.softandsweet5.chatgpt.site/)에서 모델을 찾아보고 포팅을 요청할 수 있습니다.
+[FuryAwesome 플레이스 · GitHub Pages](https://smallstep-zzz.github.io/furyawesome/)에서 모델을 찾아보고 포팅을 요청할 수 있습니다.
+[기존 사이트](https://furyawesome.softandsweet5.chatgpt.site/)도 계속 사용할 수 있습니다.
 
 CLI 실행을 지원하는 모델은 이름으로 샘플을 실행할 수 있습니다. 실행 계획 패키지는 표의 Python 예제와 별도 가중치를 사용합니다.
 
