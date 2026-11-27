@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="robots" content="noindex">
+  <meta name="theme-color" content="#13151b">
+  <title>Garage Grid · FuryAwesome No5</title>
+  <link rel="stylesheet" href="/arcade/cars.css">
+  <link rel="stylesheet" href="/arcade/game.css?v=3">
+  <script type="module" src="/arcade/game.mjs?v=5"></script>
+</head>
+<body>
+  <header class="topbar">
+    <a id="exit" class="exit" href="/" aria-label="탈출 · FuryAwesome로 돌아가기"><span aria-hidden="true">↖</span> 탈출</a>
+    <span class="garage-brand">FURYAWESOME <i>//</i> No5</span>
+  </header>
+  <main>
+    <div class="masthead">
+      <h1>GARAGE <em>GRID</em></h1>
+      <p>차를 쌓고, 줄을 비우고, 최고 속도에서 버티세요.</p>
+    </div>
+    <section class="play" aria-label="Garage Grid 게임">
+      <div class="dashboard">
+        <div><span>점수</span><strong id="score">0</strong></div>
+        <div><span>단계</span><strong id="level">01</strong></div>
+        <div class="survival"><span>최고 속도 유지</span><strong id="survival">0.0<span>초</span></strong></div>
+        <div class="next"><span>다음</span><div id="next" role="img" aria-label="다음 자동차 블록"></div></div>
+      </div>
+      <div class="bay">
+        <div class="board-wrap">
+          <div id="board" role="img" tabindex="-1" aria-label="열 칸 너비의 자동차 블록 게임판" aria-describedby="keyboard-guide"></div>
+          <div id="effects" aria-hidden="true"></div>
+          <div class="overlay" id="overlay">
+            <p id="game-state" aria-live="polite">시동 대기</p>
+            <button id="start" type="button" class="primary">게임 시작</button>
+            <form id="score-form" hidden>
+              <label for="initials">이니셜 3글자</label>
+              <div class="initial-row">
+                <input id="initials" name="initials" maxlength="3" minlength="3" pattern="[A-Za-z]{3}" placeholder="ABC" autocomplete="off" autocapitalize="characters" spellcheck="false" required>
+                <button id="save" class="primary" type="submit">등록</button>
+              </div>
+            </form>
+            <p id="message" class="message" role="status" hidden></p>
+          </div>
+        </div>
+        <div class="controls" aria-label="게임 조작">
+          <button type="button" data-action="left" aria-label="왼쪽"><b aria-hidden="true">←</b><span>왼쪽</span></button>
+          <button type="button" data-action="right" aria-label="오른쪽"><b aria-hidden="true">→</b><span>오른쪽</span></button>
+          <button type="button" data-action="spin" aria-label="회전"><b aria-hidden="true">↻</b><span>회전</span></button>
+          <button type="button" data-action="down" aria-label="빠르게 내리기"><b aria-hidden="true">↓</b><span>내리기</span></button>
+          <button type="button" data-action="drop" aria-label="즉시 낙하"><b aria-hidden="true">⇊</b><span>즉시 낙하</span></button>
+        </div>
+      </div>
+      <div class="play-footer">
+        <p class="key-guide" id="keyboard-guide">← → 이동 <i>·</i> ↑ 회전 <i>·</i> ↓ 내리기 <i>·</i> Space 즉시 낙하 <i>·</i> P 일시 정지</p>
+        <button id="pause" type="button" class="minor" disabled>일시 정지</button>
+      </div>
+    </section>
+    <section class="leaderboard" aria-labelledby="ranking">
+      <div class="ranking-head"><h2 id="ranking" tabindex="-1">순위</h2><span>TOP 10</span></div>
+      <p id="ranking-status" class="ranking-status" role="status" hidden></p>
+      <table>
+        <thead><tr><th scope="col">순위</th><th scope="col">이니셜</th><th scope="col">점수</th><th scope="col">최고 속도</th></tr></thead>
+        <tbody id="scores"><tr><td colspan="4">순위를 불러오는 중…</td></tr></tbody>
+      </table>
+    </section>
+  </main>
+</body>
+</html>
