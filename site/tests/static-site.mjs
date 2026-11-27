@@ -15,9 +15,9 @@ for (const page of ['index.html', 'arcade/index.html']) {
   }
 }
 const html = readFileSync(new URL('arcade/index.html', root), 'utf8');
-assert.doesNotMatch(html, /leaderboard|score-form|ranking-status/);
+assert.match(html, /id="leaderboard" class="leaderboard" hidden/);
 const source = readFileSync(new URL('arcade/game.mjs', root), 'utf8');
-assert.doesNotMatch(source, /fetch\(|\/api\/|loadScores|initials/);
+assert.match(source, /if \(leaderboardEnabled\) loadScores\(\);/);
 assert.match(readFileSync(new URL('index.html', root), 'utf8'), /repo\+'\/issues\/new'/);
 
 // Exercise the real game controller without a server, including game over and restart.
@@ -28,6 +28,8 @@ class Element {
     this.firstChild = { textContent: '' }; this.parentElement = this;
     this.hidden = false; this.disabled = false;
   }
+  insertRow() { return new Element(); }
+  insertCell() { return new Element(); }
   getContext() { return new Proxy({}, { get: (_, key) => key === 'createLinearGradient' ? () => ({ addColorStop() {} }) : () => {} }); }
   toDataURL() { return 'data:image/png;base64,'; }
   append(child) { this.children.push(child); }
@@ -44,23 +46,30 @@ document.getElementById = id => {
 document.createElement = () => new Element();
 document.querySelectorAll = () => [];
 let frameCallback;
+const sites = process.argv.includes('--sites');
+const requests = [];
 Object.assign(globalThis, {
   Path2D: class { moveTo() {} lineTo() {} quadraticCurveTo() {} arcTo() {} closePath() {} },
-  document, window: new Element(), location: { hash: '#request' },
+  document, window: new Element(), location: { hash: '#request', hostname: sites ? 'furyawesome.softandsweet5.chatgpt.site' : 'smallstep-zzz.github.io' },
   matchMedia: () => ({ matches: false }),
   requestAnimationFrame: callback => { frameCallback = callback; },
-  fetch: () => { throw new Error('Static game must never access the network'); },
+  fetch: async url => {
+    assert.ok(sites, 'GitHub Pages game must never access the network');
+    requests.push(url);
+    return { ok: true, json: async () => url.endsWith('/start') ? { id: 'test-run', seed: 15 } : { scores: [{ initials: 'ABC', score: 100, max_frames: 0 }] } };
+  },
 });
 await import(new URL('arcade/game.mjs', root));
 const get = id => document.getElementById(id);
 assert.equal(get('exit').href, '../#request');
+assert.equal(get('leaderboard').hidden, !sites);
 assert.equal(get('board').children.length, 200);
-get('start').events.click();
+await get('start').events.click();
 assert.equal(get('overlay').hidden, true);
 assert.equal(get('pause').disabled, false);
 get('pause').events.click();
 assert.equal(get('game-state').textContent, '일시 정지');
-get('start').events.click();
+await get('start').events.click();
 assert.equal(get('overlay').hidden, true);
 let now = performance.now();
 for (let i = 0; i < 1000 && get('overlay').hidden; i++) {
@@ -68,9 +77,12 @@ for (let i = 0; i < 1000 && get('overlay').hidden; i++) {
   frameCallback(now += 100);
 }
 assert.match(get('game-state').textContent, /^주행 종료/);
+assert.equal(get('score-form').hidden, !sites);
+assert.equal(get('message').hidden, true);
 assert.equal(get('pause').disabled, true);
-get('start').events.click();
+await get('start').events.click();
 assert.equal(get('overlay').hidden, true);
 assert.equal(get('score').textContent, '0');
 assert.equal(get('pause').disabled, false);
-console.log('Static paths, issue handoff, and server-free game start/pause/game-over/restart passed.');
+assert.equal(requests.length, sites ? 3 : 0);
+console.log(`${sites ? 'Sites leaderboard' : 'GitHub Pages without API'}: paths, issue handoff, game start/pause/game-over/restart passed.`);

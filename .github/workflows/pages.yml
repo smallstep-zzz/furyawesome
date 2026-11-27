@@ -16,7 +16,9 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: '22'
-      - run: node site/tests/static-site.mjs
+      - run: |
+          node site/tests/static-site.mjs
+          node site/tests/static-site.mjs --sites
       - uses: actions/configure-pages@v5
       - uses: actions/upload-pages-artifact@v3
         with:

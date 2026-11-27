@@ -2,6 +2,9 @@ import { COLS, ROWS, TICK_MS, MOVE, SHAPES, cells, createGame, landingY, step } 
 import { paintCarFragment } from './cars.mjs?v=3';
 
 const byId = id => document.getElementById(id);
+// GitHub Pages serves the same game without the score API.
+const leaderboardEnabled = !/(^|\.)github\.io$/i.test(location.hostname);
+byId('leaderboard').hidden = !leaderboardEnabled;
 const board = byId('board');
 const slots = Array.from({ length: COLS * ROWS }, () => {
   const slot = document.createElement('span');
@@ -10,9 +13,12 @@ const slots = Array.from({ length: COLS * ROWS }, () => {
   return slot;
 });
 const drawnTiles = Array(slots.length).fill('');
+const initials = byId('initials');
+const form = byId('score-form');
 const overlay = byId('overlay');
 const start = byId('start');
 const pause = byId('pause');
+const save = byId('save');
 const message = byId('message');
 const next = byId('next');
 const controls = [...document.querySelectorAll('button[data-action]')];
@@ -25,11 +31,25 @@ if (/^(about|place|request|github|method(?:\/[1-5])?)$/.test(endNote)) byId('exi
 
 let game = createGame(15);
 let phase = 'idle';
+let moves = [];
+let run = null;
 let lastPreviewPiece = null;
 let lastPreviewAt = -Infinity;
 let pending = 0;
 let previous = 0;
 let elapsed = 0;
+
+async function api(path, payload) {
+  const options = { signal: AbortSignal.timeout(8000), cache: 'no-store' };
+  if (payload) Object.assign(options, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(payload),
+  });
+  const response = await fetch('/api/arcade/' + path, options);
+  if (!response.ok) throw new Error('Arcade API ' + response.status);
+  return response.json();
+}
 
 function note(value) {
   message.textContent = value;
@@ -100,17 +120,25 @@ function render() {
   renderNext();
 }
 
-function startGame() {
+async function startGame() {
   if (phase === 'paused') {
     setPaused(false);
     return;
   }
-  if (phase === 'loading') return;
+  if (phase === 'loading' || save.disabled) return;
   phase = 'loading';
   start.disabled = true;
+  form.hidden = true;
+  byId('ranking-status').hidden = true;
   note('');
   byId('game-state').textContent = '시동 중…';
-  game = createGame(crypto.getRandomValues(new Uint32Array(1))[0]);
+  try {
+    run = leaderboardEnabled ? await api('start', {}) : null;
+  } catch {
+    run = null;
+  }
+  game = createGame(run?.seed ?? crypto.getRandomValues(new Uint32Array(1))[0]);
+  moves = [];
   clearInput();
   previous = performance.now();
   elapsed = 0;
@@ -155,7 +183,10 @@ function gameOver() {
   overlay.hidden = false;
   byId('game-state').textContent = '주행 종료 · ' + num.format(game.score) + '점';
   start.textContent = '다시 하기';
-  note('');
+  form.hidden = !run;
+  initials.value = '';
+  note(leaderboardEnabled && !run ? '연습 주행 · 순위 서버에 연결할 수 없습니다.' : '');
+  if (run && matchMedia('(pointer:fine)').matches) initials.focus({ preventScroll: true });
 }
 
 function press(action, id) {
@@ -202,6 +233,7 @@ function loop(now) {
             key.repeatAt += key.action === 'down' ? 1 : 2;
           }
         }
+        if (mask && run) moves.push([game.frame + 1, mask]);
         step(game, mask);
         if (game.clearedRows) explodeRows(game.clearedRows);
       }
@@ -212,10 +244,62 @@ function loop(now) {
   requestAnimationFrame(loop);
 }
 
+async function loadScores() {
+  try {
+    const { scores } = await api('scores');
+    showScores(scores);
+  } catch {
+    showScores([], '순위를 불러올 수 없습니다. 새로고침해 다시 시도해 주세요.');
+  }
+}
+
+function showScores(scores, empty = '첫 기록에 도전해 보세요.') {
+  const body = byId('scores');
+  body.replaceChildren();
+  if (!scores.length) {
+    const cell = body.insertRow().insertCell();
+    cell.colSpan = 4;
+    cell.textContent = empty;
+    return;
+  }
+  scores.slice(0, 10).forEach(({ initials: name, score, max_frames: max }, index) => {
+    const row = body.insertRow();
+    [index + 1, name, num.format(score), (max * TICK_MS / 1000).toFixed(1) + '초'].forEach(value => {
+      row.insertCell().textContent = value;
+    });
+  });
+}
+
+form.addEventListener('submit', async event => {
+  event.preventDefault();
+  if (!run || phase !== 'over' || save.disabled) return;
+  save.disabled = true;
+  start.disabled = true;
+  note('기록 확인 중…');
+  try {
+    const result = await api('scores', { id: run.id, initials: initials.value.toUpperCase(), frame: game.frame, moves });
+    form.hidden = true;
+    run = null;
+    showScores(result.scores);
+    note('');
+    const ranking = byId('ranking');
+    const status = byId('ranking-status');
+    status.hidden = false;
+    status.textContent = result.qualified ? '순위표에 등록했습니다.' : '기록을 확인했습니다. 상위 10위에 들면 순위표에 표시됩니다.';
+    ranking.focus({ preventScroll: true });
+    ranking.scrollIntoView({ block: 'start', behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth' });
+  } catch {
+    note('기록을 등록하지 못했습니다. 다시 시도해 주세요.');
+  } finally {
+    save.disabled = false;
+    start.disabled = false;
+  }
+});
+
 start.addEventListener('click', startGame);
 pause.addEventListener('click', () => setPaused(phase !== 'paused'));
 document.addEventListener('keydown', event => {
-  if (event.altKey || event.ctrlKey || event.metaKey) return;
+  if (event.altKey || event.ctrlKey || event.metaKey || event.target === initials) return;
   if ((event.code === 'KeyP' || event.key?.toLowerCase() === 'p') && !event.repeat) {
     setPaused(phase !== 'paused');
     return;
@@ -256,4 +340,5 @@ document.addEventListener('visibilitychange', () => {
 });
 
 render();
+if (leaderboardEnabled) loadScores();
 requestAnimationFrame(loop);

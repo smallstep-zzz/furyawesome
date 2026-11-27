@@ -34,6 +34,13 @@
           <div class="overlay" id="overlay">
             <p id="game-state" aria-live="polite">시동 대기</p>
             <button id="start" type="button" class="primary">게임 시작</button>
+            <form id="score-form" hidden>
+              <label for="initials">이니셜 3글자</label>
+              <div class="initial-row">
+                <input id="initials" name="initials" maxlength="3" minlength="3" pattern="[A-Za-z]{3}" placeholder="ABC" autocomplete="off" autocapitalize="characters" spellcheck="false" required>
+                <button id="save" class="primary" type="submit">등록</button>
+              </div>
+            </form>
             <p id="message" class="message" role="status" hidden></p>
           </div>
         </div>
@@ -49,6 +56,14 @@
         <p class="key-guide" id="keyboard-guide">← → 이동 <i>·</i> ↑ 회전 <i>·</i> ↓ 내리기 <i>·</i> Space 즉시 낙하 <i>·</i> P 일시 정지</p>
         <button id="pause" type="button" class="minor" disabled>일시 정지</button>
       </div>
+    </section>
+    <section id="leaderboard" class="leaderboard" hidden aria-labelledby="ranking">
+      <div class="ranking-head"><h2 id="ranking" tabindex="-1">순위</h2><span>TOP 10</span></div>
+      <p id="ranking-status" class="ranking-status" role="status" hidden></p>
+      <table>
+        <thead><tr><th scope="col">순위</th><th scope="col">이니셜</th><th scope="col">점수</th><th scope="col">최고 속도</th></tr></thead>
+        <tbody id="scores"><tr><td colspan="4">순위를 불러오는 중…</td></tr></tbody>
+      </table>
     </section>
   </main>
 </body>
