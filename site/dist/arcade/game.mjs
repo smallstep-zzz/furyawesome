@@ -18,7 +18,7 @@ const pause = byId('pause');
 const save = byId('save');
 const message = byId('message');
 const controls = [...document.querySelectorAll('button[data-action]')];
-const keyMap = { ArrowLeft: 'left', ArrowRight: 'right', ArrowUp: 'spin', ArrowDown: 'down', Space: 'drop' };
+const keyMap = { ArrowLeft: 'left', ArrowRight: 'right', ArrowUp: 'spin', ArrowDown: 'down', Space: 'drop', ' ': 'drop' };
 const repeatable = new Set(['left', 'right', 'down']);
 const held = new Map();
 const num = new Intl.NumberFormat('ko-KR');
@@ -116,6 +116,7 @@ async function startGame() {
   start.disabled = false;
   pause.disabled = false;
   pause.textContent = '일시 정지';
+  board.focus({ preventScroll: true });
   render();
 }
 
@@ -135,10 +136,12 @@ function setPaused(paused) {
     start.textContent = '계속하기';
     pause.textContent = '계속하기';
     note('');
+    start.focus({ preventScroll: true });
   } else {
     pause.textContent = '일시 정지';
     previous = performance.now();
     elapsed = 0;
+    board.focus({ preventScroll: true });
   }
 }
 
@@ -260,16 +263,20 @@ start.addEventListener('click', startGame);
 pause.addEventListener('click', () => setPaused(phase !== 'paused'));
 document.addEventListener('keydown', event => {
   if (event.altKey || event.ctrlKey || event.metaKey || event.target === initials) return;
-  if (event.code === 'KeyP' && !event.repeat) {
+  if ((event.code === 'KeyP' || event.key?.toLowerCase() === 'p') && !event.repeat) {
     setPaused(phase !== 'paused');
     return;
   }
-  if (phase !== 'playing' || !(event.code in keyMap)) return;
-  if (event.code === 'Space' && event.target.matches('button, a')) return;
+  const action = keyMap[event.code] ?? keyMap[event.key];
+  if (phase !== 'playing' || !action) return;
+  if (action === 'drop' && event.target.matches('button, a')) return;
   event.preventDefault();
-  if (!event.repeat) press(keyMap[event.code], event.code);
+  if (!event.repeat) press(action, 'key:' + action);
 });
-document.addEventListener('keyup', event => held.delete(event.code));
+document.addEventListener('keyup', event => {
+  const action = keyMap[event.code] ?? keyMap[event.key];
+  if (action) held.delete('key:' + action);
+});
 
 for (const button of controls) {
   button.addEventListener('pointerdown', event => {

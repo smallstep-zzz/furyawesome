@@ -8,7 +8,7 @@
   <title>Garage Grid · FuryAwesome No5</title>
   <link rel="stylesheet" href="/arcade/cars.css">
   <link rel="stylesheet" href="/arcade/game.css">
-  <script type="module" src="/arcade/game.mjs"></script>
+  <script type="module" src="/arcade/game.mjs?v=2"></script>
 </head>
 <body>
   <header class="topbar">
@@ -29,7 +29,7 @@
       </div>
       <div class="bay">
         <div class="board-wrap">
-          <div id="board" role="img" aria-label="열 칸 너비의 자동차 블록 게임판"></div>
+          <div id="board" role="img" tabindex="-1" aria-label="열 칸 너비의 자동차 블록 게임판" aria-describedby="keyboard-guide"></div>
           <div id="effects" aria-hidden="true"></div>
           <div class="overlay" id="overlay">
             <p id="game-state" aria-live="polite">시동 대기</p>
@@ -53,7 +53,7 @@
         </div>
       </div>
       <div class="play-footer">
-        <p class="key-guide">← → 이동 <i>·</i> ↑ 회전 <i>·</i> ↓ 내리기 <i>·</i> Space 즉시 낙하</p>
+        <p class="key-guide" id="keyboard-guide">← → 이동 <i>·</i> ↑ 회전 <i>·</i> ↓ 내리기 <i>·</i> Space 즉시 낙하 <i>·</i> P 일시 정지</p>
         <button id="pause" type="button" class="minor" disabled>일시 정지</button>
       </div>
     </section>
