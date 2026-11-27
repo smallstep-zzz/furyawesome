@@ -1,5 +1,5 @@
 import { COLS, ROWS, TICK_MS, MOVE, SHAPES, cells, createGame, landingY, step } from './engine.mjs';
-import { paintCarFragment } from './cars.mjs?v=2';
+import { paintCarFragment } from './cars.mjs?v=3';
 
 const byId = id => document.getElementById(id);
 const board = byId('board');
@@ -17,6 +17,7 @@ const start = byId('start');
 const pause = byId('pause');
 const save = byId('save');
 const message = byId('message');
+const next = byId('next');
 const controls = [...document.querySelectorAll('button[data-action]')];
 const keyMap = { ArrowLeft: 'left', ArrowRight: 'right', ArrowUp: 'spin', ArrowDown: 'down', Space: 'drop', ' ': 'drop' };
 const repeatable = new Set(['left', 'right', 'down']);
@@ -29,7 +30,8 @@ let game = createGame(15);
 let phase = 'idle';
 let moves = [];
 let run = null;
-let nextTile = null;
+let lastPreviewPiece = null;
+let lastPreviewAt = -Infinity;
 let pending = 0;
 let previous = 0;
 let elapsed = 0;
@@ -49,6 +51,41 @@ async function api(path, payload) {
 function note(value) {
   message.textContent = value;
   message.hidden = !value;
+}
+
+function renderNext() {
+  if (game.active === lastPreviewPiece) return;
+  lastPreviewPiece = game.active;
+  const type = game.next;
+  const positions = cells(SHAPES[type]);
+  const top = Math.min(...positions.map(([, row]) => row));
+  const right = Math.max(...positions.map(([col]) => col));
+  const chamber = document.createElement('div');
+  chamber.className = 'press-chamber car-' + type;
+  chamber.setAttribute('aria-hidden', 'true');
+  const result = document.createElement('div');
+  result.className = 'press-result';
+  result.style.setProperty('--cols', right + 1);
+  for (const [dx, dy] of positions) {
+    const marker = document.createElement('span');
+    paintCarFragment(marker, { type, turn: 0, dx, dy });
+    marker.style.gridArea = (dy - top + 1) + ' / ' + (dx + 1);
+    result.append(marker);
+  }
+
+  const now = performance.now();
+  if (now - lastPreviewAt >= 650) {
+    chamber.classList.add('is-pressing');
+    for (const part of ['car', 'ram']) {
+      const layer = document.createElement('span');
+      layer.className = 'press-' + part;
+      chamber.append(layer);
+    }
+  }
+  lastPreviewAt = now;
+  chamber.append(result);
+  next.setAttribute('aria-label', '다음 블록 ' + type.toUpperCase());
+  next.replaceChildren(chamber);
 }
 
 function render() {
@@ -77,17 +114,7 @@ function render() {
   byId('level').textContent = String(game.level).padStart(2, '0');
   byId('survival').firstChild.textContent = (game.maxFrames * TICK_MS / 1000).toFixed(1);
   byId('survival').parentElement.classList.toggle('at-max', game.level === 10);
-  if (nextTile !== game.next) {
-    nextTile = game.next;
-    const positions = cells(SHAPES[nextTile]);
-    const top = Math.min(...positions.map(([, row]) => row));
-    byId('next').replaceChildren(...positions.map(([col, row]) => {
-      const marker = document.createElement('span');
-      paintCarFragment(marker, { type: nextTile, turn: 0, dx: col, dy: row });
-      marker.style.gridArea = (row - top + 1) + ' / ' + (col + 1);
-      return marker;
-    }));
-  }
+  renderNext();
 }
 
 async function startGame() {
