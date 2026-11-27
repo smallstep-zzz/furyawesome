@@ -167,16 +167,16 @@
       "weights_mode": "external"
     },
     {
-      "id": "rf-detr-nano",
+      "id": "RF-DETR-Nano-BF16",
       "source": "Roboflow/rf-detr-nano",
       "category": "vision",
-      "version": "2026.4.0-nano384-fxbx2-grouped",
-      "precision": "FP32",
+      "version": "2026.4.0-bf16-384-merged86-fxbx1",
+      "precision": "BF16",
       "sdk": "2026.4.0",
       "license": "Apache-2.0",
-      "description": "384×384 FP32 객체 탐지 · 레이어 구간 병합 · 반복 추론 약 0.21초",
-      "published_on": "2026-11-25",
-      "hf": "https://huggingface.co/softandsweet/roboflow-rf-detr-nano-rngd-fxbx",
+      "description": "384×384 BF16 객체 탐지 · 신경망 18.79ms · COCO 5,000장 AP 47.980 (FP32 대비 −0.043점)",
+      "published_on": "2026-11-27",
+      "hf": "https://huggingface.co/softandsweet/roboflow-rf-detr-nano-bf16-rngd-fxbx",
       "usage": "https://github.com/smallstep-zzz/furyawesome/blob/main/usage/rf-detr-nano.md",
       "weights_mode": "external"
     },

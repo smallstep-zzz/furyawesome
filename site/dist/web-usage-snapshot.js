@@ -291,27 +291,27 @@ window.furyWebUsageSnapshot = {
       }
     },
     "Roboflow/rf-detr-nano": {
-      "version": "2026.4.0-nano384-fxbx2-grouped",
-      "author_sha256": "1fa7af7d321871bef82751ed64b10e58c70a7f6c384f1d8332ebd2226da8247a",
+      "version": "2026.4.0-bf16-384-merged86-fxbx1",
+      "author_sha256": "ccf62616012ae4264da6a5eddc8e3a7ed39e5452c1d2aa02888186ac6b880e02",
       "recipe": {
-        "version": "2026.4.0-nano384-fxbx2-grouped",
-        "setup": "python -m venv fury\nsource fury/bin/activate\npython -m pip install --upgrade fxbx\nfxbx run Roboflow/rf-detr-nano --sample -o result.safetensors",
-        "rerun": "source fury/bin/activate\nfxbx run Roboflow/rf-detr-nano --sample -o result.safetensors",
+        "version": "2026.4.0-bf16-384-merged86-fxbx1",
+        "setup": "python -m venv --system-site-packages fury\nsource fury/bin/activate\npython -m pip install --upgrade fxbx==0.10.2 requests Pillow==13.0.0 huggingface_hub==1.33.0 numpy==2.4.6 safetensors==0.8.0 tokenizers==0.23.3 torchvision==0.25.0+cpu transformers==5.20.2\nfxbx run RF-DETR-Nano-BF16 --sample",
+        "rerun": "source fury/bin/activate\nfxbx run RF-DETR-Nano-BF16 --sample",
         "activate": "source fury/bin/activate",
-        "detailSetup": "python -m venv fury\nsource fury/bin/activate\npython -m pip install --index-url https://download.pytorch.org/whl/cpu torch==2.10.0+cpu torchvision==0.25.0+cpu\npython -m pip install 'fxbx[weights]==0.10.2' furiosa-torch==2026.4.0 furiosa-tcc==2026.4.0 transformers==5.20.2\nfxbx run Roboflow/rf-detr-nano --sample -o result.safetensors",
-        "serve": "hf download softandsweet/roboflow-rf-detr-nano-rngd-fxbx rf-detr-nano.fxbx predict.py sample.png --revision 55afc6938902e883826014b8aec73839d9e089e5 --local-dir .\npython predict.py rf-detr-nano.fxbx --port 8000",
-        "serveSetup": "python -m venv fury\nsource fury/bin/activate\npython -m pip install --upgrade fxbx\nhf download softandsweet/roboflow-rf-detr-nano-rngd-fxbx rf-detr-nano.fxbx predict.py sample.png --revision 55afc6938902e883826014b8aec73839d9e089e5 --local-dir .\npython predict.py rf-detr-nano.fxbx --port 8000",
-        "serveQuick": "source fury/bin/activate\nhf download softandsweet/roboflow-rf-detr-nano-rngd-fxbx rf-detr-nano.fxbx predict.py sample.png --revision 55afc6938902e883826014b8aec73839d9e089e5 --local-dir .\npython predict.py rf-detr-nano.fxbx --port 8000",
-        "detailServe": "python -m venv fury\nsource fury/bin/activate\npython -m pip install --index-url https://download.pytorch.org/whl/cpu torch==2.10.0+cpu torchvision==0.25.0+cpu\npython -m pip install 'fxbx[weights]==0.10.2' furiosa-torch==2026.4.0 furiosa-tcc==2026.4.0 transformers==5.20.2\nhf download softandsweet/roboflow-rf-detr-nano-rngd-fxbx rf-detr-nano.fxbx predict.py sample.png --revision 55afc6938902e883826014b8aec73839d9e089e5 --local-dir .\npython predict.py rf-detr-nano.fxbx --port 8000",
-        "python": "import json\nfrom pathlib import Path\nfrom urllib.request import Request, urlopen\n\nrequest = Request(\n    'http://127.0.0.1:8000/predict',\n    json.dumps({'image': str(Path('sample.png').resolve())}).encode(),\n    {'Content-Type': 'application/json'},\n)\nwith urlopen(request, timeout=300) as response:\n    detections = json.load(response)\nresult = Path('result.json')\nresult.write_text(json.dumps(detections, ensure_ascii=False, indent=2) + '\\n', encoding='utf-8')\nprint(result.resolve())\n",
-        "serveNote": "요청에는 서버에 저장된 이미지의 절대 경로를 넣습니다. 검출 목록은 호출하는 쪽의 현재 폴더에 result.json으로 저장됩니다."
+        "detailSetup": "python -m venv --system-site-packages fury\nsource fury/bin/activate\npython -m pip install --upgrade fxbx==0.10.2 requests Pillow==13.0.0 huggingface_hub==1.33.0 numpy==2.4.6 safetensors==0.8.0 tokenizers==0.23.3 torchvision==0.25.0+cpu transformers==5.20.2\nfxbx run RF-DETR-Nano-BF16 --sample",
+        "serve": "fxbx serve RF-DETR-Nano-BF16 --port 8000",
+        "serveSetup": "python -m venv --system-site-packages fury\nsource fury/bin/activate\npython -m pip install --upgrade fxbx==0.10.2 requests Pillow==13.0.0 huggingface_hub==1.33.0 numpy==2.4.6 safetensors==0.8.0 tokenizers==0.23.3 torchvision==0.25.0+cpu transformers==5.20.2\nfxbx serve RF-DETR-Nano-BF16 --port 8000",
+        "serveQuick": "source fury/bin/activate\nfxbx serve RF-DETR-Nano-BF16 --port 8000",
+        "python": "from pathlib import Path\nimport json\nimport requests\nfrom zipfile import ZipFile\nfrom fxbex.hub import resolve_package\n\nwith ZipFile(resolve_package('RF-DETR-Nano-BF16')) as package:\n    Path('input-1-sample.png').write_bytes(package.read('assets/sample.png'))\n\npayload = {'image': str(Path('input-1-sample.png').resolve()), 'threshold': 0.3}\n\nresponse = requests.post(\n    \"http://127.0.0.1:8000/predict\", json=payload, timeout=600,\n)\nresponse.raise_for_status()\nresult = response.json()\ntext = json.dumps(result, ensure_ascii=False, indent=2)\nfilename = \"result.json\"\nif len(text) > 2000:\n    Path(filename).write_text(text + \"\\n\", encoding=\"utf-8\")\n    print(Path(filename).resolve())\nelse:\n    print(text)",
+        "detailServe": "python -m venv --system-site-packages fury\nsource fury/bin/activate\npython -m pip install --upgrade fxbx==0.10.2 requests Pillow==13.0.0 huggingface_hub==1.33.0 numpy==2.4.6 safetensors==0.8.0 tokenizers==0.23.3 torchvision==0.25.0+cpu transformers==5.20.2\nfxbx serve RF-DETR-Nano-BF16 --port 8000",
+        "serveNote": ""
       },
       "introduction": {
-        "version": "2026.4.0-nano384-fxbx2-grouped",
-        "title": "사진 한 장에서 물체의 이름과 위치를 찾아보세요.",
-        "about": "사진을 384×384로 전처리한 뒤 물체 종류와 검출 점수, 원본 사진에서의 위치를 찾아줍니다.",
-        "use": "사진에서 관심 영역을 잘라내거나 여러 물체가 어디 있는지 표시하는 기능을 만들 때 사용할 수 있어요.",
-        "performance": "RNGD에서 같은 입력으로 비교한 반복 추론 중앙값은 920.4ms에서 226.2ms로 줄었습니다. 새 파일을 독립 실행한 두 사진은 각각 208.6ms와 208.7ms였습니다. 모델 적재, 사진 전·후처리와 파일 쓰기는 이 시간에서 제외됩니다."
+        "title": "RF-DETR Nano · BF16 고속 프로필",
+        "about": "사진에서 물체의 종류와 원본 픽셀 좌표를 찾습니다. 배치1, 모델 입력384×384. 임의 크기 사진을 CPU에서 변환하며 신경망은 RNGD NPU에서 실행합니다. Apache-2.0. 원본 FP32와 별도 프로필이며 기존 FP32 릴리스도 유지합니다.",
+        "use": "검증 환경: Python 3.11.18, Furiosa Torch/TCC 2026.4.0, Torch 2.10.0+cpu, fxbX 0.10.2. 호환 SDK 환경에서 아래 venv를 만드세요. 기존 fxbX 설정이 다른 SDK Python을 지정했다면 활성화 후 export FXBEX_WORKER_PYTHON=\"$(python -c 'import sys; print(sys.executable)')\"를 실행하세요. 원본 체크포인트 약122MB를 별도로 받아 해시 검사합니다. HTTP의 image는 서버에 있는 사진의 절대 경로입니다. threshold 0..1, top_k 1..300.",
+        "performance": "첫 호출·3회 워밍업을 제외한 신경망 반복 실행: FP32 207.55ms → BF16 18.79ms, 약11.04배. 적재·사진 전후처리·프로파일링 제외, 4프로세스×24회 ABBA 비교. COCO2017 검증5,000장 AP: 48.0233 →47.9804 (−0.0429점). 원본 기본 top300 후처리, COCOeval maxDets100. 로컬 상주 HTTP 20회 중앙값49.05ms (27.92–89.17ms), 첫 관측 호출·워밍업·적재 제외. HTTP에는 CPU 전후처리와 JSON이 포함되어 신경망 시간과 다릅니다.",
+        "version": "2026.4.0-bf16-384-merged86-fxbx1"
       }
     },
     "timm/mobilenetv3_small_100.lamb_in1k": {

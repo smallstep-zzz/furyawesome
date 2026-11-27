@@ -1,0 +1,25 @@
+{
+  "model": {
+    "category": "Computer Vision",
+    "cover_url": "",
+    "name": "RF-DETR-Nano-BF16",
+    "package_license": "Apache-2.0",
+    "readme": "A separate BF16 object-detection profile for Furiosa RNGD, batch1,384×384. The upstream FP32 release remains available at https://huggingface.co/softandsweet/roboflow-rf-detr-nano-rngd-fxbx (version2026.4.0-nano384-fxbx2-grouped). This profile changes precision; raw FP32 tensor equivalence is not claimed.\n\nFull COCO2017 validation, all5,000 images: original FP32 CPU AP48.0233371, BF16 NPU AP47.9804152 (−0.0429219 percentage points). AP50:67.1124055→67.0971786. Both use the pinned original image processor and default top300 postprocessing; COCOeval maxDets100. A strict no-AP-reduction criterion is not met. No accuracy guarantee beyond this evaluation.\n\nMatched server5 fresh-process ABBA: neural graph207.5477→18.79347ms (11.0436×), CPU pixel tensor through completed CPU logits/boxes. Four processes,24 timed calls per process,4CPU threads; first call,quality probes,3warmups,model loading,image preprocessing/postprocessing and profiling excluded. This is not end-to-end HTTP throughput. Resident localhost HTTP on a512×512 sample:20 timed requests,median49.0469ms,range27.92–89.17ms; first observed189.19ms and3warmups excluded. HTTP includes CPU image decoding/preprocessing/postprocessing,NPU and JSON,not loading.\n\nThe package contains86 merged execution groups/100 runtime calls and an unchanged nested native archive. Installed fxbX0.10.2 fresh-consumer validation completed the packaged example twice with no producer PYTHONPATH,no recompile,no SDK CPU fallback. A separate official trace contains200 NPU Tasks and0CPU-route events. CPU image processing remains intentional. Task count does not prove original-operation attribution.\n\nTested Python3.11.18,Furiosa Torch/TCC2026.4.0,Torch2.10.0+cpu,fxbX0.10.2. Use an existing compatible RNGD SDK environment; do not reinstall or upgrade the SDK for these commands. In a new system-site-packages venv,select that activated interpreter explicitly if a host fxbX configuration points to another Python: export FXBEX_WORKER_PYTHON=\"$(python -c 'import sys; print(sys.executable)')\".\n\nRun: fxbx run RF-DETR-Nano-BF16 --sample. Serve: fxbx serve RF-DETR-Nano-BF16 --port 8000. POST /predict JSON: {\"image\":\"/absolute/path/on/server/photo.png\",\"threshold\":0.3,\"top_k\":300}. threshold accepts0..1; top_k accepts1..300. Arbitrary image dimensions are processed to the fixed384×384 model profile. Results contain detections(class_id,label,score,box_xyxy in original pixels),image_size(height,width),precision(BF16). No image upload endpoint; the image must exist on the serving host.\n\nThe original approximately122MB model.safetensors is downloaded separately from Roboflow/rf-detr-nano@9f201577d9415f0378084748d27e68586e6b3600 and SHA256-verified (497b1dbcc8f9d115b806fb82d140d7e22e5b5c3fba45abefef39dd4f99c1f737). This package includes compiled artifacts,derived buffers,processor configuration and an Apache-2.0 FuryNo5 adapter; it does not bundle SDK libraries. Upstream/configuration license:Apache-2.0. Sample image:NASA astronaut,public domain,distributed by scikit-image. No applicable detector LoRA execution hook is provided.",
+    "short_description": "384×384 BF16 객체 탐지 · 신경망 18.79ms · COCO 5,000장 AP 47.980 (FP32 대비 −0.043점)",
+    "source_license": "Apache-2.0",
+    "source_repo": "Roboflow/rf-detr-nano",
+    "source_revision": "9f201577d9415f0378084748d27e68586e6b3600"
+  },
+  "release": {
+    "adapter": "native_hf_detector",
+    "artifact_url": "https://huggingface.co/softandsweet/roboflow-rf-detr-nano-bf16-rngd-fxbx/resolve/cdc01a8ad888126e97a66f2d36926403189638fd/releases/2026.4.0-bf16-384-merged86-fxbx1/ccf62616012ae4264da6a5eddc8e3a7ed39e5452c1d2aa02888186ac6b880e02/RF-DETR-Nano-BF16.fxbx",
+    "author_sha256": "ccf62616012ae4264da6a5eddc8e3a7ed39e5452c1d2aa02888186ac6b880e02",
+    "precision": "BF16",
+    "runtime_version": "0.10.2",
+    "sdk_version": "2026.4.0",
+    "target": "Furiosa RNGD",
+    "version": "2026.4.0-bf16-384-merged86-fxbx1",
+    "weights_mode": "external"
+  },
+  "schema_version": 1
+}
