@@ -7,8 +7,8 @@
   <meta name="theme-color" content="#13151b">
   <title>Garage Grid · FuryAwesome No5</title>
   <link rel="stylesheet" href="/arcade/cars.css">
-  <link rel="stylesheet" href="/arcade/game.css?v=2">
-  <script type="module" src="/arcade/game.mjs?v=4"></script>
+  <link rel="stylesheet" href="/arcade/game.css?v=3">
+  <script type="module" src="/arcade/game.mjs?v=5"></script>
 </head>
 <body>
   <header class="topbar">
@@ -58,7 +58,8 @@
       </div>
     </section>
     <section class="leaderboard" aria-labelledby="ranking">
-      <div class="ranking-head"><h2 id="ranking">순위</h2><span>TOP 10</span></div>
+      <div class="ranking-head"><h2 id="ranking" tabindex="-1">순위</h2><span>TOP 10</span></div>
+      <p id="ranking-status" class="ranking-status" role="status" hidden></p>
       <table>
         <thead><tr><th scope="col">순위</th><th scope="col">이니셜</th><th scope="col">점수</th><th scope="col">최고 속도</th></tr></thead>
         <tbody id="scores"><tr><td colspan="4">순위를 불러오는 중…</td></tr></tbody>

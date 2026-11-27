@@ -126,6 +126,7 @@ async function startGame() {
   phase = 'loading';
   start.disabled = true;
   form.hidden = true;
+  byId('ranking-status').hidden = true;
   note('');
   byId('game-state').textContent = '시동 중…';
   try {
@@ -277,7 +278,13 @@ form.addEventListener('submit', async event => {
     form.hidden = true;
     run = null;
     showScores(result.scores);
-    note(result.qualified ? '순위표에 등록했습니다.' : '기록을 확인했습니다. 상위 10위에 들면 순위표에 표시됩니다.');
+    note('');
+    const ranking = byId('ranking');
+    const status = byId('ranking-status');
+    status.hidden = false;
+    status.textContent = result.qualified ? '순위표에 등록했습니다.' : '기록을 확인했습니다. 상위 10위에 들면 순위표에 표시됩니다.';
+    ranking.focus({ preventScroll: true });
+    ranking.scrollIntoView({ block: 'start', behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth' });
   } catch {
     note('기록을 등록하지 못했습니다. 다시 시도해 주세요.');
   } finally {
