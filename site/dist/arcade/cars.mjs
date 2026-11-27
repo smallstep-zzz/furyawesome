@@ -2,34 +2,104 @@ import { SHAPES, cells } from './engine.mjs';
 
 const UNIT = 56;
 const profiles = {
-  i: { paint: '#5cf3cf', shade: '#176957', body: [[.08,1.68],[.42,1.48],[1.05,1.41],[1.45,1.18],[2.20,1.18],[2.48,1.43],[3.7,1.49],[3.94,1.63],[3.88,1.78],[.18,1.78]], windows: [[1.35,1.43],[1.52,1.23],[2.15,1.23],[2.37,1.44]], wheels:[.79,3.26], axle:1.78, radius:.165 },
-  o: { paint: '#ffd16f', shade: '#8a5416', body: [[.12,1.52],[.14,.46],[.34,.26],[1.39,.26],[1.64,.43],[1.83,1.06],[1.92,1.15],[1.9,1.62],[.16,1.62]], windows:[[.30,.47],[1.37,.47],[1.60,1.00],[.30,1.00]], wheels:[.47,1.54], axle:1.65, radius:.23 },
-  t: { paint: '#bc9df9', shade: '#6544a0', body: [[.08,1.60],[.25,1.20],[.78,1.05],[1.16,.38],[1.81,.34],[2.12,1.09],[2.79,1.23],[2.94,1.45],[2.88,1.66],[.16,1.72]], windows:[[1.06,.99],[1.26,.47],[1.72,.44],[1.93,.99]], wheels:[.60,2.41], axle:1.68, radius:.217 },
-  s: { paint: '#b1e06e', shade: '#416f2b', body: [[.09,1.53],[.27,1.27],[.71,1.16],[1.17,.53],[1.47,.35],[2.47,.29],[2.82,.52],[2.92,.76],[2.63,.95],[2.01,1.07],[1.90,1.69],[.17,1.72]], windows:[[1.27,.82],[1.52,.46],[2.43,.41],[2.64,.56],[2.51,.75]], wheels:[.54,1.61], axle:1.68, radius:.21 },
-  z: { paint: '#f77779', shade: '#983c48', body: [[.08,.63],[.24,.45],[.88,.39],[1.38,.29],[1.81,.49],[1.98,.94],[2.68,1.13],[2.93,1.36],[2.90,1.70],[1.19,1.72],[1.07,.87],[.14,.82]], windows:[[.40,.51],[1.39,.40],[1.68,.55],[1.78,.79],[1.11,.72]], wheels:[1.43,2.52], axle:1.67, radius:.207 },
-  j: { paint: '#75b7fa', shade: '#2c569a', body: [[.08,1.53],[.12,.50],[.25,.32],[.72,.32],[.91,.53],[1.09,1.08],[2.62,1.19],[2.89,1.32],[2.93,1.63],[.14,1.72]], windows:[[.25,.52],[.67,.44],[.81,.56],[.96,1.00],[.25,1.00]], wheels:[.55,2.38], axle:1.67, radius:.22 },
-  l: { paint: '#f69859', shade: '#994b24', body: [[.07,1.55],[.13,1.17],[1.17,1.18],[1.68,1.06],[2.13,.44],[2.31,.32],[2.72,.36],[2.85,.53],[2.94,1.14],[2.93,1.62],[.15,1.73]], windows:[[2.00,1.00],[2.25,.52],[2.43,.45],[2.67,.48],[2.78,1.00]], wheels:[.53,2.41], axle:1.67, radius:.22 },
+  i: ['#52dbb4', '#125749'],
+  o: ['#e7b857', '#6e451d'],
+  t: ['#b590df', '#4c356b'],
+  s: ['#a3c966', '#405a21'],
+  z: ['#eb6d66', '#702f38'],
+  j: ['#70abe7', '#254c76'],
+  l: ['#ec925d', '#794427'],
 };
 const sprites = new Map();
 
-function polygon(ctx, points, color, line = null) {
+function path(ctx, points) {
   ctx.beginPath();
-  points.forEach(([x, y], index) => index ? ctx.lineTo(x, y) : ctx.moveTo(x, y));
+  ctx.moveTo(...points[0]);
+  for (const point of points.slice(1)) ctx.lineTo(...point);
+}
+
+function fold(ctx, points, width, color) {
+  path(ctx, points);
+  ctx.strokeStyle = color;
+  ctx.lineWidth = width;
+  ctx.stroke();
+}
+
+function facet(ctx, points, color) {
+  path(ctx, points);
   ctx.closePath();
   ctx.fillStyle = color;
   ctx.fill();
-  if (line) {
-    ctx.strokeStyle = line;
-    ctx.lineWidth = .045;
-    ctx.stroke();
-  }
 }
 
-function disc(ctx, x, y, radius, color) {
-  ctx.fillStyle = color;
+function scrap(ctx, shape, type) {
+  const positions = cells(shape);
+  const [paint, shade] = profiles[type];
+  const length = shape.length;
+  let seed = type.charCodeAt(0);
+  const random = () => {
+    seed = (Math.imul(seed, 1664525) + 1013904223) >>> 0;
+    return seed / 4294967296;
+  };
+
   ctx.beginPath();
-  ctx.arc(x, y, radius, 0, Math.PI * 2);
-  ctx.fill();
+  positions.forEach(([x, y]) => ctx.rect(x, y, 1, 1));
+  ctx.clip();
+  const lowest = Math.max(...positions.map(([, y]) => y)) + 1;
+  const highest = positions[0][1];
+  const skin = ctx.createLinearGradient(0, highest, .7, lowest);
+  skin.addColorStop(0, '#dce0db');
+  skin.addColorStop(.11, paint);
+  skin.addColorStop(.68, shade);
+  skin.addColorStop(.88, paint);
+  skin.addColorStop(1, '#272b30');
+  ctx.fillStyle = skin;
+  ctx.fillRect(0, 0, length, length);
+
+  // Folds continue across cells, so every tetromino reads as one crushed car.
+  for (let y = highest + .14; y < lowest; y += .24) {
+    const points = Array.from({ length: length * 4 + 2 }, (_, i) => [
+      i * .25 - .1, y + (random() - .5) * .28,
+    ]);
+    fold(ctx, points, .105, shade);
+    fold(ctx, points.map(([x, row]) => [x, row - .041]), .035, paint);
+    fold(ctx, points.slice(1, 4), .025, '#ebebe2ac');
+  }
+  for (let i = 0; i < length * 15; i++) {
+    const x = random() * length;
+    const y = highest + random() * (lowest - highest);
+    const width = .12 + random() * .7;
+    const dent = .055 + random() * .16;
+    facet(ctx, [[x,y],[x+width*.33,y-dent],[x+width,y+dent*.55],[x+width*.18,y+dent]], [
+      '#181e24c4', paint + 'ae', '#bbc0c0b5', shade + 'c6',
+    ][i % 4]);
+  }
+
+  const [tx, ty] = positions[0];
+  const [bx, by] = positions.at(-1);
+  ctx.fillStyle = '#222a30';
+  ctx.fillRect(tx+.12, ty+.30, .40, .22);
+  for (let i = 0; i < 3; i++) {
+    ctx.fillStyle = '#8d999d';
+    ctx.fillRect(tx+.16, ty+.34+i*.055, .32, .018);
+  }
+  facet(ctx, [[bx+.32,by+.66],[bx+.92,by+.57],[bx+.89,by+.73],[bx+.40,by+.79]], '#2b252a');
+  facet(ctx, [[bx+.62,by+.65],[bx+.84,by+.62],[bx+.82,by+.70],[bx+.61,by+.72]], '#d4483b');
+
+  // A continuous, compressed outer edge keeps the silhouettes clear at 20px per cell.
+  for (const [x, y] of positions) {
+    const edges = [
+      [x,y-1,[x,y],[x+1,y]], [x+1,y,[x+1,y],[x+1,y+1]],
+      [x,y+1,[x,y+1],[x+1,y+1]], [x-1,y,[x,y],[x,y+1]],
+    ];
+    for (const [nx, ny, start, end] of edges) {
+      if (shape[ny]?.[nx] === 'x') continue;
+      fold(ctx, [start,end], .16, '#1b2027');
+      const offset = [x + .5 - (start[0] + end[0]) / 2, y + .5 - (start[1] + end[1]) / 2];
+      const face = [start,end].map(([px,py]) => [px + offset[0]*.18, py + offset[1]*.18]);
+      fold(ctx, face, .041, (ny < y || nx < x) ? '#d4d8cc' : shade);
+    }
+  }
 }
 
 function sprite(type, turn) {
@@ -37,7 +107,6 @@ function sprite(type, turn) {
   if (sprites.has(key)) return sprites.get(key);
   const shape = SHAPES[type];
   const size = shape.length;
-  const { paint, shade, body, windows, wheels, axle, radius } = profiles[type];
   const canvas = document.createElement('canvas');
   canvas.width = canvas.height = UNIT * size;
   const ctx = canvas.getContext('2d');
@@ -45,56 +114,7 @@ function sprite(type, turn) {
   ctx.translate(size / 2, size / 2);
   ctx.rotate(turn * Math.PI / 2);
   ctx.translate(-size / 2, -size / 2);
-
-  const positions = cells(shape);
-  ctx.beginPath();
-  positions.forEach(([x, y]) => ctx.rect(x, y, 1, 1));
-  ctx.clip();
-  for (const [x, y] of positions) {
-    ctx.fillStyle = shade;
-    ctx.fillRect(x, y, 1, 1);
-    ctx.fillStyle = '#11131de0';
-    ctx.fillRect(x, y, 1, 1);
-    ctx.strokeStyle = paint + '42';
-    ctx.lineWidth = .028;
-    for (const [dx, dy, wx, wy] of [[0,-1,1,0],[1,0,0,1],[0,1,1,0],[-1,0,0,1]]) {
-      if (shape[y + dy]?.[x + dx] === 'x') continue;
-      const a = x + (dx > 0 ? .97 : .03);
-      const b = y + (dy > 0 ? .97 : .03);
-      ctx.beginPath();
-      ctx.moveTo(a, b);
-      ctx.lineTo(a + wx * .94, b + wy * .94);
-      ctx.stroke();
-    }
-  }
-
-  const [roof, sill] = body.reduce(([low, high], [, y]) => [Math.min(low, y), Math.max(high, y)], [size, 0]);
-  const paintGradient = ctx.createLinearGradient(0, roof, 0, sill);
-  paintGradient.addColorStop(0, '#e9f4ec');
-  paintGradient.addColorStop(.26, paint);
-  paintGradient.addColorStop(.72, paint);
-  paintGradient.addColorStop(1, shade);
-  polygon(ctx, body, paintGradient, '#111319');
-
-  const glass = ctx.createLinearGradient(0, roof, 0, sill);
-  glass.addColorStop(0, '#94b8c5');
-  glass.addColorStop(.32, '#324b59');
-  glass.addColorStop(.65, '#151821');
-  polygon(ctx, windows, glass, '#292833');
-
-  for (const x of wheels) {
-    disc(ctx, x, axle, radius, '#111319');
-    disc(ctx, x, axle, radius * .57, '#8998a1');
-    disc(ctx, x, axle, radius * .28, '#293239');
-  }
-  const lamps = {
-    i:[3.75,1.61,.15,1.59], o:[1.73,1.23,.18,1.12], t:[2.73,1.43,.18,1.44],
-    s:[2.70,.57,.18,1.45], z:[2.75,1.45,.18,.63], j:[2.74,1.42,.17,1.13], l:[2.78,1.30,.17,1.36],
-  }[type];
-  ctx.fillStyle = '#fff6cb';
-  ctx.fillRect(lamps[0], lamps[1], .13, .07);
-  ctx.fillStyle = '#ff513d';
-  ctx.fillRect(lamps[2], lamps[3], .11, .07);
+  scrap(ctx, shape, type);
   const data = 'url(' + canvas.toDataURL('image/png') + ')';
   sprites.set(key, data);
   return data;

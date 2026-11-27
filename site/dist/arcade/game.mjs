@@ -1,5 +1,5 @@
 import { COLS, ROWS, TICK_MS, MOVE, SHAPES, cells, createGame, landingY, step } from './engine.mjs';
-import { paintCarFragment } from './cars.mjs';
+import { paintCarFragment } from './cars.mjs?v=2';
 
 const byId = id => document.getElementById(id);
 const board = byId('board');
