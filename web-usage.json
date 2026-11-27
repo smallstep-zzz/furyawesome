@@ -298,11 +298,11 @@
         "rerun": "source fury/bin/activate\nfxbx run RF-DETR-Nano-BF16 --sample",
         "activate": "source fury/bin/activate",
         "detailSetup": "python -m venv --system-site-packages fury\nsource fury/bin/activate\npython -m pip install --upgrade fxbx==0.10.2 requests Pillow==13.0.0 huggingface_hub==1.33.0 numpy==2.4.6 safetensors==0.8.0 tokenizers==0.23.3 torchvision==0.25.0+cpu transformers==5.20.2\nfxbx run RF-DETR-Nano-BF16 --sample",
-        "serve": "fxbx serve RF-DETR-Nano-BF16 --port 8000",
-        "serveSetup": "python -m venv --system-site-packages fury\nsource fury/bin/activate\npython -m pip install --upgrade fxbx==0.10.2 requests Pillow==13.0.0 huggingface_hub==1.33.0 numpy==2.4.6 safetensors==0.8.0 tokenizers==0.23.3 torchvision==0.25.0+cpu transformers==5.20.2\nfxbx serve RF-DETR-Nano-BF16 --port 8000",
-        "serveQuick": "source fury/bin/activate\nfxbx serve RF-DETR-Nano-BF16 --port 8000",
+        "serve": "fxbx serve Roboflow/rf-detr-nano@2026.4.0-bf16-384-merged86-fxbx1 --port 8000",
+        "serveSetup": "python -m venv --system-site-packages fury\nsource fury/bin/activate\npython -m pip install --upgrade fxbx==0.10.2 requests Pillow==13.0.0 huggingface_hub==1.33.0 numpy==2.4.6 safetensors==0.8.0 tokenizers==0.23.3 torchvision==0.25.0+cpu transformers==5.20.2\nfxbx serve Roboflow/rf-detr-nano@2026.4.0-bf16-384-merged86-fxbx1 --port 8000",
+        "serveQuick": "source fury/bin/activate\nfxbx serve Roboflow/rf-detr-nano@2026.4.0-bf16-384-merged86-fxbx1 --port 8000",
         "python": "from pathlib import Path\nimport json\nimport requests\nfrom zipfile import ZipFile\nfrom fxbex.hub import resolve_package\n\nwith ZipFile(resolve_package('RF-DETR-Nano-BF16')) as package:\n    Path('input-1-sample.png').write_bytes(package.read('assets/sample.png'))\n\npayload = {'image': str(Path('input-1-sample.png').resolve()), 'threshold': 0.3}\n\nresponse = requests.post(\n    \"http://127.0.0.1:8000/predict\", json=payload, timeout=600,\n)\nresponse.raise_for_status()\nresult = response.json()\ntext = json.dumps(result, ensure_ascii=False, indent=2)\nfilename = \"result.json\"\nif len(text) > 2000:\n    Path(filename).write_text(text + \"\\n\", encoding=\"utf-8\")\n    print(Path(filename).resolve())\nelse:\n    print(text)",
-        "detailServe": "python -m venv --system-site-packages fury\nsource fury/bin/activate\npython -m pip install --upgrade fxbx==0.10.2 requests Pillow==13.0.0 huggingface_hub==1.33.0 numpy==2.4.6 safetensors==0.8.0 tokenizers==0.23.3 torchvision==0.25.0+cpu transformers==5.20.2\nfxbx serve RF-DETR-Nano-BF16 --port 8000",
+        "detailServe": "python -m venv --system-site-packages fury\nsource fury/bin/activate\npython -m pip install --upgrade fxbx==0.10.2 requests Pillow==13.0.0 huggingface_hub==1.33.0 numpy==2.4.6 safetensors==0.8.0 tokenizers==0.23.3 torchvision==0.25.0+cpu transformers==5.20.2\nfxbx serve Roboflow/rf-detr-nano@2026.4.0-bf16-384-merged86-fxbx1 --port 8000",
         "serveNote": ""
       },
       "introduction": {

@@ -33,7 +33,7 @@ fxbx run RF-DETR-Nano-BF16 --sample
 
 ```bash
 source fury/bin/activate
-fxbx serve RF-DETR-Nano-BF16 --port 8000
+fxbx serve Roboflow/rf-detr-nano@2026.4.0-bf16-384-merged86-fxbx1 --port 8000
 ```
 
 같은 서버의 다른 터미널에서 동봉 샘플로 호출합니다. 내 사진을 쓰려면 아래 image 값을 서버에 있는 파일의 절대 경로로 바꾸세요.
