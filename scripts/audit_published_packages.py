@@ -17,7 +17,7 @@ import zipfile
 class RangeFile(io.RawIOBase):
     def __init__(self, url, *, base=0, size=None, budget=None):
         self.url, self.base, self.position = url, base, 0
-        self.budget = budget if budget is not None else [8*1024**2]
+        self.budget = budget if budget is not None else [32*1024**2]
         if size is None:
             _, size = self.fetch(0, 1)
         self.size = size
@@ -66,7 +66,7 @@ class RangeFile(io.RawIOBase):
 
 
 def document(archive, name):
-    if archive.getinfo(name).file_size > 4*1024**2:
+    if archive.getinfo(name).file_size > 16*1024**2:
         raise ValueError('JSON metadata exceeds inspection bound')
     return json.loads(archive.read(name))
 
@@ -92,7 +92,7 @@ def inspect_archive(source, prefix='', depth=0):
                'binary_history_members':[n for n in names if 'lineage' in n.lower() or 'adaptive' in n.lower()][:8]}
         def bounded(name):
             size=archive.getinfo(name).file_size
-            if size>4*1024**2:
+            if size>16*1024**2:
                 row.setdefault('metadata_skipped',[]).append({'member':name,'bytes':size})
                 return {}
             return document(archive,name)
