@@ -10,7 +10,8 @@
     {
       "binding": "DB",
       "database_name": "furyawesome-arcade",
-      "migrations_dir": "drizzle"
+      "migrations_dir": "drizzle",
+      "database_id": "da0a521f-bda5-458d-a762-dc64d77d82ad"
     }
   ]
 }

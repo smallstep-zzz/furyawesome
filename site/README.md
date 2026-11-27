@@ -35,7 +35,7 @@ Worker 진입점은 `worker/cloudflare.mjs`이며, 게임 엔진과 검증 API�
 `site/`에서 공식 Wrangler 4.168.0을 사용합니다. Workers **Free**를 유지하고 유료 업그레이드는 하지 않습니다.
 
 ```sh
-npm exec --yes --package=wrangler@4.168.0 -- wrangler login --scopes account:read user:read workers:write d1:write
+npm exec --yes --package=wrangler@4.168.0 -- wrangler login --scopes account:read user:read workers_scripts:write d1:write
 npm exec --yes --package=wrangler@4.168.0 -- wrangler d1 create furyawesome-arcade --location apac --binding DB --update-config
 npm exec --yes --package=wrangler@4.168.0 -- wrangler d1 migrations apply furyawesome-arcade --remote
 # 이전 점수 내보내기 파일이 있는 경우에만 실행합니다. 기존 행은 덮어쓰지 않습니다.
@@ -57,3 +57,12 @@ node site/tests/arcade-worker.mjs
 
 무료 한도: Workers 하루 10만 요청·요청당 CPU 10ms, D1 하루 500만 행 읽기·10만 행 쓰기·총 5GB.
 실제 무료 환경에서 긴 플레이 기록의 CPU 사용량은 배포 후 확인해야 합니다.
+
+### 현재 배포
+
+- Workers **Free (US$0)**를 계정 대시보드에서 확인했습니다.
+- API: https://furyawesome-arcade.softandsweet.workers.dev/api/arcade/
+- D1: `furyawesome-arcade`, APAC. 기존 공용 점수 7개를 복사했습니다.
+- GitHub Pages는 이 독립 API를 사용하므로 ChatGPT 구독에 의존하지 않습니다.
+- 기존 ChatGPT 사이트와 기존 DB는 유지하며, 기존 사이트는 별도 재배포 전까지 이전 DB를 사용합니다.
+- 이후 API 코드를 바꾸면 `site/`에서 Wrangler로 재배포합니다. GitHub Pages 배포는 정적 파일만 갱신합니다.
